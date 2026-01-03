@@ -2,7 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import TechMarquee from './components/TechMarquee';
-import HackerTerminal from './components/HackerTerminal';
+import HomeNavigation from './components/HomeNavigation';
+
+
 import Hero from './components/Hero';
 import ParticleBackground from './components/ParticleBackground';
 import About from './components/About';
@@ -50,7 +52,7 @@ function App() {
                 <Routes>
                     {/* Public Routes wrapped in Layout */}
                     <Route element={<Layout />}>
-                        <Route path="/" element={<><Hero /><TechMarquee /><HackerTerminal /></>} />
+                        <Route path="/" element={<><Hero /><TechMarquee /><HomeNavigation /></>} />
                         <Route path="/about" element={<div className="pt-20"><About /></div>} />
                         <Route path="/skills" element={<div className="pt-20"><Skills /></div>} />
                         <Route path="/projects" element={<div className="pt-20"><Projects /></div>} />
