@@ -12,6 +12,18 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import { Outlet, Navigate } from 'react-router-dom';
+
+// Layout Component
+const Layout = () => (
+    <>
+        <Navbar />
+        <main>
+            <Outlet />
+        </main>
+        <Footer />
+    </>
+);
 
 import { motion, useScroll, useSpring } from 'framer-motion';
 
@@ -36,29 +48,21 @@ function App() {
                     style={{ scaleX }}
                 />
                 <Routes>
-                    {/* Portfolio Pages Route Group */}
-                    <Route
-                        path="*"
-                        element={
-                            <>
-                                <Navbar />
-                                <main>
-                                    <Routes>
-                                        <Route path="/" element={<><Hero /><TechMarquee /><HackerTerminal /></>} />
-                                        <Route path="/about" element={<div className="pt-20"><About /></div>} />
-                                        <Route path="/skills" element={<div className="pt-20"><Skills /></div>} />
-                                        <Route path="/projects" element={<div className="pt-20"><Projects /></div>} />
-                                        <Route path="/contact" element={<div className="pt-20"><Contact /></div>} />
-                                    </Routes>
-                                </main>
-                                <Footer />
-                            </>
-                        }
-                    />
+                    {/* Public Routes wrapped in Layout */}
+                    <Route element={<Layout />}>
+                        <Route path="/" element={<><Hero /><TechMarquee /><HackerTerminal /></>} />
+                        <Route path="/about" element={<div className="pt-20"><About /></div>} />
+                        <Route path="/skills" element={<div className="pt-20"><Skills /></div>} />
+                        <Route path="/projects" element={<div className="pt-20"><Projects /></div>} />
+                        <Route path="/contact" element={<div className="pt-20"><Contact /></div>} />
+                    </Route>
 
                     {/* Standalone Pages */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+
+                    {/* Catch all - Redirect to Home */}
+                    <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </div>
         </Router>
