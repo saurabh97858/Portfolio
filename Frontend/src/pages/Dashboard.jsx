@@ -1068,17 +1068,6 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
 
     useEffect(() => {
         if (portfolioData) {
-            // Assuming setStats and stats state are defined elsewhere in the component or parent
-            // and that 'messages' and 'projects' are also available from portfolioData or a similar source.
-            // This change is based on the instruction to update 'views' specifically.
-            // If 'setStats' is not defined, this line will cause an error.
-            // If 'data' or 'msgs' are not defined, 'projects' and 'messages' will be 0.
-            // The instruction only specified changing 'views' to use 'portfolioData.views'.
-            setStats({
-                views: portfolioData.views || 0,
-                projects: data.projects?.length || 0, // Assuming 'data' is available in this scope for projects
-                messages: msgs.length || 0 // Assuming 'msgs' is available in this scope for messages
-            });
             setFormData({
                 name: portfolioData.name || '',
                 role: portfolioData.role || '',
@@ -1089,6 +1078,7 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                 linkedin: portfolioData.socialLinks?.linkedin || '',
                 instagram: portfolioData.socialLinks?.instagram || '',
                 profileImage: portfolioData.profileImage || '',
+                heroImage: portfolioData.heroImage || '',
                 education: portfolioData.education || []
             });
         }
