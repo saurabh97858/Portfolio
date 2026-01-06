@@ -64,10 +64,10 @@ const Hero = () => {
                         I specialize in building high-performance, secure, and scalable web applications using modern technologies like MERN Stack and Next.js.
                     </p>
 
-                    <div className="flex flex-wrap gap-6">
+                    <div className="flex flex-wrap gap-6 relative z-50">
                         <button
                             onClick={() => navigate('/projects')}
-                            className="btn-primary flex items-center gap-3 text-lg px-8 py-4 group"
+                            className="btn-primary flex items-center gap-3 text-lg px-8 py-4 group pointer-events-auto"
                         >
                             View My Work <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </button>

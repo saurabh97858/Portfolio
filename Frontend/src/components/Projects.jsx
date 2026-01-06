@@ -108,7 +108,7 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(2,6,23,0)_0%,rgba(2,6,23,0.8)_100%)] z-0" />
             </div>
 
-            <div className="container mx-auto px-4 md:px-12 max-w-5xl relative z-10">
+            <div className="container mx-auto px-3 md:px-12 max-w-5xl relative z-10">
 
                 {/* Header */}
                 <motion.div
@@ -134,7 +134,7 @@ const Projects = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8" // UPDATED GRID
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8" // UPDATED GRID
                     style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {projects.map((project, index) => (

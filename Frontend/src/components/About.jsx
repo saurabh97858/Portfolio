@@ -65,7 +65,7 @@ const About = () => {
             </div>
 
             {/* Main Container - Compact max-w-5xl */}
-            <div className="container mx-auto px-4 md:px-6 max-w-5xl w-full relative z-10">
+            <div className="container mx-auto px-3 md:px-6 max-w-4xl w-full relative z-10">
 
                 {/* Header - Premium & Compact */}
                 <motion.div
