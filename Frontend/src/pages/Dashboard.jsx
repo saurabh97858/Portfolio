@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Database, Settings, MessageSquare, Plus, Trash2, Save, User as UserIcon, Cpu, Briefcase, Pencil, GraduationCap } from 'lucide-react';
+import { LogOut, LayoutDashboard, Database, Settings, MessageSquare, Plus, Trash2, Save, User as UserIcon, Cpu, Briefcase, Pencil, GraduationCap, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const API_BASE = `${import.meta.env.VITE_API_URL}/api`;
@@ -14,6 +14,7 @@ const Dashboard = () => {
     const [messages, setMessages] = useState([]);
     const [portfolioData, setPortfolioData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     // Fetch Initial Data
     useEffect(() => {
@@ -111,6 +112,13 @@ const Dashboard = () => {
             const data = await res.json();
             setPortfolioData(data);
             setStats(prev => ({ ...prev, projects: data.projects?.length || 0 }));
+            // Using setStats logic from previous context to keep views
+            setStats(prev => ({
+                ...prev,
+                views: data.views || 0,
+                projects: data.projects?.length || 0
+            }));
+
             alert('Updated Successfully!');
         } catch (error) {
             alert('Update Failed');
@@ -119,29 +127,41 @@ const Dashboard = () => {
 
     const TabButton = ({ id, icon: Icon, label }) => (
         <button
-            onClick={() => setActiveTab(id)}
+            onClick={() => { setActiveTab(id); setIsSidebarOpen(false); }}
             className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all duration-300 ${activeTab === id
                 ? 'bg-violet-500/10 text-violet-300 border border-violet-500/20 shadow-[0_0_15px_rgba(139,92,246,0.1)]'
                 : 'text-slate-400 hover:bg-white/5 hover:text-white'
                 }`}
         >
-            <Icon size={20} /> <span className="hidden md:inline">{label}</span>
+            <Icon size={20} /> <span className="font-medium">{label}</span>
             {activeTab === id && <motion.div layoutId="activeTab" className="absolute left-0 w-1 h-8 bg-violet-500 rounded-r-full" />}
         </button>
     );
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white font-sans flex">
+        <div className="min-h-screen bg-slate-950 text-white font-sans flex relative overflow-hidden">
+
+            {/* Mobile Sidebar Overlay */}
+            {isSidebarOpen && (
+                <div
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden animate-fade-in"
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className="w-20 md:w-56 border-r border-white/5 bg-slate-900/50 backdrop-blur-xl flex flex-col p-4 md:p-6 fixed md:relative h-full z-20">
-                <div className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent mb-10 hidden md:block">
-                    Admin<span className="text-white">Panel</span>
-                </div>
-                <div className="md:hidden mb-8 flex justify-center">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500" />
+            <aside className={`fixed md:relative top-0 left-0 h-full w-64 border-r border-white/5 bg-slate-900/90 md:bg-slate-900/50 backdrop-blur-xl flex flex-col p-6 z-40 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+                }`}>
+                <div className="flex justify-between items-center mb-10">
+                    <div className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
+                        Admin<span className="text-white">Panel</span>
+                    </div>
+                    <button onClick={() => setIsSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-white">
+                        <X size={24} />
+                    </button>
                 </div>
 
-                <nav className="flex-1 space-y-2">
+                <nav className="flex-1 space-y-2 overflow-y-auto custom-scrollbar">
                     <TabButton id="overview" icon={LayoutDashboard} label="Overview" />
                     <TabButton id="messages" icon={MessageSquare} label="Messages" />
                     <TabButton id="projects" icon={Database} label="Projects" />
@@ -155,22 +175,30 @@ const Dashboard = () => {
                             onClick={() => navigate('/')}
                             className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-cyan-400 transition-all duration-300"
                         >
-                            <UserIcon size={20} /> <span className="hidden md:inline">View Portfolio</span>
+                            <UserIcon size={20} /> <span className="font-medium">View Portfolio</span>
                         </button>
                     </div>
                 </nav>
 
-                <button onClick={handleLogout} className="flex items-center gap-2 text-slate-500 hover:text-red-400 transition-colors mt-auto p-2 justify-center md:justify-start">
-                    <LogOut size={18} /> <span className="hidden md:inline">Logout</span>
+                <button onClick={handleLogout} className="flex items-center gap-2 text-slate-500 hover:text-red-400 transition-colors mt-auto pt-4 justify-start">
+                    <LogOut size={18} /> <span className="font-medium">Logout</span>
                 </button>
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-4 md:p-6 ml-20 md:ml-0 overflow-y-auto h-screen">
-                <header className="flex justify-between items-center mb-8 md:mb-12">
-                    <div>
-                        <h1 className="text-2xl md:text-3xl font-bold">Welcome, {admin?.username || 'Admin'} 👋</h1>
-                        <p className="text-sm text-slate-400">Manage your portfolio content</p>
+            <main className="flex-1 p-4 md:p-8 overflow-y-auto h-screen w-full relative">
+                <header className="flex justify-between items-center mb-8">
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => setIsSidebarOpen(true)}
+                            className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-white md:hidden"
+                        >
+                            <Menu size={24} />
+                        </button>
+                        <div>
+                            <h1 className="text-2xl md:text-3xl font-bold">Welcome, {admin?.username || 'Admin'} 👋</h1>
+                            <p className="text-xs md:text-sm text-slate-400">Manage your portfolio content</p>
+                        </div>
                     </div>
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-cyan-500 shadow-lg shadow-violet-500/20" />
                 </header>
