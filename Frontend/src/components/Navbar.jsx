@@ -38,8 +38,8 @@ const Navbar = () => {
                             key={link.name}
                             to={link.to}
                             className={`font-medium cursor-pointer transition-colors ${location.pathname === link.to
-                                    ? 'text-violet-400'
-                                    : 'text-slate-300 hover:text-violet-400'
+                                ? 'text-violet-400'
+                                : 'text-slate-300 hover:text-violet-400'
                                 }`}
                         >
                             {link.name}
@@ -83,6 +83,17 @@ const Navbar = () => {
                             {link.name}
                         </Link>
                     ))}
+
+                    {/* Admin Link for Mobile */}
+                    <div className="w-full border-t border-slate-800/50 mt-2 pt-4 flex flex-col items-center">
+                        <Link
+                            to="/login"
+                            onClick={() => setIsOpen(false)}
+                            className="bg-gradient-to-r from-violet-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg shadow-violet-500/20 active:scale-95 transition-transform"
+                        >
+                            Admin Dashboard
+                        </Link>
+                    </div>
                 </div>
             )}
         </nav>

@@ -60,7 +60,7 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="min-h-screen bg-slate-950 py-32 flex items-center justify-center relative overflow-hidden font-sans">
+        <section id="contact" className="min-h-screen bg-slate-950 py-20 flex items-center justify-center relative overflow-hidden font-sans">
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -68,7 +68,7 @@ const Contact = () => {
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[120px] -z-10 animate-pulse" />
             </div>
 
-            <div className="container mx-auto px-6 md:px-12 max-w-[1400px] relative z-10">
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
 
                 <motion.div
                     variants={containerVariants}
@@ -83,7 +83,7 @@ const Contact = () => {
                             <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
                                 Get in Touch
                             </span>
-                            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                            <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
                                 Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Collaboration</span> Begin.
                             </h2>
                             <p className="text-slate-400 text-xl font-light leading-relaxed max-w-lg">
@@ -127,7 +127,7 @@ const Contact = () => {
                         {/* Glow effect behind form */}
                         <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-[2.5rem] blur-xl opacity-20 animate-tilt"></div>
 
-                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-8 md:p-12 rounded-[2rem] shadow-2xl">
+                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-6 md:p-8 rounded-[2rem] shadow-2xl">
                             <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
                                 <MessageSquare className="text-violet-400" />
                                 Send a Message

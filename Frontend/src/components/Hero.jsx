@@ -16,7 +16,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-10">
             {/* Background Glows (Optional, reduced opacity for cleaner look) */}
             <div className="absolute top-20 left-10 w-72 h-72 bg-violet-600/10 rounded-full blur-[100px] animate-pulse pointer-events-none" />
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/10 rounded-full blur-[100px] animate-pulse delay-700 pointer-events-none" />
@@ -44,7 +44,7 @@ const Hero = () => {
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Available for work
                         </span>
                     </div>
-                    <h1 className="text-5xl md:text-7xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight min-h-[160px] md:min-h-[auto]">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight min-h-[140px] md:min-h-[auto]">
                         Architecting <br />
                         <motion.span
                             key={textIndex}

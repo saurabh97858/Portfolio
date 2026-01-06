@@ -65,7 +65,7 @@ const Skills = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Arsenal...</div>;
 
     return (
-        <section id="skills" className="min-h-screen bg-slate-950 py-32 flex items-center justify-center relative overflow-hidden font-sans">
+        <section id="skills" className="min-h-screen bg-slate-950 py-20 flex items-center justify-center relative overflow-hidden font-sans">
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -74,20 +74,20 @@ const Skills = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0)_0%,rgba(2,6,23,0.8)_100%)] z-0" />
             </div>
 
-            <div className="container mx-auto px-6 md:px-12 max-w-[1600px] relative z-10">
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
 
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-24"
+                    className="text-center mb-16"
                     style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
                         Expertise
                     </span>
-                    <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                    <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
                         Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Arsenal</span>
                     </h2>
                     <p className="text-slate-400 max-w-3xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
