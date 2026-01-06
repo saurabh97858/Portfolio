@@ -71,20 +71,24 @@ const Dashboard = () => {
         navigate('/login');
     };
 
+    const [newProjectImage, setNewProjectImage] = useState(null);
+
     const handleAddProject = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+
         const newProject = {
             title: formData.get('title'),
             description: formData.get('description'),
             link: formData.get('link'),
             tags: formData.get('tags').split(',').map(t => t.trim()),
-            images: []
+            images: newProjectImage ? [newProjectImage] : [] // Use Base64 image
         };
 
         const updatedProjects = [...(portfolioData.projects || []), newProject];
         await updatePortfolio({ projects: updatedProjects });
         e.target.reset();
+        setNewProjectImage(null); // Reset image
     };
 
     const handleDeleteProject = async (index) => {
@@ -528,13 +532,34 @@ const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
                                 </div>
 
                                 <div>
-                                    <label className="label">Image URLs (comma separated)</label>
-                                    <input
-                                        value={formData.images}
-                                        onChange={e => setFormData({ ...formData, images: e.target.value })}
-                                        placeholder="https://example.com/image1.png, ..."
-                                        className="input-field w-full"
-                                    />
+                                    <label className="label">Project Images</label>
+                                    <div className="flex flex-col gap-3">
+                                        <div className="flex gap-2 overflow-x-auto pb-2">
+                                            {formData.images && formData.images.split(',').map((img, i) => (
+                                                <img key={i} src={img.trim()} className="h-20 w-32 object-cover rounded-lg border border-white/10" alt="Project" />
+                                            ))}
+                                        </div>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                if (file) {
+                                                    const reader = new FileReader();
+                                                    reader.onloadend = () => {
+                                                        // Append new image to existing comma-separated string
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            images: prev.images ? `${prev.images}, ${reader.result}` : reader.result
+                                                        }));
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            }}
+                                            className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer"
+                                        />
+                                        <p className="text-xs text-slate-500">Upload new image to append.</p>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -1451,13 +1476,29 @@ const CertificationsEditor = ({ portfolioData, updatePortfolio }) => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="label">Image / Logo URL</label>
-                                    <input
-                                        value={formData.image}
-                                        onChange={e => setFormData({ ...formData, image: e.target.value })}
-                                        placeholder="https://..."
-                                        className="input-field w-full"
-                                    />
+                                    <label className="label">Image / Logo</label>
+                                    <div className="flex flex-col gap-3">
+                                        {formData.image && (
+                                            <div className="w-full flex justify-center bg-black/20 p-2 rounded-xl border border-white/5">
+                                                <img src={formData.image} alt="Cert Preview" className="h-24 object-contain" />
+                                            </div>
+                                        )}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                if (file) {
+                                                    const reader = new FileReader();
+                                                    reader.onloadend = () => {
+                                                        setFormData(prev => ({ ...prev, image: reader.result }));
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            }}
+                                            className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20 cursor-pointer"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="flex gap-4 pt-4">
