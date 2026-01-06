@@ -55,10 +55,10 @@ function App() {
                     {/* Public Routes wrapped in Layout */}
                     <Route element={<Layout />}>
                         <Route path="/" element={<><Hero /><TechMarquee /><HomeNavigation /></>} />
-                        <Route path="/about" element={<div className="pt-20"><About /></div>} />
-                        <Route path="/skills" element={<div className="pt-20"><Skills /></div>} />
-                        <Route path="/projects" element={<div className="pt-20"><Projects /></div>} />
-                        <Route path="/contact" element={<div className="pt-20"><Contact /></div>} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/skills" element={<Skills />} />
+                        <Route path="/projects" element={<Projects />} />
+                        <Route path="/contact" element={<Contact />} />
                     </Route>
 
                     {/* Standalone Pages */}
