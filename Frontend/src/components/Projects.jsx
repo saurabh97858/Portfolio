@@ -1,130 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, ArrowRight, FolderGit2, Star, GitFork, X, Code, Layers, Cpu } from 'lucide-react';
+// ... imports
+import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence, useMotionTemplate, useMotionValue } from 'framer-motion';
+// ... Lucide imports ...
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
-const projectImages = [
-    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2940&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2940&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2946&auto=format&fit=crop"
-];
+// ... SpotlightCard component ...
+function cn(...inputs) {
+    return twMerge(clsx(inputs));
+}
 
-const Projects = () => {
-    const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedProject, setSelectedProject] = useState(null);
+const SpotlightCard = ({ children, className = "" }) => {
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
 
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/portfolio`);
-                const data = await res.json();
-                if (data.projects) setProjects(data.projects);
-            } catch (error) {
-                console.error("Failed to fetch projects", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchProjects();
-    }, []);
-
-    // Animation Variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.2, delayChildren: 0.3 }
-        }
-    };
-
-    const cardVariants = {
-        hidden: { y: 50, opacity: 0, scale: 0.95 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            transition: { duration: 0.6, ease: "easeOut" }
-        }
-    };
-
-    if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Projects...</div>;
+    function handleMouseMove({ currentTarget, clientX, clientY }) {
+        const { left, top } = currentTarget.getBoundingClientRect();
+        mouseX.set(clientX - left);
+        mouseY.set(clientY - top);
+    }
 
     return (
-        <section id="projects" className="bg-slate-950 pb-12 relative font-sans overflow-hidden">
-            {/* SPACER: Micro-tuned for minimal gap */}
-            <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
-
-            {/* Background Atmosphere */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-0 w-[1000px] h-[1000px] bg-violet-600/5 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '15s' }} />
-                <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-cyan-600/5 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '12s' }} />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(2,6,23,0)_0%,rgba(2,6,23,0.8)_100%)] z-0" />
-            </div>
-
-            <div className="container mx-auto px-6 md:px-12 max-w-5xl relative z-10">
-
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-12"
-                    style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
-                >
-                    <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
-                        Portfolio
-                    </span>
-                    <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-4 drop-shadow-2xl">
-                        Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Works</span>
-                    </h2>
-                    <p className="text-slate-400 max-w-3xl mx-auto text-lg md:text-xl font-light leading-relaxed">
-                        A curated selection of technical challenges and creative solutions.
-                    </p>
-                </motion.div>
-
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8"
-                    style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
-                >
-                    {projects.map((project, index) => (
-                        <ProjectCard
-                            key={index}
-                            project={project}
-                            index={index}
-                            variants={cardVariants}
-                            onClick={() => setSelectedProject({ ...project, index })}
-                        />
-                    ))}
-                </motion.div>
-            </div>
-
-            {/* Full Screen Overlay */}
-            <AnimatePresence>
-                {selectedProject && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setSelectedProject(null)}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
-                        />
-                        <ProjectDetailCard project={selectedProject} onClose={() => setSelectedProject(null)} />
-                    </div>
-                )}
-            </AnimatePresence>
-        </section>
+        <div
+            className={cn(
+                "group/spotlight relative border border-white/10 bg-slate-900/50 rounded-xl overflow-hidden",
+                className
+            )}
+            onMouseMove={handleMouseMove}
+        >
+            <motion.div
+                className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover/spotlight:opacity-100"
+                style={{
+                    background: useMotionTemplate`
+            radial-gradient(
+              650px circle at ${mouseX}px ${mouseY}px,
+              rgba(139, 92, 246, 0.15),
+              transparent 80%
+            )
+          `,
+                }}
+            />
+            {children}
+        </div>
     );
 };
 
+// ... inside Projects component ...
+<motion.div
+    variants={containerVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
+    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" // UPDATED GRID
+    style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
+>
+    {projects.map((project, index) => (
+        <ProjectCard
+            key={index}
+            project={project}
+            index={index}
+            variants={cardVariants}
+            onClick={() => setSelectedProject({ ...project, index })}
+        />
+    ))}
+</motion.div>
+
+// ... inside ProjectCard ...
 const ProjectCard = ({ project, variants, onClick, index }) => {
-    // Deterministic image selection based on title length or index
     const bgImage = projectImages[index % projectImages.length];
 
     return (
@@ -132,68 +74,54 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
             layoutId={`project-card-${project._id || index}`}
             variants={variants}
             onClick={onClick}
-            whileHover={{ y: -10 }}
-            className="group relative h-full flex flex-col cursor-pointer"
+            whileHover={{ y: -8 }}
+            className="h-full"
         >
-            {/* Glossy Overlay Effect */}
-            <div className="absolute -inset-0.5 bg-gradient-to-br from-violet-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 rounded-[2rem] blur-md transition duration-500" />
-
-            <motion.div className="relative flex-1 bg-slate-900/60 border border-white/10 p-5 md:p-6 rounded-[1.8rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/90 shadow-2xl flex flex-col overflow-hidden">
-
+            <SpotlightCard className="h-full flex flex-col p-5 md:p-6 rounded-[1.5rem] cursor-pointer group hover:border-violet-500/30 transition-colors shadow-xl bg-slate-900/80 backdrop-blur-xl">
                 {/* Background Image (Subtle) */}
-                <div className="absolute inset-0 z-0">
+                <div className="absolute inset-0 z-0 overflow-hidden rounded-[1.5rem]">
                     <img
                         src={bgImage}
                         alt="Project Background"
-                        className="w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-all duration-500 scale-100 group-hover:scale-110"
+                        className="w-full h-full object-cover opacity-[0.03] group-hover:opacity-[0.08] transition-all duration-700 scale-105 group-hover:scale-110 grayscale group-hover:grayscale-0"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 to-slate-900/95" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
                 </div>
 
                 <div className="relative z-10 flex flex-col h-full">
-                    {/* Top Section: Icon & Links */}
-                    <div className="flex justify-between items-start mb-8">
-                        <div className="p-4 bg-slate-800/80 rounded-2xl text-violet-400 border border-white/5 shadow-inner group-hover:scale-110 transition-transform duration-300 backdrop-blur-md">
-                            <FolderGit2 size={32} />
+                    {/* Top: Icon & Status */}
+                    <div className="flex justify-between items-start mb-6">
+                        <div className="p-3 bg-white/5 rounded-xl text-violet-400 border border-white/10 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <FolderGit2 size={24} />
                         </div>
-                        <div className="flex gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
-                            <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-white/50 uppercase tracking-wider">
-                                View Details
-                            </div>
+                        <div className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-cyan-400 group-hover:border-cyan-500/20 transition-all">
+                            View Details
                         </div>
                     </div>
 
                     {/* Content */}
-                    <div className="mb-8 flex-1">
-                        <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-cyan-200 transition-all">
+                    <div className="mb-6 flex-1">
+                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-violet-300 transition-colors line-clamp-1">
                             {project.title}
                         </h3>
-                        <p className="text-slate-400 text-lg leading-relaxed font-light line-clamp-3">
+                        <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">
                             {project.description}
                         </p>
                     </div>
 
-                    {/* Divider Line with Gradient */}
-                    <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"></div>
-
                     {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2.5">
+                    <div className="mt-auto pt-4 border-t border-white/5 flex flex-wrap gap-2">
                         {project.tags.slice(0, 3).map((tag, i) => (
-                            <span key={i} className="px-3 py-1.5 text-sm font-medium text-cyan-400 bg-cyan-950/30 rounded-lg border border-cyan-500/10 hover:bg-cyan-500/10 transition-colors cursor-default">
+                            <span key={i} className="px-2.5 py-1 text-xs font-medium text-slate-300 bg-white/5 rounded-md border border-white/5">
                                 {tag}
                             </span>
                         ))}
                         {project.tags.length > 3 && (
-                            <span className="px-3 py-1.5 text-sm font-medium text-slate-500 bg-white/5 rounded-lg border border-white/5">
-                                +{project.tags.length - 3}
-                            </span>
+                            <span className="px-2 py-1 text-xs text-slate-500">+ {project.tags.length - 3}</span>
                         )}
                     </div>
                 </div>
-
-                {/* Decorative Bottom Glow */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 via-cyan-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </motion.div>
+            </SpotlightCard>
         </motion.div>
     );
 };
