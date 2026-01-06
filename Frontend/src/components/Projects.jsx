@@ -61,7 +61,7 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(2,6,23,0)_0%,rgba(2,6,23,0.8)_100%)] z-0" />
             </div>
 
-            <div className="container mx-auto px-6 md:px-12 max-w-6xl relative z-10">
+            <div className="container mx-auto px-6 md:px-12 max-w-5xl relative z-10">
 
                 {/* Header */}
                 <motion.div
@@ -74,7 +74,7 @@ const Projects = () => {
                     <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
                         Portfolio
                     </span>
-                    <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                    <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
                         Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Works</span>
                     </h2>
                     <p className="text-slate-400 max-w-3xl mx-auto text-xl md:text-2xl font-light leading-relaxed">

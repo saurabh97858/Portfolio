@@ -129,7 +129,7 @@ const Dashboard = () => {
     return (
         <div className="min-h-screen bg-slate-950 text-white font-sans flex">
             {/* Sidebar */}
-            <aside className="w-20 md:w-64 border-r border-white/5 bg-slate-900/50 backdrop-blur-xl flex flex-col p-4 md:p-6 fixed md:relative h-full z-20">
+            <aside className="w-20 md:w-56 border-r border-white/5 bg-slate-900/50 backdrop-blur-xl flex flex-col p-4 md:p-6 fixed md:relative h-full z-20">
                 <div className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent mb-10 hidden md:block">
                     Admin<span className="text-white">Panel</span>
                 </div>
@@ -319,7 +319,7 @@ const Dashboard = () => {
 };
 
 const StatCard = ({ title, value, color, border }) => (
-    <div className={`p-6 rounded-3xl bg-slate-900/50 border ${border} backdrop-blur-sm`}>
+    <div className={`p-4 rounded-3xl bg-slate-900/50 border ${border} backdrop-blur-sm`}>
         <h3 className="text-slate-400 text-sm mb-2 uppercase tracking-wider font-semibold">{title}</h3>
         <p className={`text-4xl font-bold ${color}`}>{value}</p>
     </div>

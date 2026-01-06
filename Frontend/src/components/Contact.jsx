@@ -68,7 +68,7 @@ const Contact = () => {
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[120px] -z-10 animate-pulse" />
             </div>
 
-            <div className="container mx-auto px-6 md:px-12 max-w-6xl relative z-10">
+            <div className="container mx-auto px-6 md:px-12 max-w-5xl relative z-10">
 
                 <motion.div
                     variants={containerVariants}
@@ -83,7 +83,7 @@ const Contact = () => {
                             <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
                                 Get in Touch
                             </span>
-                            <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                            <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
                                 Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Collaboration</span> Begin.
                             </h2>
                             <p className="text-slate-400 text-xl font-light leading-relaxed max-w-lg">

@@ -54,7 +54,7 @@ const About = () => {
             <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-cyan-600/10 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '12s' }} />
 
             {/* Main Container - Significantly Larger max-w-7xl */}
-            <div className="container mx-auto px-6 md:px-12 max-w-6xl w-full relative z-10">
+            <div className="container mx-auto px-6 md:px-12 max-w-5xl w-full relative z-10">
 
                 {/* Header - Huge & Bold */}
                 <motion.div
@@ -67,7 +67,7 @@ const About = () => {
                     <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-violet-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
                         My Journey
                     </span>
-                    <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                    <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
                         About <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Me</span>.
                     </h2>
                     <p className="text-slate-400 max-w-3xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
