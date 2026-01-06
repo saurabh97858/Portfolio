@@ -162,7 +162,7 @@ const Dashboard = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-4 md:p-8 ml-20 md:ml-0 overflow-y-auto h-screen">
+            <main className="flex-1 p-4 md:p-6 ml-20 md:ml-0 overflow-y-auto h-screen">
                 <header className="flex justify-between items-center mb-8 md:mb-12">
                     <div>
                         <h1 className="text-2xl md:text-3xl font-bold">Welcome, {admin?.username || 'Admin'} 👋</h1>

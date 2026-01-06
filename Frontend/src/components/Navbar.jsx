@@ -24,7 +24,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled || location.pathname !== '/' ? 'bg-slate-950/80 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled || location.pathname !== '/' ? 'bg-slate-950/80 backdrop-blur-md py-4' : 'bg-transparent py-4'}`}>
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                 <div className="flex items-center gap-2 font-bold text-2xl cursor-pointer">
                     <Code2 className="text-violet-500 w-8 h-8" />
