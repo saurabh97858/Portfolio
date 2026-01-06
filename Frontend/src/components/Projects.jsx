@@ -52,7 +52,7 @@ const Projects = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Projects...</div>;
 
     return (
-        <section id="projects" className="bg-slate-950 pb-24 relative font-sans overflow-hidden">
+        <section id="projects" className="bg-slate-950 pb-12 relative font-sans overflow-hidden">
             {/* SPACER: Micro-tuned for minimal gap */}
             <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
 
@@ -70,16 +70,16 @@ const Projects = () => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mb-24"
+                    className="text-center mb-12"
                     style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
-                    <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
+                    <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
                         Portfolio
                     </span>
-                    <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                    <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-4 drop-shadow-2xl">
                         Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Works</span>
                     </h2>
-                    <p className="text-slate-400 max-w-3xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
+                    <p className="text-slate-400 max-w-3xl mx-auto text-lg md:text-xl font-light leading-relaxed">
                         A curated selection of technical challenges and creative solutions.
                     </p>
                 </motion.div>
@@ -89,7 +89,7 @@ const Projects = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-12"
+                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8"
                     style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {projects.map((project, index) => (
@@ -132,13 +132,13 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
             layoutId={`project-card-${project._id || index}`}
             variants={variants}
             onClick={onClick}
-            whileHover={{ y: -15 }}
+            whileHover={{ y: -10 }}
             className="group relative h-full flex flex-col cursor-pointer"
         >
             {/* Glossy Overlay Effect */}
-            <div className="absolute -inset-0.5 bg-gradient-to-br from-violet-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 rounded-[2.5rem] blur-md transition duration-500" />
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-violet-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 rounded-[2rem] blur-md transition duration-500" />
 
-            <motion.div className="relative flex-1 bg-slate-900/60 border border-white/10 p-6 md:p-8 rounded-[2.2rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/90 shadow-2xl flex flex-col overflow-hidden">
+            <motion.div className="relative flex-1 bg-slate-900/60 border border-white/10 p-5 md:p-6 rounded-[1.8rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/90 shadow-2xl flex flex-col overflow-hidden">
 
                 {/* Background Image (Subtle) */}
                 <div className="absolute inset-0 z-0">

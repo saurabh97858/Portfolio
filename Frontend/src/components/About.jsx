@@ -47,7 +47,7 @@ const About = () => {
     const defaultBio = "I am a passionate Full Stack Developer dedicated to crafting robust back-ends and intuitive front-ends. My journey is defined by a relentless curiosity and a drive to build scalable, user-centric solutions.";
 
     return (
-        <section id="about" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-24 overflow-hidden">
+        <section id="about" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-12 overflow-hidden">
             {/* SPACER: Micro-tuned for minimal gap */}
             <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
 
@@ -63,16 +63,16 @@ const About = () => {
                     initial={{ opacity: 0, y: -30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-12"
+                    className="text-center mb-8"
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
-                    <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-violet-400 text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
+                    <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-violet-400 text-[10px] font-bold tracking-widest uppercase mb-3 backdrop-blur-md shadow-lg">
                         My Journey
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4 drop-shadow-2xl">
+                    <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-3 drop-shadow-2xl">
                         About <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Me</span>.
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
+                    <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
                         Architecting digital realities with code, creativity, and precision.
                     </p>
                 </motion.div>
@@ -82,51 +82,51 @@ const About = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="flex flex-col gap-8"
+                    className="flex flex-col gap-6"
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {/* 1. HERO BIO SECTION (Compact Card) */}
-                    <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 shado-2xl relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
+                    <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[1.5rem] p-6 shadow-xl relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
                         {/* Decorative Elements */}
-                        <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-12 scale-150">
-                            <Terminal size={300} />
+                        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-12 scale-125">
+                            <Terminal size={200} />
                         </div>
-                        <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-violet-500/20 rounded-full blur-[80px]" />
+                        <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-violet-500/20 rounded-full blur-[60px]" />
 
-                        <div className="flex flex-col lg:flex-row gap-16 items-center relative z-10">
+                        <div className="flex flex-col lg:flex-row gap-10 items-center relative z-10">
                             {/* Avatar / Icon Placeholder - Larger */}
                             <div className="relative">
                                 <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-2xl opacity-40 animate-pulse"></div>
-                                <div className="w-40 h-40 md:w-64 md:h-64 flex-shrink-0 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center p-6 shadow-2xl relative z-10 group-hover:scale-105 transition-transform duration-500">
-                                    <User className="text-slate-200" size={80} />
+                                <div className="w-32 h-32 md:w-48 md:h-48 flex-shrink-0 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center p-4 shadow-xl relative z-10 group-hover:scale-105 transition-transform duration-500">
+                                    <User className="text-slate-200" size={64} />
                                 </div>
                             </div>
 
                             <div className="flex-1 text-center lg:text-left">
-                                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
                                     Hi, I'm <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">{aboutData?.name || 'Saurabh'}</span>.
                                 </h3>
-                                <p className="text-lg md:text-2xl text-slate-300 leading-relaxed font-light max-w-5xl">
+                                <p className="text-base md:text-xl text-slate-300 leading-relaxed font-light max-w-4xl">
                                     {aboutData?.about || defaultBio}
                                 </p>
 
-                                <div className="mt-10 flex flex-wrap justify-center lg:justify-start gap-6">
-                                    <div className="bg-white/5 border border-white/10 px-8 py-5 rounded-2xl flex items-center gap-5 hover:bg-white/10 transition-colors hover:scale-105 duration-300 hover:border-cyan-500/30 shadow-lg">
-                                        <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400">
-                                            <Code2 size={32} />
+                                <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4">
+                                    <div className="bg-white/5 border border-white/10 px-6 py-4 rounded-xl flex items-center gap-4 hover:bg-white/10 transition-colors hover:scale-105 duration-300 hover:border-cyan-500/30 shadow-md">
+                                        <div className="p-2 bg-cyan-500/10 rounded-lg text-cyan-400">
+                                            <Code2 size={24} />
                                         </div>
                                         <div className="text-left">
-                                            <div className="text-3xl font-bold text-white">{aboutData?.projects?.length || 5}+</div>
-                                            <div className="text-xs text-slate-400 uppercase tracking-widest font-bold">Projects</div>
+                                            <div className="text-2xl font-bold text-white">{aboutData?.projects?.length || 5}+</div>
+                                            <div className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Projects</div>
                                         </div>
                                     </div>
-                                    <div className="bg-white/5 border border-white/10 px-8 py-5 rounded-2xl flex items-center gap-5 hover:bg-white/10 transition-colors hover:scale-105 duration-300 hover:border-violet-500/30 shadow-lg">
-                                        <div className="p-3 bg-violet-500/10 rounded-xl text-violet-400">
-                                            <Briefcase size={32} />
+                                    <div className="bg-white/5 border border-white/10 px-6 py-4 rounded-xl flex items-center gap-4 hover:bg-white/10 transition-colors hover:scale-105 duration-300 hover:border-violet-500/30 shadow-md">
+                                        <div className="p-2 bg-violet-500/10 rounded-lg text-violet-400">
+                                            <Briefcase size={24} />
                                         </div>
                                         <div className="text-left">
-                                            <div className="text-3xl font-bold text-white">2+</div>
-                                            <div className="text-xs text-slate-400 uppercase tracking-widest font-bold">Years Exp.</div>
+                                            <div className="text-2xl font-bold text-white">2+</div>
+                                            <div className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Years Exp.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -135,87 +135,87 @@ const About = () => {
                     </motion.div>
 
                     {/* 2. SPLIT SECTION: Experience & Education */}
-                    <div className="grid lg:grid-cols-2 gap-10 items-stretch">
+                    <div className="grid lg:grid-cols-2 gap-6 items-stretch">
 
                         {/* Experience Column */}
                         <motion.div variants={itemVariants} className="flex flex-col h-full">
-                            <h3 className="text-3xl font-bold text-white flex items-center gap-4 mb-8 pl-2">
-                                <div className="p-3 bg-violet-500/10 rounded-xl text-violet-400 ring-1 ring-violet-500/20">
-                                    <Briefcase size={28} />
+                            <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-4 pl-2">
+                                <div className="p-2 bg-violet-500/10 rounded-lg text-violet-400 ring-1 ring-violet-500/20">
+                                    <Briefcase size={20} />
                                 </div>
                                 <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Experience</span>
                             </h3>
 
-                            <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 relative flex-1 hover:border-violet-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.02] hover:shadow-violet-500/10 group">
-                                <div className="space-y-12">
+                            <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[1.5rem] p-5 md:p-6 relative flex-1 hover:border-violet-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.01] hover:shadow-violet-500/10 group">
+                                <div className="space-y-8">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
                                         <div key={idx} className="relative group/item">
-                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-2 mb-2">
-                                                <h4 className="text-2xl font-bold text-white group-hover:text-violet-400 transition-colors">{exp.role}</h4>
-                                                <span className="text-sm font-mono py-1 px-4 bg-white/5 rounded-full text-slate-300 border border-white/10 shadow-inner">{exp.duration}</span>
+                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
+                                                <h4 className="text-xl font-bold text-white group-hover:text-violet-400 transition-colors">{exp.role}</h4>
+                                                <span className="text-xs font-mono py-1 px-3 bg-white/5 rounded-full text-slate-300 border border-white/10 shadow-inner">{exp.duration}</span>
                                             </div>
-                                            <div className="text-cyan-400 text-base font-bold mb-4 uppercase tracking-wider flex items-center gap-2">
-                                                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                                            <div className="text-cyan-400 text-sm font-bold mb-2 uppercase tracking-wider flex items-center gap-2">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                                                 {exp.company}
                                             </div>
-                                            <p className="text-slate-400 leading-relaxed text-base md:text-lg pl-2 border-l-2 border-transparent group-hover/item:border-violet-500/30 transition-all break-words">
+                                            <p className="text-slate-400 leading-relaxed text-sm md:text-base pl-2 border-l-2 border-transparent group-hover/item:border-violet-500/30 transition-all break-words">
                                                 {exp.description}
                                             </p>
                                         </div>
                                     )) : (
-                                        <div className="pl-12 text-slate-500 italic text-lg">No experience entries found.</div>
+                                        <div className="pl-12 text-slate-500 italic text-base">No experience entries found.</div>
                                     )}
                                 </div>
                             </div>
                         </motion.div>
 
                         {/* Education Column & Tech Focus */}
-                        <motion.div variants={itemVariants} className="flex flex-col gap-10 h-full">
+                        <motion.div variants={itemVariants} className="flex flex-col gap-6 h-full">
 
                             {/* Education */}
                             <div className="flex flex-col flex-1">
-                                <h3 className="text-3xl font-bold text-white flex items-center gap-4 mb-8 pl-2">
-                                    <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 ring-1 ring-emerald-500/20">
-                                        <GraduationCap size={28} />
+                                <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-4 pl-2">
+                                    <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400 ring-1 ring-emerald-500/20">
+                                        <GraduationCap size={20} />
                                     </div>
                                     <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Education</span>
                                 </h3>
 
-                                <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 flex-1 hover:border-emerald-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.02] hover:shadow-emerald-500/10 group">
+                                <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[1.5rem] p-5 md:p-6 flex-1 hover:border-emerald-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.01] hover:shadow-emerald-500/10 group">
                                     {education.length > 0 ? education.map((edu, idx) => (
-                                        <div key={idx} className="border-l-4 border-emerald-500/30 pl-8 py-2 last:mb-0 mb-8 group hover:border-emerald-500/60 transition-colors">
-                                            <h4 className="text-2xl font-bold text-white mb-2">{edu.institution}</h4>
-                                            <p className="text-emerald-400 text-base font-bold uppercase tracking-wider">{edu.degree}</p>
-                                            <div className="mt-4 flex items-center gap-4 text-sm text-slate-400 font-mono">
-                                                <span className="bg-white/5 px-3 py-1 rounded-lg border border-white/5">{edu.year}</span>
-                                                {edu.cgpa && <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-lg font-bold border border-emerald-500/20">CGPA: {edu.cgpa}</span>}
+                                        <div key={idx} className="border-l-4 border-emerald-500/30 pl-6 py-1 last:mb-0 mb-6 group hover:border-emerald-500/60 transition-colors">
+                                            <h4 className="text-xl font-bold text-white mb-1">{edu.institution}</h4>
+                                            <p className="text-emerald-400 text-sm font-bold uppercase tracking-wider">{edu.degree}</p>
+                                            <div className="mt-2 flex items-center gap-4 text-xs text-slate-400 font-mono">
+                                                <span className="bg-white/5 px-2 py-1 rounded-md border border-white/5">{edu.year}</span>
+                                                {edu.cgpa && <span className="px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded-md font-bold border border-emerald-500/20">CGPA: {edu.cgpa}</span>}
                                             </div>
                                         </div>
                                     )) : (
-                                        <div className="border-l-4 border-emerald-500/30 pl-8 py-2">
-                                            <h4 className="text-2xl font-bold text-white mb-2">Shaheed Bhagat Singh State University</h4>
-                                            <p className="text-emerald-400 text-base font-bold uppercase tracking-wider">B.Tech - Computer Science</p>
-                                            <div className="mt-4 text-sm text-slate-400 font-mono">2022 - 2026</div>
+                                        <div className="border-l-4 border-emerald-500/30 pl-6 py-1">
+                                            <h4 className="text-xl font-bold text-white mb-1">Shaheed Bhagat Singh State University</h4>
+                                            <p className="text-emerald-400 text-sm font-bold uppercase tracking-wider">B.Tech - Computer Science</p>
+                                            <div className="mt-2 text-xs text-slate-400 font-mono">2022 - 2026</div>
                                         </div>
                                     )}
                                 </div>
                             </div>
 
                             {/* Tech Stack Summary (Large) */}
-                            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col xl:flex-row items-center justify-between gap-8 group hover:border-cyan-500/40 transition-all duration-300 shadow-2xl relative overflow-hidden hover:scale-[1.02] hover:shadow-cyan-500/10">
+                            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-white/10 rounded-[1.5rem] p-5 md:p-6 flex flex-col xl:flex-row items-center justify-between gap-6 group hover:border-cyan-500/40 transition-all duration-300 shadow-2xl relative overflow-hidden hover:scale-[1.01] hover:shadow-cyan-500/10">
                                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                 <div className="text-center xl:text-left relative z-10">
-                                    <h4 className="text-2xl font-bold text-white mb-3">My Tech Stack</h4>
-                                    <p className="text-slate-400 text-base max-w-sm leading-relaxed">
+                                    <h4 className="text-xl font-bold text-white mb-2">My Tech Stack</h4>
+                                    <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
                                         Architecting scalable solutions with a modern, performance-first ecosystem.
                                     </p>
                                 </div>
-                                <div className="grid grid-cols-4 gap-6 relative z-10">
-                                    <div className="w-16 h-16 bg-slate-950/50 rounded-2xl flex items-center justify-center text-cyan-400 border border-white/10 group-hover:border-cyan-500/50 group-hover:scale-110 transition-all shadow-lg"><Globe size={32} /></div>
-                                    <div className="w-16 h-16 bg-slate-950/50 rounded-2xl flex items-center justify-center text-violet-400 border border-white/10 group-hover:border-violet-500/50 group-hover:scale-110 transition-all shadow-lg"><Server size={32} /></div>
-                                    <div className="w-16 h-16 bg-slate-950/50 rounded-2xl flex items-center justify-center text-pink-400 border border-white/10 group-hover:border-pink-500/50 group-hover:scale-110 transition-all shadow-lg"><Cpu size={32} /></div>
-                                    <div className="w-16 h-16 bg-slate-950/50 rounded-2xl flex items-center justify-center text-yellow-400 border border-white/10 group-hover:border-yellow-500/50 group-hover:scale-110 transition-all shadow-lg"><Terminal size={32} /></div>
+                                <div className="grid grid-cols-4 gap-4 relative z-10">
+                                    <div className="w-12 h-12 bg-slate-950/50 rounded-xl flex items-center justify-center text-cyan-400 border border-white/10 group-hover:border-cyan-500/50 group-hover:scale-110 transition-all shadow-md"><Globe size={24} /></div>
+                                    <div className="w-12 h-12 bg-slate-950/50 rounded-xl flex items-center justify-center text-violet-400 border border-white/10 group-hover:border-violet-500/50 group-hover:scale-110 transition-all shadow-md"><Server size={24} /></div>
+                                    <div className="w-12 h-12 bg-slate-950/50 rounded-xl flex items-center justify-center text-pink-400 border border-white/10 group-hover:border-pink-500/50 group-hover:scale-110 transition-all shadow-md"><Cpu size={24} /></div>
+                                    <div className="w-12 h-12 bg-slate-950/50 rounded-xl flex items-center justify-center text-yellow-400 border border-white/10 group-hover:border-yellow-500/50 group-hover:scale-110 transition-all shadow-md"><Terminal size={24} /></div>
                                 </div>
                             </div>
 
