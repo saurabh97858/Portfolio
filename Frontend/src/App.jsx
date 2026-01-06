@@ -19,13 +19,13 @@ import { Outlet, Navigate } from 'react-router-dom';
 
 // Layout Component
 const Layout = () => (
-    <>
+    <div className="flex flex-col min-h-screen">
         <Navbar />
-        <main>
+        <main className="flex-grow">
             <Outlet />
         </main>
         <Footer />
-    </>
+    </div>
 );
 
 import { motion, useScroll, useSpring } from 'framer-motion';
