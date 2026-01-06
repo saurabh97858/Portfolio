@@ -47,30 +47,30 @@ const About = () => {
     const defaultBio = "I am a passionate Full Stack Developer dedicated to crafting robust back-ends and intuitive front-ends. My journey is defined by a relentless curiosity and a drive to build scalable, user-centric solutions.";
 
     return (
-        <section id="about" className="min-h-screen pt-48 pb-32 relative z-10 font-sans text-slate-300 bg-slate-950">
+        <section id="about" className="min-h-screen pt-28 pb-20 relative z-10 font-sans text-slate-300 bg-slate-950">
 
             {/* Expanded Background Gradients */}
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-violet-600/10 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '10s' }} />
             <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-cyan-600/10 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '12s' }} />
 
-            {/* Main Container - Significantly Larger max-w-7xl */}
-            <div className="container mx-auto px-6 md:px-12 max-w-5xl w-full relative z-10">
+            {/* Main Container - Compact max-w-5xl */}
+            <div className="container mx-auto px-6 max-w-5xl w-full relative z-10">
 
-                {/* Header - Huge & Bold */}
+                {/* Header - Compact */}
                 <motion.div
                     initial={{ opacity: 0, y: -30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-20"
+                    className="text-center mb-12"
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
-                    <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-violet-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
+                    <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-violet-400 text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
                         My Journey
                     </span>
-                    <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                    <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4 drop-shadow-2xl">
                         About <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Me</span>.
                     </h2>
-                    <p className="text-slate-400 max-w-3xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
+                    <p className="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
                         Architecting digital realities with code, creativity, and precision.
                     </p>
                 </motion.div>
@@ -80,11 +80,11 @@ const About = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="flex flex-col gap-12"
+                    className="flex flex-col gap-8"
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
-                    {/* 1. HERO BIO SECTION (Massive Card) */}
-                    <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-6 md:p-8 shadow-2xl relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
+                    {/* 1. HERO BIO SECTION (Compact Card) */}
+                    <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 shado-2xl relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
                         {/* Decorative Elements */}
                         <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-12 scale-150">
                             <Terminal size={300} />
