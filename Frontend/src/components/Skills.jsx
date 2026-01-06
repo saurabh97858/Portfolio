@@ -65,7 +65,7 @@ const Skills = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Arsenal...</div>;
 
     return (
-        <section id="skills" className="bg-slate-950 pb-24 relative font-sans overflow-hidden">
+        <section id="skills" className="bg-slate-950 pb-12 relative font-sans overflow-hidden">
             {/* SPACER: Micro-tuned for minimal gap */}
             <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
 
@@ -83,16 +83,16 @@ const Skills = () => {
                     initial={{ opacity: 0, y: -40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-10"
+                    className="text-center mb-8"
                     style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
-                    <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
+                    <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-[10px] font-bold tracking-widest uppercase mb-3 backdrop-blur-md shadow-lg">
                         Expertise
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4 drop-shadow-2xl">
+                    <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-3 drop-shadow-2xl">
                         Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Arsenal</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
+                    <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
                         Explore the dimensions of my technical capabilities.
                     </p>
                 </motion.div>
@@ -102,7 +102,7 @@ const Skills = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-8"
+                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6"
                     style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {skills.map((skill, index) => (
@@ -161,16 +161,16 @@ const SkillCard = ({ skill, variants, onClick }) => {
             layoutId={`card-${skill.category}`}
             variants={variants}
             onClick={onClick} /* IMPORTANT: Clicking this triggers navigation to detail view */
-            whileHover={{ y: -10, scale: 1.02 }}
-            className="group relative w-full h-full cursor-pointer min-h-[300px]"
+            whileHover={{ y: -5, scale: 1.01 }}
+            className="group relative w-full h-full cursor-pointer min-h-[250px]"
         >
             {/* Hover Glow Effect */}
             <motion.div
-                className={`absolute -inset-0.5 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 rounded-[2.2rem] blur transition duration-500`}
+                className={`absolute -inset-0.5 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 rounded-[1.8rem] blur transition duration-500`}
             />
 
             <motion.div
-                className="relative h-full bg-slate-900/60 border border-white/10 p-8 rounded-[2rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/80 overflow-hidden flex flex-col shadow-2xl"
+                className="relative h-full bg-slate-900/60 border border-white/10 p-6 rounded-[1.5rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/80 overflow-hidden flex flex-col shadow-2xl"
             >
                 {/* Background Decor Icon */}
                 <div className="absolute -bottom-10 -right-10 text-white/[0.03] transform group-hover:scale-125 group-hover:rotate-12 transition-transform duration-700 ease-in-out">
