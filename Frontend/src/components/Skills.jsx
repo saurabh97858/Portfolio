@@ -65,7 +65,7 @@ const Skills = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Arsenal...</div>;
 
     return (
-        <section id="skills" className="min-h-screen bg-slate-950 py-20 flex items-center justify-center relative overflow-hidden font-sans">
+        <section id="skills" className="min-h-screen bg-slate-950 py-12 flex items-center justify-center relative overflow-hidden font-sans">
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -87,7 +87,7 @@ const Skills = () => {
                     <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
                         Expertise
                     </span>
-                    <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                    <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
                         Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Arsenal</span>
                     </h2>
                     <p className="text-slate-400 max-w-3xl mx-auto text-xl md:text-2xl font-light leading-relaxed">

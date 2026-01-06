@@ -16,7 +16,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-10">
+        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-4">
             {/* Background Glows (Optional, reduced opacity for cleaner look) */}
             <div className="absolute top-20 left-10 w-72 h-72 bg-violet-600/10 rounded-full blur-[100px] animate-pulse pointer-events-none" />
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/10 rounded-full blur-[100px] animate-pulse delay-700 pointer-events-none" />
@@ -44,7 +44,7 @@ const Hero = () => {
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Available for work
                         </span>
                     </div>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight min-h-[140px] md:min-h-[auto]">
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 tracking-tight min-h-[120px] md:min-h-[auto]">
                         Architecting <br />
                         <motion.span
                             key={textIndex}
@@ -58,7 +58,7 @@ const Hero = () => {
                         </motion.span> <br />
                         Solutions.
                     </h1>
-                    <p className="text-slate-400 text-lg md:text-xl mb-10 max-w-lg leading-relaxed">
+                    <p className="text-slate-400 text-base md:text-lg mb-8 max-w-lg leading-relaxed">
                         I specialize in building high-performance, secure, and scalable web applications using modern technologies like MERN Stack and Next.js.
                     </p>
 
@@ -81,7 +81,7 @@ const Hero = () => {
                     <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/30 to-pink-600/30 rounded-full blur-[60px] animate-pulse"></div>
 
                     {/* Main Hero Image - Stock Dev Image */}
-                    <div className="relative z-10 w-full max-w-[650px] mx-auto group perspective-1000">
+                    <div className="relative z-10 w-full max-w-[450px] mx-auto group perspective-1000">
                         <div className="relative transform transition-transform duration-500 group-hover:rotate-y-6 group-hover:rotate-x-6 preserve-3d">
                             <img
                                 src={heroImage}
