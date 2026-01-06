@@ -65,7 +65,7 @@ const Skills = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Arsenal...</div>;
 
     return (
-        <section id="skills" className="bg-slate-950 pb-12 relative font-sans overflow-hidden">
+        <section id="skills" className="bg-slate-950 pb-6 md:pb-12 relative font-sans overflow-hidden">
             {/* SPACER: Micro-tuned for minimal gap */}
             <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
 
@@ -76,7 +76,7 @@ const Skills = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0)_0%,rgba(2,6,23,0.8)_100%)] z-0" />
             </div>
 
-            <div className="container mx-auto px-6 max-w-5xl relative z-10">
+            <div className="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
 
                 {/* Header */}
                 <motion.div
@@ -102,7 +102,7 @@ const Skills = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6"
                     style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {skills.map((skill, index) => (

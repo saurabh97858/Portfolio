@@ -53,7 +53,7 @@ const About = () => {
     const defaultBio = "I am a passionate Full Stack Developer dedicated to crafting robust back-ends and intuitive front-ends. My journey is defined by a relentless curiosity and a drive to build scalable, user-centric solutions.";
 
     return (
-        <section id="about" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-12 overflow-hidden">
+        <section id="about" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-6 md:pb-12 overflow-hidden">
             {/* SPACER: Micro-tuned for minimal gap */}
             <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
 
@@ -65,7 +65,7 @@ const About = () => {
             </div>
 
             {/* Main Container - Compact max-w-5xl */}
-            <div className="container mx-auto px-6 max-w-5xl w-full relative z-10">
+            <div className="container mx-auto px-4 md:px-6 max-w-5xl w-full relative z-10">
 
                 {/* Header - Premium & Compact */}
                 <motion.div
@@ -83,7 +83,7 @@ const About = () => {
                         </span>
                     </div>
 
-                    <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3 drop-shadow-2xl">
+                    <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-2 md:mb-3 drop-shadow-2xl">
                         About <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 animate-gradient-x">Me</span>.
                     </h2>
                     <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
@@ -96,11 +96,11 @@ const About = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="flex flex-col gap-6"
+                    className="flex flex-col gap-4 md:gap-6"
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {/* 1. HERO BIO SECTION (Spotlight Card) */}
-                    <SpotlightCard className="rounded-[1.5rem] p-6 from-violet-500/20 via-slate-900 to-slate-900">
+                    <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 from-violet-500/20 via-slate-900 to-slate-900">
                         {/* Decorative Elements */}
                         <div className="absolute top-0 right-0 p-8 opacity-5 transition-opacity transform rotate-12 scale-125 pointer-events-none">
                             <Terminal size={200} />
@@ -132,13 +132,13 @@ const About = () => {
                     </SpotlightCard>
 
                     {/* 2. SPLIT SECTION: Experience & Education */}
-                    <div className="grid lg:grid-cols-2 gap-6 items-stretch">
+                    <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-stretch">
 
                         {/* Experience Column */}
                         <motion.div variants={itemVariants} className="flex flex-col h-full">
                             <SectionTitle icon={Briefcase} title="Experience" color="violet" />
 
-                            <SpotlightCard className="rounded-[1.5rem] p-5 md:p-6 h-full flex flex-col">
+                            <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 h-full flex flex-col">
                                 <div className="space-y-8 flex-1">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
                                         <div key={idx} className="relative group/item pl-4 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
@@ -162,13 +162,13 @@ const About = () => {
                         </motion.div>
 
                         {/* Education Column & Tech Focus */}
-                        <motion.div variants={itemVariants} className="flex flex-col gap-6 h-full">
+                        <motion.div variants={itemVariants} className="flex flex-col gap-4 md:gap-6 h-full">
 
                             {/* Education */}
                             <div className="flex flex-col flex-1">
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
 
-                                <SpotlightCard className="rounded-[1.5rem] p-5 md:p-6 flex-1">
+                                <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 flex-1">
                                     {education.length > 0 ? education.map((edu, idx) => (
                                         <div key={idx} className="border-l-4 border-emerald-500/30 pl-6 py-1 last:mb-0 mb-6 group hover:border-emerald-500/60 transition-colors">
                                             <h4 className="text-xl font-bold text-white mb-1">{edu.institution}</h4>
@@ -189,7 +189,7 @@ const About = () => {
                             </div>
 
                             {/* Tech Stack Summary (Large) */}
-                            <SpotlightCard className="rounded-[1.5rem] p-5 md:p-6 flex flex-col xl:flex-row items-center justify-between gap-6 relative overflow-hidden group">
+                            <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 flex flex-col xl:flex-row items-center justify-between gap-6 relative overflow-hidden group">
                                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                 <div className="text-center xl:text-left relative z-10">
@@ -215,7 +215,7 @@ const About = () => {
                         <div className="mt-6">
                             <SectionTitle icon={Award} title="Certifications" color="amber" />
 
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                                 {certifications.map((cert, idx) => (
                                     <CertificateCard
                                         key={idx}
