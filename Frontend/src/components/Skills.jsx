@@ -102,7 +102,7 @@ const Skills = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
                     style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {skills.map((skill, index) => (
@@ -162,7 +162,7 @@ const SkillCard = ({ skill, variants, onClick }) => {
             variants={variants}
             onClick={onClick} /* IMPORTANT: Clicking this triggers navigation to detail view */
             whileHover={{ y: -5, scale: 1.01 }}
-            className="group relative w-full h-full cursor-pointer min-h-[250px]"
+            className="group relative w-full h-full cursor-pointer min-h-[200px]"
         >
             {/* Hover Glow Effect */}
             <motion.div
