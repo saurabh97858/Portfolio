@@ -47,7 +47,9 @@ const About = () => {
     const defaultBio = "I am a passionate Full Stack Developer dedicated to crafting robust back-ends and intuitive front-ends. My journey is defined by a relentless curiosity and a drive to build scalable, user-centric solutions.";
 
     return (
-        <section id="about" className="min-h-screen pt-56 pb-24 relative z-10 font-sans text-slate-300 bg-slate-950">
+        <section id="about" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-24 overflow-hidden">
+            {/* FORCE VISIBLE SPACER for Header Clearance */}
+            <div className="w-full h-32 md:h-40 shrink-0" aria-hidden="true" />
 
             {/* Expanded Background Gradients */}
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-violet-600/10 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '10s' }} />

@@ -23,6 +23,11 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-padding-top: 120px;
+    /* Protects header area */
+}
+
 body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--background);
@@ -30,6 +35,7 @@ body {
     scroll-behavior: smooth;
     overflow-x: hidden;
     min-height: 100dvh;
+    /* Dynamic Viewport Height */
     padding-bottom: env(safe-area-inset-bottom);
 }
 

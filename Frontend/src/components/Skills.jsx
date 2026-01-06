@@ -65,7 +65,9 @@ const Skills = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Arsenal...</div>;
 
     return (
-        <section id="skills" className="min-h-screen bg-slate-950 pt-56 pb-24 relative font-sans">
+        <section id="skills" className="bg-slate-950 pb-24 relative font-sans overflow-hidden">
+            {/* FORCE VISIBLE SPACER for Header Clearance */}
+            <div className="w-full h-32 md:h-40 shrink-0" aria-hidden="true" />
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
