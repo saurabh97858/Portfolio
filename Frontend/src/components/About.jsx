@@ -48,8 +48,8 @@ const About = () => {
 
     return (
         <section id="about" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-24 overflow-hidden">
-            {/* SPACER: Minimized for tighter layout */}
-            <div className="w-full h-16 md:h-20 shrink-0" aria-hidden="true" />
+            {/* SPACER: Micro-tuned for minimal gap */}
+            <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
 
             {/* Expanded Background Gradients */}
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-violet-600/10 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '10s' }} />

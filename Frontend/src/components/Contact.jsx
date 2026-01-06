@@ -61,8 +61,8 @@ const Contact = () => {
 
     return (
         <section id="contact" className="bg-slate-950 pb-32 relative font-sans overflow-hidden">
-            {/* SPACER: Minimized for tighter layout */}
-            <div className="w-full h-16 md:h-20 shrink-0" aria-hidden="true" />
+            {/* SPACER: Micro-tuned for minimal gap */}
+            <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
