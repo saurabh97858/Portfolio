@@ -1222,7 +1222,33 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                                 }}
                                                 className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer"
                                             />
-                                            <p className="text-xs text-slate-500">Max size 10MB. Formats: JPG, PNG, WEBP</p>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="label">Hero Image (Home Page)</label>
+                                        <div className="flex flex-col gap-3">
+                                            {formData.heroImage && (
+                                                <div className="w-full flex justify-center bg-black/20 p-2 rounded-xl border border-white/5">
+                                                    <img src={formData.heroImage} alt="Hero Preview" className="h-24 w-auto object-cover rounded-lg border-2 border-pink-400/50" />
+                                                </div>
+                                            )}
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    if (file) {
+                                                        const reader = new FileReader();
+                                                        reader.onloadend = () => {
+                                                            setFormData(prev => ({ ...prev, heroImage: reader.result }));
+                                                        };
+                                                        reader.readAsDataURL(file);
+                                                    }
+                                                }}
+                                                className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-500/10 file:text-pink-400 hover:file:bg-pink-500/20 cursor-pointer"
+                                            />
+                                            <p className="text-xs text-slate-500">Recommended: High quality portrait/square image.</p>
                                         </div>
                                     </div>
                                     <div>

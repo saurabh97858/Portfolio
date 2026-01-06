@@ -10,6 +10,26 @@ const Hero = () => {
     const words = ["Full Stack", "MERN Stack", "Scalable", "Secure"];
     const navigate = useNavigate();
 
+    const [heroImgSrc, setHeroImgSrc] = useState(heroImage);
+
+    useEffect(() => {
+        const fetchHeroImage = async () => {
+            try {
+                const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5005';
+                const res = await fetch(`${API_URL}/api/portfolio`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data?.heroImage) {
+                        setHeroImgSrc(data.heroImage);
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to load hero image:", error);
+            }
+        };
+        fetchHeroImage();
+    }, []);
+
     useEffect(() => {
         const interval = setInterval(() => {
             setTextIndex((prev) => (prev + 1) % words.length);
@@ -83,11 +103,11 @@ const Hero = () => {
                     {/* Abstract tech background */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/30 to-pink-600/30 rounded-full blur-[60px] animate-pulse"></div>
 
-                    {/* Main Hero Image - Stock Dev Image */}
+                    {/* Main Hero Image - Dynamic */}
                     <div className="relative z-10 w-full max-w-[280px] mx-auto group perspective-1000">
                         <div className="relative transform transition-transform duration-500 group-hover:rotate-y-6 group-hover:rotate-x-6 preserve-3d">
                             <img
-                                src={heroImage}
+                                src={heroImgSrc}
                                 alt="Saurabh Gupta"
                                 className="w-full h-auto aspect-square object-cover object-center rounded-2xl shadow-2xl border border-slate-700/50 relative z-20"
                             />
