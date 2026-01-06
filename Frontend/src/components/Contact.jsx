@@ -60,7 +60,7 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="min-h-screen bg-slate-950 py-10 flex items-center justify-center relative overflow-hidden font-sans">
+        <section id="contact" className="min-h-screen bg-slate-950 pt-32 pb-20 relative overflow-hidden font-sans">
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">

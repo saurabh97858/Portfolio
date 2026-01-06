@@ -52,7 +52,7 @@ const Projects = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Projects...</div>;
 
     return (
-        <section id="projects" className="min-h-screen bg-slate-950 py-10 flex items-center justify-center relative overflow-hidden font-sans">
+        <section id="projects" className="min-h-screen bg-slate-950 pt-32 pb-20 relative overflow-hidden font-sans">
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
