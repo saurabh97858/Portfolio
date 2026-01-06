@@ -47,7 +47,7 @@ const About = () => {
     const defaultBio = "I am a passionate Full Stack Developer dedicated to crafting robust back-ends and intuitive front-ends. My journey is defined by a relentless curiosity and a drive to build scalable, user-centric solutions.";
 
     return (
-        <section id="about" className="min-h-screen py-10 flex items-center justify-center relative z-10 font-sans text-slate-300 bg-slate-950 overflow-hidden">
+        <section id="about" className="min-h-screen py-24 flex items-center justify-center relative z-10 font-sans text-slate-300 bg-slate-950 overflow-hidden">
 
             {/* Expanded Background Gradients */}
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-violet-600/10 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '10s' }} />
@@ -84,7 +84,7 @@ const About = () => {
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {/* 1. HERO BIO SECTION (Massive Card) */}
-                    <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[3rem] p-6 md:p-10 shadow-2xl relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
+                    <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-6 md:p-8 shadow-2xl relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
                         {/* Decorative Elements */}
                         <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-12 scale-150">
                             <Terminal size={300} />
@@ -144,7 +144,7 @@ const About = () => {
                                 <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Experience</span>
                             </h3>
 
-                            <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-8 md:p-10 relative flex-1 hover:border-violet-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.02] hover:shadow-violet-500/10 group">
+                            <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 relative flex-1 hover:border-violet-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.02] hover:shadow-violet-500/10 group">
                                 <div className="space-y-12">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
                                         <div key={idx} className="relative group/item">
@@ -179,7 +179,7 @@ const About = () => {
                                     <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Education</span>
                                 </h3>
 
-                                <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-8 md:p-10 flex-1 hover:border-emerald-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.02] hover:shadow-emerald-500/10 group">
+                                <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 flex-1 hover:border-emerald-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.02] hover:shadow-emerald-500/10 group">
                                     {education.length > 0 ? education.map((edu, idx) => (
                                         <div key={idx} className="border-l-4 border-emerald-500/30 pl-8 py-2 last:mb-0 mb-8 group hover:border-emerald-500/60 transition-colors">
                                             <h4 className="text-2xl font-bold text-white mb-2">{edu.institution}</h4>
@@ -200,7 +200,7 @@ const About = () => {
                             </div>
 
                             {/* Tech Stack Summary (Large) */}
-                            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-white/10 rounded-[2.5rem] p-8 md:p-10 flex flex-col xl:flex-row items-center justify-between gap-8 group hover:border-cyan-500/40 transition-all duration-300 shadow-2xl relative overflow-hidden hover:scale-[1.02] hover:shadow-cyan-500/10">
+                            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col xl:flex-row items-center justify-between gap-8 group hover:border-cyan-500/40 transition-all duration-300 shadow-2xl relative overflow-hidden hover:scale-[1.02] hover:shadow-cyan-500/10">
                                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                 <div className="text-center xl:text-left relative z-10">
