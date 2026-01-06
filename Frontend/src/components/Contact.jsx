@@ -80,15 +80,15 @@ const Contact = () => {
                     className="grid lg:grid-cols-2 gap-12 items-center"
                 >
                     {/* Left Side: Contact Info & CTA */}
-                    <motion.div variants={itemVariants} className="space-y-10">
+                    <motion.div variants={itemVariants} className="space-y-10 mt-10 md:mt-0">
                         <div>
-                            <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-lg">
+                            <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
                                 Get in Touch
                             </span>
-                            <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-6 drop-shadow-2xl">
+                            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-6 drop-shadow-2xl leading-tight">
                                 Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Collaboration</span> Begin.
                             </h2>
-                            <p className="text-slate-400 text-xl font-light leading-relaxed max-w-lg">
+                            <p className="text-slate-400 text-lg md:text-xl font-light leading-relaxed max-w-lg">
                                 Have a project in mind or just want to explore new possibilities? I'm always open to discussing new ideas and opportunities.
                             </p>
                         </div>
