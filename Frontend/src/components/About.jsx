@@ -144,10 +144,10 @@ const About = () => {
                                 <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Experience</span>
                             </h3>
 
-                            <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-10 relative flex-1 hover:border-white/20 transition-colors shadow-xl">
+                            <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-8 md:p-10 relative flex-1 hover:border-violet-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.02] hover:shadow-violet-500/10 group">
                                 <div className="space-y-12">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
-                                        <div key={idx} className="relative group">
+                                        <div key={idx} className="relative group/item">
                                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-2 mb-2">
                                                 <h4 className="text-2xl font-bold text-white group-hover:text-violet-400 transition-colors">{exp.role}</h4>
                                                 <span className="text-sm font-mono py-1 px-4 bg-white/5 rounded-full text-slate-300 border border-white/10 shadow-inner">{exp.duration}</span>
@@ -156,7 +156,7 @@ const About = () => {
                                                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
                                                 {exp.company}
                                             </div>
-                                            <p className="text-slate-400 leading-relaxed text-lg pl-2 border-l-2 border-transparent group-hover:border-violet-500/30 transition-all">
+                                            <p className="text-slate-400 leading-relaxed text-base md:text-lg pl-2 border-l-2 border-transparent group-hover/item:border-violet-500/30 transition-all break-words">
                                                 {exp.description}
                                             </p>
                                         </div>
@@ -179,7 +179,7 @@ const About = () => {
                                     <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Education</span>
                                 </h3>
 
-                                <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-10 flex-1 hover:border-white/20 transition-colors shadow-xl">
+                                <div className="bg-slate-900/50 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-8 md:p-10 flex-1 hover:border-emerald-500/30 transition-all duration-300 shadow-xl overflow-hidden hover:scale-[1.02] hover:shadow-emerald-500/10 group">
                                     {education.length > 0 ? education.map((edu, idx) => (
                                         <div key={idx} className="border-l-4 border-emerald-500/30 pl-8 py-2 last:mb-0 mb-8 group hover:border-emerald-500/60 transition-colors">
                                             <h4 className="text-2xl font-bold text-white mb-2">{edu.institution}</h4>
@@ -200,7 +200,7 @@ const About = () => {
                             </div>
 
                             {/* Tech Stack Summary (Large) */}
-                            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-white/10 rounded-[2.5rem] p-10 flex flex-col xl:flex-row items-center justify-between gap-8 group hover:border-cyan-500/40 transition-all shadow-2xl relative overflow-hidden">
+                            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-white/10 rounded-[2.5rem] p-8 md:p-10 flex flex-col xl:flex-row items-center justify-between gap-8 group hover:border-cyan-500/40 transition-all duration-300 shadow-2xl relative overflow-hidden hover:scale-[1.02] hover:shadow-cyan-500/10">
                                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                 <div className="text-center xl:text-left relative z-10">
