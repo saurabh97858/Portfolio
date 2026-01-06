@@ -227,7 +227,13 @@ const Dashboard = () => {
                                                 </div>
                                                 <div className="text-sm text-cyan-400 mb-1">{msg.email}</div>
                                                 <div className="text-sm text-violet-400 font-bold mb-3">{msg.subject}</div>
-                                                <p className="text-slate-300 leading-relaxed">{msg.message}</p>
+                                                <p className="text-slate-300 leading-relaxed mb-4">{msg.message}</p>
+                                                <a
+                                                    href={`mailto:${msg.email}?subject=Re: ${msg.subject}&body=%0A%0A%0A> On ${new Date(msg.createdAt).toLocaleDateString()}, ${msg.name} wrote:%0A> ${msg.message}`}
+                                                    className="inline-flex items-center gap-2 px-4 py-2 bg-violet-500/10 text-violet-400 rounded-lg hover:bg-violet-500/20 hover:scale-105 transition-all text-sm font-semibold"
+                                                >
+                                                    <MessageSquare size={16} /> Reply via Email
+                                                </a>
                                             </div>
                                         ))
                                     )}
