@@ -1169,8 +1169,30 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                         <input name="name" value={formData.name} onChange={handleChange} className="input-field w-full" />
                                     </div>
                                     <div>
-                                        <label className="label">Profile Image URL</label>
-                                        <input name="profileImage" value={formData.profileImage} onChange={handleChange} className="input-field w-full" placeholder="https://..." />
+                                        <label className="label">Profile Image</label>
+                                        <div className="flex flex-col gap-3">
+                                            {formData.profileImage && (
+                                                <div className="w-full flex justify-center bg-black/20 p-2 rounded-xl border border-white/5">
+                                                    <img src={formData.profileImage} alt="Profile Preview" className="h-24 w-24 rounded-full object-cover border-2 border-cyan-400/50" />
+                                                </div>
+                                            )}
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    if (file) {
+                                                        const reader = new FileReader();
+                                                        reader.onloadend = () => {
+                                                            setFormData(prev => ({ ...prev, profileImage: reader.result }));
+                                                        };
+                                                        reader.readAsDataURL(file);
+                                                    }
+                                                }}
+                                                className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer"
+                                            />
+                                            <p className="text-xs text-slate-500">Max size 10MB. Formats: JPG, PNG, WEBP</p>
+                                        </div>
                                     </div>
                                     <div>
                                         <label className="label">Role / Title</label>
