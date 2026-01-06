@@ -162,34 +162,34 @@ const SkillCard = ({ skill, variants, onClick }) => {
             variants={variants}
             onClick={onClick} /* IMPORTANT: Clicking this triggers navigation to detail view */
             whileHover={{ y: -5, scale: 1.01 }}
-            className="group relative w-full h-full cursor-pointer min-h-[200px]"
+            className="group relative w-full h-full cursor-pointer min-h-[160px]"
         >
             {/* Hover Glow Effect */}
             <motion.div
-                className={`absolute -inset-0.5 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 rounded-[1.8rem] blur transition duration-500`}
+                className={`absolute -inset-0.5 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 rounded-[1.5rem] blur transition duration-500`}
             />
 
             <motion.div
-                className="relative h-full bg-slate-900/60 border border-white/10 p-6 rounded-[1.5rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/80 overflow-hidden flex flex-col shadow-2xl"
+                className="relative h-full bg-slate-900/60 border border-white/10 p-5 rounded-[1.2rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/80 overflow-hidden flex flex-col shadow-2xl"
             >
-                {/* Background Decor Icon */}
-                <div className="absolute -bottom-10 -right-10 text-white/[0.03] transform group-hover:scale-125 group-hover:rotate-12 transition-transform duration-700 ease-in-out">
-                    <IconComponent size={180} />
+                {/* Background Decor Icon - Reduced opacity and size */}
+                <div className="absolute -bottom-8 -right-8 text-white/[0.03] transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700 ease-in-out">
+                    <IconComponent size={120} />
                 </div>
 
                 <div className="relative z-10 flex flex-col h-full">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradient} bg-opacity-20 flex items-center justify-center shadow-lg shadow-black/20 border border-white/10 mb-6 group-hover:scale-110 transition-transform`}>
-                        <IconComponent size={32} className="text-white drop-shadow-md" />
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} bg-opacity-20 flex items-center justify-center shadow-lg shadow-black/20 border border-white/10 mb-4 group-hover:scale-105 transition-transform`}>
+                        <IconComponent size={24} className="text-white drop-shadow-md" />
                     </div>
 
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors">
+                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors">
                         {skill.category}
                     </h3>
-                    <p className="text-slate-400 font-medium text-sm tracking-wide uppercase mb-auto">{skill.subtitle || "Tech Stack"}</p>
+                    <p className="text-slate-400 font-medium text-[10px] tracking-wide uppercase mb-auto">{skill.subtitle || "Tech Stack"}</p>
 
-                    <div className="mt-6 flex items-center gap-2 text-xs font-bold text-white/40 uppercase tracking-widest group-hover:text-cyan-400 transition-colors">
-                        <span>Tap to expand</span>
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    <div className="mt-4 flex items-center gap-1.5 text-[10px] font-bold text-white/40 uppercase tracking-widest group-hover:text-cyan-400 transition-colors">
+                        <span>Expand</span>
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </div>
                 </div>
             </motion.div>
