@@ -309,6 +309,9 @@ const SpotlightCard = ({ children, className = "" }) => {
           `,
                 }}
             />
+            {/* Mobile Fallback for SpotlightCard */}
+            <div className="md:hidden pointer-events-none absolute -inset-px opacity-100 bg-gradient-to-br from-violet-600/10 via-slate-900/50 to-cyan-600/10 z-0" />
+
             <div className="relative h-full">{children}</div>
         </motion.div>
     );

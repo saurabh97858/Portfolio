@@ -28,8 +28,9 @@ const SpotlightCard = ({ children, className = "" }) => {
             )}
             onMouseMove={handleMouseMove}
         >
+            {/* Desktop Spotlight Code (Hidden on mobile interactions effectively, but we can keep it or hide it. Let's keep it but added logic below) */}
             <motion.div
-                className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover/spotlight:opacity-100"
+                className="hidden md:block pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover/spotlight:opacity-100"
                 style={{
                     background: useMotionTemplate`
             radial-gradient(
@@ -40,6 +41,9 @@ const SpotlightCard = ({ children, className = "" }) => {
           `,
                 }}
             />
+            {/* Mobile Fallback: Subtle static gradient always visible */}
+            <div className="md:hidden pointer-events-none absolute -inset-px rounded-xl opacity-100 bg-gradient-to-br from-violet-600/20 via-transparent to-cyan-600/20 transition-opacity" />
+
             {children}
         </div>
     );
