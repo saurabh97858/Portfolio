@@ -61,8 +61,8 @@ const Contact = () => {
 
     return (
         <section id="contact" className="bg-slate-950 pb-32 relative font-sans overflow-hidden">
-            {/* FORCE VISIBLE SPACER for Header Clearance */}
-            <div className="w-full h-32 md:h-40 shrink-0" aria-hidden="true" />
+            {/* SPACER: Balanced for Aesthetics */}
+            <div className="w-full h-20 md:h-24 shrink-0" aria-hidden="true" />
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
