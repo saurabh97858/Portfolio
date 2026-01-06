@@ -60,8 +60,14 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                {/* Mobile Menu Button */}
-                <div className="md:hidden">
+                {/* Mobile Actions (Admin + Menu) */}
+                <div className="flex items-center gap-4 md:hidden">
+                    <Link
+                        to="/login"
+                        className="w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-pink-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-violet-500/20 active:scale-95 transition-transform"
+                    >
+                        SG
+                    </Link>
                     <button onClick={() => setIsOpen(!isOpen)} className="text-slate-300 hover:text-white">
                         {isOpen ? <X /> : <Menu />}
                     </button>
