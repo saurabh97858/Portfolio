@@ -29,6 +29,8 @@ body {
     color: var(--text);
     scroll-behavior: smooth;
     overflow-x: hidden;
+    min-height: 100dvh;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Noise Texture Overlay */

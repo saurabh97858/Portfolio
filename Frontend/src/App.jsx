@@ -41,7 +41,7 @@ function App() {
     return (
         <Router>
             <ScrollToTop />
-            <div className="bg-slate-950 text-white min-h-screen font-sans relative">
+            <div className="bg-slate-950 text-white min-h-[100dvh] font-sans relative">
                 {/* Global Background Animation */}
                 <div className="fixed inset-0 z-0">
                     <ParticleBackground />
