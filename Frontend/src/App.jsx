@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import TechMarquee from './components/TechMarquee';
 import HomeNavigation from './components/HomeNavigation';
+import ScrollToTop from './components/ScrollToTop';
 
 
 import Hero from './components/Hero';
@@ -39,6 +40,7 @@ function App() {
 
     return (
         <Router>
+            <ScrollToTop />
             <div className="bg-slate-950 text-white min-h-screen font-sans relative">
                 {/* Global Background Animation */}
                 <div className="fixed inset-0 z-0">
