@@ -5,11 +5,26 @@ const Portfolio = require('../models/Portfolio');
 // @access  Public
 const getPortfolioData = async (req, res) => {
     try {
-        const portfolio = await Portfolio.findOne();
+        // Find and increment views atomically
+        const portfolio = await Portfolio.findOneAndUpdate(
+            {},
+            { $inc: { views: 1 } },
+            { new: true }
+        );
+
         if (portfolio) {
             res.json(portfolio);
         } else {
-            res.status(404).json({ message: 'Portfolio data not found' });
+            // If no portfolio exists yet, try to find one without updating (though findOneAndUpdate usually handles this if we wanted upsert, but for get we just strictly look)
+            // Actually, if it doesn't exist, we can't increment. 
+            // In this specific app flow, the portfolio is usually seeded or created on first update.
+            // Fallback to basic find if nothing found (unlikely for seeded DB)
+            const fallback = await Portfolio.findOne();
+            if (fallback) {
+                res.json(fallback);
+            } else {
+                res.status(404).json({ message: 'Portfolio data not found' });
+            }
         }
     } catch (error) {
         console.error('Error fetching portfolio:', error);

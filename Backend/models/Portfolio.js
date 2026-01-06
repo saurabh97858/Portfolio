@@ -13,6 +13,7 @@ const portfolioSchema = new mongoose.Schema({
     role: { type: String, default: 'Full Stack Developer' },
     profileImage: { type: String, default: '' },
     heroImage: { type: String, default: '' }, // Dynamic Hero Image
+    views: { type: Number, default: 0 },
     about: { type: String, default: 'I am a passionate developer...' },
     email: { type: String, default: 'saurabhgupta24979@gmail.com' },
     phone: { type: String, default: '+91 96967 43829' },
