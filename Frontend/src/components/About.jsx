@@ -64,8 +64,8 @@ const About = () => {
                 <MeteorEffect number={20} />
             </div>
 
-            {/* Main Container - Compact max-w-5xl */}
-            <div className="container mx-auto px-3 md:px-6 max-w-4xl w-full relative z-10">
+            {/* Main Container - Widened to max-w-6xl and centered */}
+            <div className="container mx-auto px-3 md:px-6 max-w-6xl w-full relative z-10">
 
                 {/* Header - Premium & Compact */}
                 <motion.div
@@ -106,7 +106,7 @@ const About = () => {
                             <Terminal size={200} />
                         </div>
 
-                        <div className="flex flex-col lg:flex-row gap-10 items-center relative z-10">
+                        <div className="flex flex-col lg:flex-row gap-10 items-center justify-center relative z-10">
                             {/* Avatar / Icon Placeholder - Larger */}
                             <div className="relative group">
                                 <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-2xl opacity-40 animate-pulse group-hover:opacity-60 transition-opacity"></div>
@@ -115,15 +115,15 @@ const About = () => {
                                 </div>
                             </div>
 
-                            <div className="flex-1 text-center lg:text-left">
+                            <div className="flex-1 text-center">
                                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
                                     Hi, I'm <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">{aboutData?.name || 'Saurabh'}</span>.
                                 </h3>
-                                <p className="text-base md:text-xl text-slate-300 leading-relaxed font-light max-w-4xl">
+                                <p className="text-base md:text-xl text-slate-300 leading-relaxed font-light max-w-4xl mx-auto">
                                     {aboutData?.about || defaultBio}
                                 </p>
 
-                                <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4">
+                                <div className="mt-8 flex flex-wrap justify-center gap-4">
                                     <StatsBadge icon={Code2} value={`${aboutData?.projects?.length || 5}+`} label="Projects" color="cyan" />
                                     <StatsBadge icon={Briefcase} value="2+" label="Years Exp." color="violet" />
                                 </div>
