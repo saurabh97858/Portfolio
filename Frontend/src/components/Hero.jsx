@@ -4,31 +4,17 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Github, Linkedin, Mail, Code2, Database, Globe } from 'lucide-react';
 import heroImage from '../assets/hero-image.png';
 import { useNavigate } from 'react-router-dom';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Hero = () => {
+    const { portfolioData } = usePortfolio();
     const [textIndex, setTextIndex] = useState(0);
     const words = ["Full Stack", "MERN Stack", "Scalable", "Secure"];
     const navigate = useNavigate();
 
-    const [heroImgSrc, setHeroImgSrc] = useState(heroImage);
+    // Use dynamic image from context or fallback to default
+    const heroImgSrc = portfolioData?.heroImage || heroImage;
 
-    useEffect(() => {
-        const fetchHeroImage = async () => {
-            try {
-                const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5005';
-                const res = await fetch(`${API_URL}/api/portfolio`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data?.heroImage) {
-                        setHeroImgSrc(data.heroImage);
-                    }
-                }
-            } catch (error) {
-                console.error("Failed to load hero image:", error);
-            }
-        };
-        fetchHeroImage();
-    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {

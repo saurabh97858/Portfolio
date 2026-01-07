@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { ExternalLink, Github, ArrowRight, FolderGit2, Star, GitFork, X, Code, Layers, Cpu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const projectImages = [
     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
@@ -56,24 +57,9 @@ const SpotlightCard = ({ children, className = "" }) => {
 };
 
 const Projects = () => {
-    const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { portfolioData, loading } = usePortfolio();
     const [selectedProject, setSelectedProject] = useState(null);
-
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/portfolio`);
-                const data = await res.json();
-                if (data.projects) setProjects(data.projects);
-            } catch (error) {
-                console.error("Failed to fetch projects", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchProjects();
-    }, []);
+    const projects = portfolioData?.projects || [];
 
     // Animation Variants
     const containerVariants = {

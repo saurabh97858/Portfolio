@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Code2, Globe, Database, Cpu, Layout, Server, Terminal, Layers, Wrench, Shield, Smartphone, Cloud, X } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const iconMap = {
     Frontend: Layout,
@@ -21,28 +22,10 @@ const iconMap = {
 };
 
 const Skills = () => {
-    const [skills, setSkills] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { portfolioData, loading } = usePortfolio();
     const [selectedSkill, setSelectedSkill] = useState(null);
+    const skills = portfolioData?.skills || [];
 
-    useEffect(() => {
-        const fetchSkills = async () => {
-            try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/portfolio`);
-                const data = await res.json();
-                if (data.skills && data.skills.length > 0) {
-                    setSkills(data.skills);
-                } else {
-                    setSkills([]);
-                }
-            } catch (error) {
-                console.error("Failed to fetch skills", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchSkills();
-    }, []);
 
     // Animation Variants
     const containerVariants = {

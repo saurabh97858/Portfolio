@@ -1,32 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { Code2, Server, Globe, Cpu, GraduationCap, Briefcase, User, Terminal, X, ExternalLink, Award, Sparkles } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { usePortfolio } from '../context/PortfolioContext';
 
 function cn(...inputs) {
     return twMerge(clsx(inputs));
 }
 
 const About = () => {
-    const [aboutData, setAboutData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const { portfolioData, loading } = usePortfolio();
     const [selectedCert, setSelectedCert] = useState(null);
-
-    useEffect(() => {
-        const fetchAbout = async () => {
-            try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/portfolio`);
-                const data = await res.json();
-                setAboutData(data);
-            } catch (error) {
-                console.error("Failed to fetch about data", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchAbout();
-    }, []);
 
     // Animation Variants
     const containerVariants = {
@@ -47,6 +32,7 @@ const About = () => {
 
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing...</div>;
 
+    const aboutData = portfolioData || {}; // Fallback if data is null initially
     const experiences = aboutData?.experience || [];
     const education = aboutData?.education || [];
     const certifications = aboutData?.certifications || [];
