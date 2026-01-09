@@ -9,7 +9,7 @@ const getPortfolioData = async (req, res) => {
         const portfolio = await Portfolio.findOneAndUpdate(
             {},
             { $inc: { views: 1 } },
-            { new: true }
+            { new: true, projection: { profileImage: 0, heroImage: 0 } }
         );
 
         if (portfolio) {
@@ -19,7 +19,7 @@ const getPortfolioData = async (req, res) => {
             // Actually, if it doesn't exist, we can't increment. 
             // In this specific app flow, the portfolio is usually seeded or created on first update.
             // Fallback to basic find if nothing found (unlikely for seeded DB)
-            const fallback = await Portfolio.findOne();
+            const fallback = await Portfolio.findOne({}, { profileImage: 0, heroImage: 0 });
             if (fallback) {
                 res.json(fallback);
             } else {
@@ -28,6 +28,23 @@ const getPortfolioData = async (req, res) => {
         }
     } catch (error) {
         console.error('Error fetching portfolio:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+// @desc    Get portfolio images (Heavy payload)
+// @route   GET /api/portfolio/images
+// @access  Public
+const getPortfolioImages = async (req, res) => {
+    try {
+        const portfolio = await Portfolio.findOne({}, { profileImage: 1, heroImage: 1 });
+        if (portfolio) {
+            res.json(portfolio);
+        } else {
+            res.status(404).json({ message: 'Images not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching images:', error);
         res.status(500).json({ message: 'Server Error' });
     }
 };
@@ -51,4 +68,4 @@ const updatePortfolioData = async (req, res) => {
     }
 };
 
-module.exports = { getPortfolioData, updatePortfolioData };
+module.exports = { getPortfolioData, getPortfolioImages, updatePortfolioData };

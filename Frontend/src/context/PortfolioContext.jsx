@@ -14,9 +14,29 @@ export const PortfolioProvider = ({ children }) => {
         try {
             // Using VITE_API_URL or fallback to localhost for safety, though VITE_API_URL should be set
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-            const res = await fetch(`${apiUrl}/api/portfolio`);
-            const data = await res.json();
-            setPortfolioData(data);
+
+            // Parallel Fetch: Text Data + Heavy Images
+            // This prevents Vercel Serverless Function timeouts/payload limits on the main request
+            const [textRes, imgRes] = await Promise.all([
+                fetch(`${apiUrl}/api/portfolio`),
+                fetch(`${apiUrl}/api/portfolio/images`)
+            ]);
+
+            const textData = await textRes.json();
+
+            let combinedData = { ...textData };
+
+            if (imgRes.ok) {
+                const imgData = await imgRes.json();
+                // Merge images into main data
+                combinedData = {
+                    ...combinedData,
+                    profileImage: imgData.profileImage,
+                    heroImage: imgData.heroImage
+                };
+            }
+
+            setPortfolioData(combinedData);
         } catch (error) {
             console.error("Failed to fetch portfolio data", error);
         } finally {
