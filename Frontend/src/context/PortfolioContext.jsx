@@ -15,34 +15,45 @@ export const PortfolioProvider = ({ children }) => {
             // Using VITE_API_URL or fallback to localhost for safety, though VITE_API_URL should be set
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-            // Parallel Fetch: Text Data + Heavy Images
-            // This prevents Vercel Serverless Function timeouts/payload limits on the main request
-            const [textRes, imgRes] = await Promise.all([
-                fetch(`${apiUrl}/api/portfolio`),
-                fetch(`${apiUrl}/api/portfolio/images`)
-            ]);
+            // Fetch Text Data First (Critical)
+            let combinedData = {};
+            try {
+                const textRes = await fetch(`${apiUrl}/api/portfolio`);
+                if (textRes.ok) {
+                    combinedData = await textRes.json();
+                } else {
+                    console.error("Text data fetch failed:", textRes.status);
+                }
+            } catch (err) {
+                console.error("Text fetch network error", err);
+            }
 
-            const textData = await textRes.json();
-
-            let combinedData = { ...textData };
-
-            if (imgRes.ok) {
-                const imgData = await imgRes.json();
-                // Merge images into main data
-                combinedData = {
-                    ...combinedData,
-                    profileImage: imgData.profileImage,
-                    heroImage: imgData.heroImage
-                };
+            // Fetch Images Separately (Non-Critical, Heavy)
+            try {
+                const imgRes = await fetch(`${apiUrl}/api/portfolio/images`);
+                if (imgRes.ok) {
+                    const imgData = await imgRes.json();
+                    combinedData = {
+                        ...combinedData,
+                        profileImage: imgData.profileImage || combinedData.profileImage,
+                        heroImage: imgData.heroImage || combinedData.heroImage
+                    };
+                } else {
+                    console.warn("Images fetch failed:", imgRes.status);
+                }
+            } catch (err) {
+                // Non-blocking error for images
+                console.warn("Image fetch network error", err);
             }
 
             setPortfolioData(combinedData);
         } catch (error) {
-            console.error("Failed to fetch portfolio data", error);
+            console.error("Global fetch error", error);
         } finally {
             setLoading(false);
         }
     };
+
 
     useEffect(() => {
         fetchPortfolioData();
