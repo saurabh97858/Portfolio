@@ -403,21 +403,22 @@ export default Dashboard;
 
 const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [formData, setFormData] = useState({ title: '', link: '', tags: '', description: '', images: '' });
+    const [formData, setFormData] = useState({ title: '', liveLink: '', githubLink: '', tags: '', description: '', images: '' });
     const [editIndex, setEditIndex] = useState(-1);
 
     const openModal = (project = null, idx = -1) => {
         if (project) {
             setFormData({
                 title: project.title,
-                link: project.link,
+                liveLink: project.liveLink || '',
+                githubLink: project.githubLink || '',
                 tags: project.tags ? project.tags.join(', ') : '',
                 description: project.description,
                 images: project.images ? project.images.join(', ') : ''
             });
             setEditIndex(idx);
         } else {
-            setFormData({ title: '', link: '', tags: '', description: '', images: '' });
+            setFormData({ title: '', liveLink: '', githubLink: '', tags: '', description: '', images: '' });
             setEditIndex(-1);
         }
         setIsModalOpen(true);
@@ -546,11 +547,20 @@ const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
 
                                 <div className="grid md:grid-cols-2 gap-5">
                                     <div>
-                                        <label className="label">Live Link / GitHub</label>
+                                        <label className="label">Live Demo URL</label>
                                         <input
-                                            value={formData.link}
-                                            onChange={e => setFormData({ ...formData, link: e.target.value })}
+                                            value={formData.liveLink}
+                                            onChange={e => setFormData({ ...formData, liveLink: e.target.value })}
                                             placeholder="https://..."
+                                            className="input-field w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="label">GitHub Repo URL</label>
+                                        <input
+                                            value={formData.githubLink}
+                                            onChange={e => setFormData({ ...formData, githubLink: e.target.value })}
+                                            placeholder="https://github.com/..."
                                             className="input-field w-full"
                                         />
                                     </div>

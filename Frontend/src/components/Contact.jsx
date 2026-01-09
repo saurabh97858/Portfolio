@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, MessageSquare } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Contact = () => {
+    const { portfolioData } = usePortfolio();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -118,9 +120,9 @@ const Contact = () => {
 
                         {/* Social Links */}
                         <div className="flex gap-6 pt-4">
-                            <SocialButton icon={Github} href="https://github.com/saurabh" />
-                            <SocialButton icon={Linkedin} href="https://linkedin.com/in/saurabh" />
-                            <SocialButton icon={Twitter} href="https://twitter.com/saurabh" />
+                            <SocialButton icon={Github} href={portfolioData?.socialLinks?.github || "https://github.com"} />
+                            <SocialButton icon={Linkedin} href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} />
+                            <SocialButton icon={Twitter} href={portfolioData?.socialLinks?.instagram || "https://instagram.com"} />
                         </div>
                     </motion.div>
 

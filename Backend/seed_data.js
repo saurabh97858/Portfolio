@@ -15,86 +15,108 @@ const seedData = async () => {
         // Initial Data to match the "filled up" portfolio user liked
         const portfolioData = {
             name: 'Saurabh Gupta',
-            role: 'Full Stack & AI Engineer',
-            about: 'Passionate developer bridging the gap between traditional software engineering and cutting-edge AI solutions. Expert in building scalable web applications and intelligent systems.',
-            email: 'saurabhgupta24979@gmail.com',
-            phone: '+91 96967 43829',
-            profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2787&auto=format&fit=crop', // Placeholder Image
+            role: 'Full Stack Developer',
+            education: [
+                {
+                    institution: 'Shaheed Bhagat Singh State University',
+                    batch: '2022-2026',
+                    cgpa: '7'
+                }
+            ],
+            socialLinks: {
+                github: 'https://github.com/saurabh',
+                linkedin: 'https://linkedin.com/in/saurabh',
+                instagram: 'https://instagram.com/saurabh'
+            },
             skills: [
                 {
-                    category: 'Frontend Development',
-                    subtitle: 'Building immersive UIs',
-                    theme: 'blue',
-                    color: 'from-cyan-500 to-blue-500',
-                    mastery: 92,
-                    items: ['React.js', 'Next.js', 'Angular', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
-                    iconName: 'Globe'
-                },
-                {
-                    category: 'Backend Architecture',
-                    subtitle: 'Robust & Scalable Systems',
-                    theme: 'violet',
-                    color: 'from-violet-500 to-purple-500',
-                    mastery: 88,
-                    items: ['Node.js', 'Express', 'Python', 'Django', 'PostgreSQL', 'MongoDB', 'Redis'],
-                    iconName: 'Server'
-                },
-                {
-                    category: 'AI Engineering',
-                    subtitle: 'Intelligent Solutions',
-                    theme: 'rose',
-                    color: 'from-rose-500 to-red-500',
-                    mastery: 85,
-                    items: ['TensorFlow', 'PyTorch', 'OpenAI API', 'LangChain', 'Computer Vision', 'NLP', 'RAG Pipelines'],
-                    iconName: 'Cpu'
-                },
-                {
-                    category: 'Computer Science',
-                    subtitle: 'Core Fundamentals',
-                    theme: 'indigo',
-                    color: 'from-indigo-500 to-blue-600',
+                    category: "Frontend",
+                    subtitle: "Crafting User Interfaces",
                     mastery: 90,
-                    items: ['Data Structures', 'Algorithms', 'System Design', 'OS', 'Networking', 'Distributed Systems'],
-                    iconName: 'Code2'
+                    items: ["React.js", "Next.js", "Tailwind CSS", "Framer Motion", "Redux", "TypeScript"],
+                    iconName: "Globe"
+                },
+                {
+                    category: "Backend",
+                    subtitle: "Server Side Logic",
+                    mastery: 85,
+                    items: ["Node.js", "Express.js", "MongoDB", "PostgreSQL", "REST APIs", "GraphQL"],
+                    iconName: "Server"
+                },
+                {
+                    category: "AI Engineering",
+                    subtitle: "Intelligent Systems",
+                    mastery: 75,
+                    items: ["Python", "TensorFlow", "PyTorch", "NLP", "Computer Vision", "OpenAI API"],
+                    iconName: "Cpu"
+                },
+                {
+                    category: "Computer Science",
+                    subtitle: "Core Fundamentals",
+                    mastery: 80,
+                    items: ["Data Structures", "Algorithms", "OOPs", "DBMS", "OS", "System Design"],
+                    iconName: "Code2"
+                },
+                {
+                    category: "Cloud & DevOps",
+                    subtitle: "Infrastructure & Deployment",
+                    mastery: 70,
+                    items: ["AWS", "Docker", "Kubernetes", "CI/CD", "Linux", "Nginx", "Git"],
+                    iconName: "Server"
+                },
+                {
+                    category: "Programming Languages",
+                    subtitle: "Polyglot Coding",
+                    mastery: 85,
+                    items: ["JavaScript", "Python", "Java", "C++", "TypeScript", "SQL"],
+                    iconName: "Code2"
                 }
             ],
             projects: [
                 {
-                    title: 'Neo-Portfolio',
-                    description: 'A futuristic, glassmorphic personal portfolio built with React, Tailwind CSS, and Framer Motion. Features a custom Admin Dashboard for dynamic content management.',
-                    liveLink: 'https://portfolio-saurabh.vercel.app',
-                    githubLink: 'https://github.com/saurabh/portfolio',
-                    tags: ['React', 'Tailwind', 'Node.js', 'MongoDB']
+                    title: "Nebula AI Chatbot",
+                    description: "An intelligent conversational agent built with OpenAI's GPT-4 API. Features real-time streaming responses, context retention, and a sleek, glassmorphism UI. Designed to assist developers with code snippets and debugging.",
+                    liveLink: "https://github.com/saurabh",
+                    githubLink: "https://github.com/saurabh",
+                    tags: ["React", "Node.js", "OpenAI API", "Tailwind CSS", "Socket.io"]
                 },
                 {
-                    title: 'AI Chat Assistant',
-                    description: 'An intelligent chatbot using RAG (Retrieval Augmented Generation) to answer context-aware queries. Integrated with OpenAI GPT-4.',
-                    liveLink: '#',
-                    githubLink: 'https://github.com/saurabh/ai-chat',
-                    tags: ['Python', 'LangChain', 'OpenAI', 'React']
+                    title: "Quantum E-Commerce",
+                    description: "A full-scale e-commerce platform featuring a modern dashboard, payment integration with Stripe, and real-time order tracking. Built for scalability and performance with a microservices architecture.",
+                    liveLink: "https://github.com/saurabh",
+                    githubLink: "https://github.com/saurabh",
+                    tags: ["Next.js", "PostgreSQL", "Stripe", "Docker", "Redux"]
                 },
                 {
-                    title: 'E-Commerce Platform',
-                    description: 'Full-stack e-commerce solution with real-time inventory, payment gateway integration, and admin analytics dashboard.',
-                    liveLink: '#',
-                    githubLink: 'https://github.com/saurabh/ecommerce',
-                    tags: ['Next.js', 'Stripe', 'PostgreSQL', 'Prisma']
+                    title: "Cyberpunk Portfolio",
+                    description: "A highly interactive, visually stunning personal portfolio website with 3D elements, particle animations, and a retro-futuristic aesthetic. Fully responsive and optimized for SEO.",
+                    liveLink: "https://github.com/saurabh",
+                    githubLink: "https://github.com/saurabh",
+                    tags: ["React", "Three.js", "Framer Motion", "GSAP", "Vite"]
                 }
             ],
-            experience: [
+            experience: [], // Removed dummy experience as requested
+            certifications: [
                 {
-                    role: 'Senior Full Stack Developer',
-                    company: 'Tech Innovations Inc.',
-                    duration: '2023 - Present',
-                    description: 'Leading a team of 5 developers to build enterprise-scale SaaS products. Reduced load times by 40% via edge caching.',
-                    tech: ['React', 'Node.js', 'AWS']
+                    title: "Meta Frontend Developer Professional Certificate",
+                    issuer: "Coursera",
+                    date: "2024",
+                    link: "https://coursera.org",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Meta_Platforms_Inc._logo.svg/1024px-Meta_Platforms_Inc._logo.svg.png"
                 },
                 {
-                    role: 'AI Research Intern',
-                    company: 'Future Labs',
-                    duration: '2022 - 2023',
-                    description: 'Researched and implemented computer vision models for automated quality control in manufacturing.',
-                    tech: ['Python', 'PyTorch', 'OpenCV']
+                    title: "AWS Certified Cloud Practitioner",
+                    issuer: "Amazon Web Services",
+                    date: "2023",
+                    link: "https://aws.amazon.com",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
+                },
+                {
+                    title: "Full Stack Web Development Bootcamp",
+                    issuer: "Udemy",
+                    date: "2023",
+                    link: "https://udemy.com",
+                    image: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 }
             ]
         };

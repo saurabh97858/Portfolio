@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const helmet = require('helmet');
+const compression = require('compression');
 
 dotenv.config();
 
@@ -9,6 +11,8 @@ const app = express();
 
 // Middleware
 // Middleware
+app.use(helmet());
+app.use(compression());
 app.use(cors({
     origin: '*', // Allow all for debugging
     methods: ['GET', 'POST', 'PUT', 'DELETE'],

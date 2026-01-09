@@ -33,9 +33,15 @@ const Hero = () => {
             <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-8 items-center z-20">
                 <div className="w-[2px] h-24 bg-gradient-to-b from-transparent via-violet-500 to-transparent"></div>
                 <div className="flex flex-col gap-6">
-                    <a href="https://github.com/saurabh97858" target="_blank" rel="noopener noreferrer" className="p-3 glass-card rounded-full text-slate-400 hover:text-white hover:bg-violet-600 transition-all hover:scale-110"><Github size={24} /></a>
-                    <a href="https://www.linkedin.com/in/saurabh-gupta-69a499265/" target="_blank" rel="noopener noreferrer" className="p-3 glass-card rounded-full text-slate-400 hover:text-white hover:bg-pink-600 transition-all hover:scale-110"><Linkedin size={24} /></a>
-                    <a href="mailto:saurabhgupta24979@gmail.com" className="p-3 glass-card rounded-full text-slate-400 hover:text-white hover:bg-cyan-600 transition-all hover:scale-110"><Mail size={24} /></a>
+                    <a href={portfolioData?.socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-violet-500/30">
+                        <Github size={24} />
+                    </a>
+                    <a href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full text-slate-400 hover:text-cyan-400 hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-cyan-500/30">
+                        <Linkedin size={24} />
+                    </a>
+                    <a href={`mailto:${portfolioData?.email || "email@example.com"}`} className="p-3 bg-white/5 rounded-full text-slate-400 hover:text-pink-400 hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-pink-500/30">
+                        <Mail size={24} />
+                    </a>
                 </div>
                 <div className="w-[2px] h-24 bg-gradient-to-b from-violet-500 to-transparent"></div>
             </div>
