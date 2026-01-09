@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const projectSchema = new mongoose.Schema({
     title: String,
     description: String,
-    link: String,
+    // link: String, // Deprecated in favor of specific links
+    liveLink: String,
+    githubLink: String,
     images: [String], // Array of image URLs
     tags: [String]
 });

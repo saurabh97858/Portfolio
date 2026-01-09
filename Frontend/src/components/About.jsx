@@ -96,8 +96,16 @@ const About = () => {
                             {/* Avatar / Icon Placeholder - Larger */}
                             <div className="relative group">
                                 <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-2xl opacity-40 animate-pulse group-hover:opacity-60 transition-opacity"></div>
-                                <div className="w-32 h-32 md:w-48 md:h-48 flex-shrink-0 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center p-4 shadow-xl relative z-10 group-hover:scale-105 transition-transform duration-500">
-                                    <User className="text-slate-200" size={64} />
+                                <div className="w-32 h-32 md:w-48 md:h-48 flex-shrink-0 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center overflow-hidden shadow-xl relative z-10 group-hover:scale-105 transition-transform duration-500">
+                                    {aboutData?.profileImage ? (
+                                        <img
+                                            src={aboutData.profileImage}
+                                            alt={aboutData.name || "Profile"}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <User className="text-slate-200" size={64} />
+                                    )}
                                 </div>
                             </div>
 

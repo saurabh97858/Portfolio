@@ -19,6 +19,7 @@ const seedData = async () => {
             about: 'Passionate developer bridging the gap between traditional software engineering and cutting-edge AI solutions. Expert in building scalable web applications and intelligent systems.',
             email: 'saurabhgupta24979@gmail.com',
             phone: '+91 96967 43829',
+            profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2787&auto=format&fit=crop', // Placeholder Image
             skills: [
                 {
                     category: 'Frontend Development',
@@ -61,19 +62,22 @@ const seedData = async () => {
                 {
                     title: 'Neo-Portfolio',
                     description: 'A futuristic, glassmorphic personal portfolio built with React, Tailwind CSS, and Framer Motion. Features a custom Admin Dashboard for dynamic content management.',
-                    link: 'https://github.com/saurabh/portfolio',
+                    liveLink: 'https://portfolio-saurabh.vercel.app',
+                    githubLink: 'https://github.com/saurabh/portfolio',
                     tags: ['React', 'Tailwind', 'Node.js', 'MongoDB']
                 },
                 {
                     title: 'AI Chat Assistant',
                     description: 'An intelligent chatbot using RAG (Retrieval Augmented Generation) to answer context-aware queries. Integrated with OpenAI GPT-4.',
-                    link: '#',
+                    liveLink: '#',
+                    githubLink: 'https://github.com/saurabh/ai-chat',
                     tags: ['Python', 'LangChain', 'OpenAI', 'React']
                 },
                 {
                     title: 'E-Commerce Platform',
                     description: 'Full-stack e-commerce solution with real-time inventory, payment gateway integration, and admin analytics dashboard.',
-                    link: '#',
+                    liveLink: '#',
+                    githubLink: 'https://github.com/saurabh/ecommerce',
                     tags: ['Next.js', 'Stripe', 'PostgreSQL', 'Prisma']
                 }
             ],

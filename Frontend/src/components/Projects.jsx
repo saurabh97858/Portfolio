@@ -193,11 +193,23 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
                 <div className="relative z-10 flex flex-col h-full">
                     {/* Top: Icon & Status */}
                     <div className="flex justify-between items-start mb-6">
-                        <div className="p-3 bg-white/5 rounded-xl text-violet-400 border border-white/10 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <FolderGit2 size={24} />
+                        <div className="flex gap-2">
+                            {/* Code button removed as per user request */}
+                            {project.liveLink && (
+                                <a
+                                    href={project.liveLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="p-3 bg-white/5 rounded-xl text-cyan-400 border border-white/10 shadow-lg hover:bg-white/10 hover:scale-110 transition-all duration-300 z-20 cursor-pointer"
+                                    title="Live Demo"
+                                >
+                                    <ExternalLink size={20} />
+                                </a>
+                            )}
                         </div>
                         <div className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-cyan-400 group-hover:border-cyan-500/20 transition-all">
-                            View Details
+                            Details
                         </div>
                     </div>
 
