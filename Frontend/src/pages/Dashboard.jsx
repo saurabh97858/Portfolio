@@ -1344,31 +1344,46 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                             {formData.education.map((edu, index) => (
                                                 <div key={index} className="grid grid-cols-1 gap-2 bg-white/5 p-3 rounded-xl relative group">
                                                     <input
-                                                        value={edu.degree}
-                                                        onChange={(e) => handleEducationChange(index, 'degree', e.target.value)}
-                                                        className="input-field w-full text-sm"
-                                                        placeholder="Degree"
-                                                    />
-                                                    <input
+
                                                         value={edu.institution}
                                                         onChange={(e) => handleEducationChange(index, 'institution', e.target.value)}
-                                                        className="input-field w-full text-sm"
-                                                        placeholder="Institution"
+                                                        placeholder="Institution Name"
+                                                        className="input-field w-full mb-2"
                                                     />
-                                                    <div className="flex gap-2">
+                                                    <div className="grid grid-cols-2 gap-2 mb-2">
+                                                        <input
+                                                            value={edu.degree}
+                                                            onChange={(e) => handleEducationChange(index, 'degree', e.target.value)}
+                                                            placeholder="Degree (e.g. B.Tech)"
+                                                            className="input-field w-full"
+                                                        />
                                                         <input
                                                             value={edu.year}
                                                             onChange={(e) => handleEducationChange(index, 'year', e.target.value)}
-                                                            className="input-field w-full text-sm"
-                                                            placeholder="Year"
+                                                            placeholder="Year (e.g. 2022 - 2026)"
+                                                            className="input-field w-full"
                                                         />
-                                                        <button
-                                                            onClick={() => handleDeleteEducation(index)}
-                                                            className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20"
-                                                        >
-                                                            <Trash2 size={16} />
-                                                        </button>
                                                     </div>
+                                                    <div className="grid grid-cols-2 gap-2">
+                                                        <input
+                                                            value={edu.batch}
+                                                            onChange={(e) => handleEducationChange(index, 'batch', e.target.value)}
+                                                            placeholder="Batch (Optional)"
+                                                            className="input-field w-full"
+                                                        />
+                                                        <input
+                                                            value={edu.cgpa}
+                                                            onChange={(e) => handleEducationChange(index, 'cgpa', e.target.value)}
+                                                            placeholder="CGPA"
+                                                            className="input-field w-full"
+                                                        />
+                                                    </div>
+                                                    <button
+                                                        onClick={() => handleDeleteEducation(index)}
+                                                        className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </button>
                                                 </div>
                                             ))}
                                         </div>

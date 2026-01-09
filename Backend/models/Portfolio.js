@@ -22,6 +22,8 @@ const portfolioSchema = new mongoose.Schema({
     address: { type: String, default: 'Gallamandi Naubasta, Kanpur Nagar' },
     education: [{
         institution: String,
+        degree: String, // Added field
+        year: String, // Added field (replaces or complements batch)
         batch: String,
         cgpa: String
     }],

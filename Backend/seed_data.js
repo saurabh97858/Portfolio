@@ -19,8 +19,10 @@ const seedData = async () => {
             education: [
                 {
                     institution: 'Shaheed Bhagat Singh State University',
+                    degree: 'B.Tech - Computer Science',
+                    year: '2022 - 2026',
                     batch: '2022-2026',
-                    cgpa: '7'
+                    cgpa: '7.8'
                 }
             ],
             socialLinks: {
