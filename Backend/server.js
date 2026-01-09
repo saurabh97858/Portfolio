@@ -11,7 +11,17 @@ const app = express();
 
 // Middleware
 // Middleware
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            imgSrc: ["'self'", "data:", "https:", "blob:"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // Required for some inline scripts often used in dev
+            connectSrc: ["'self'", "https:", "http://localhost:5000", "ws://localhost:5000"], // Allow connection to backend
+        },
+    },
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 app.use(compression());
 app.use(cors({
     origin: '*', // Allow all for debugging

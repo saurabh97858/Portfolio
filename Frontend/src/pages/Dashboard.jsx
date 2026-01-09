@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { usePortfolio } from '../context/PortfolioContext';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, LayoutDashboard, Database, Settings, MessageSquare, Plus, Trash2, Save, User as UserIcon, Cpu, Briefcase, Pencil, GraduationCap, Menu, X } from 'lucide-react';
@@ -7,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const API_BASE = `${import.meta.env.VITE_API_URL}/api`;
 
 const Dashboard = () => {
+    const { refetch } = usePortfolio();
     const navigate = useNavigate();
     const [admin, setAdmin] = useState(null);
     const [activeTab, setActiveTab] = useState('overview');
@@ -118,6 +120,9 @@ const Dashboard = () => {
                 views: data.views || 0,
                 projects: data.projects?.length || 0
             }));
+
+            // Refetch global context to update public pages immediately
+            if (refetch) refetch();
 
             alert('Updated Successfully!');
         } catch (error) {
