@@ -51,7 +51,7 @@ const Hero = () => {
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="pl-0 md:pl-8 text-center md:text-left px-4 -mt-16 md:mt-0"
+                    className="w-full px-6 md:px-4 pl-0 md:pl-8 text-center md:text-left -mt-16 md:mt-0"
                 >
                     <div className="inline-block px-4 py-2 border border-slate-700 rounded-full bg-slate-900/50 backdrop-blur-sm mb-6 shadow-[0_0_20px_rgba(139,92,246,0.3)]">
                         <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent font-medium flex items-center gap-2">
