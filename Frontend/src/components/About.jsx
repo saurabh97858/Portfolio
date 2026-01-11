@@ -455,17 +455,7 @@ const CertificationDetail = ({ cert, onClose }) => {
                     </span>
                 </div>
 
-                {cert.link && (
-                    <a
-                        href={cert.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-2xl shadow-lg shadow-amber-500/20 transition-all hover:scale-105 font-bold"
-                    >
-                        <ExternalLink size={20} />
-                        Verify Credential
-                    </a>
-                )}
+
             </div>
         </motion.div>
     );
