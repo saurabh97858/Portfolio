@@ -479,11 +479,11 @@ const CertificationDetail = ({ cert, onClose }) => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-md"
+                        className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-4 backdrop-blur-md"
                         onClick={() => setShowFullImage(false)}
                     >
                         <button
-                            className="absolute top-6 right-6 p-4 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors z-[110]"
+                            className="absolute top-6 right-6 p-4 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors z-[10000]"
                             onClick={() => setShowFullImage(false)}
                         >
                             <X size={32} />
