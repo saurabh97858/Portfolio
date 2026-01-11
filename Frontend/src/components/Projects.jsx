@@ -154,7 +154,11 @@ const Projects = () => {
                         <div className="bg-slate-900 p-8 rounded-2xl max-w-2xl w-full relative z-50 border border-white/10">
                             <button onClick={() => setSelectedProject(null)} className="absolute top-4 right-4 text-white"><X /></button>
                             <h2 className="text-2xl font-bold text-white mb-4">{selectedProject.title}</h2>
-                            <img src={projectImages[selectedProject.index % projectImages.length]} className="w-full h-48 object-cover rounded-xl mb-4" />
+                            <img
+                                src={selectedProject.images?.[0] || projectImages[selectedProject.index % projectImages.length]}
+                                className="w-full h-48 object-cover rounded-xl mb-4"
+                                alt={selectedProject.title}
+                            />
                             <p className="text-slate-300 mb-4">{selectedProject.description}</p>
                             <div className="flex gap-2">
                                 {selectedProject.githubLink && <a href={selectedProject.githubLink} target="_blank" className="flex items-center gap-2 text-violet-400"><Github size={16} /> Code</a>}
@@ -169,7 +173,7 @@ const Projects = () => {
 };
 
 const ProjectCard = ({ project, variants, onClick, index }) => {
-    const bgImage = projectImages[index % projectImages.length];
+    const bgImage = project.images?.[0] || projectImages[index % projectImages.length];
 
     return (
         <motion.div
