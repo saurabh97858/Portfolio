@@ -94,7 +94,7 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(2,6,23,0)_0%,rgba(2,6,23,0.8)_100%)] z-0" />
             </div>
 
-            <div className="container mx-auto px-3 md:px-12 max-w-5xl relative z-10">
+            <div className="container mx-auto px-6 md:px-12 max-w-5xl relative z-10">
 
                 {/* Header */}
                 <motion.div
