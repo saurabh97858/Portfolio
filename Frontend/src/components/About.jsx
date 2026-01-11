@@ -156,13 +156,13 @@ const About = () => {
                         </motion.div>
 
                         {/* Education Column & Tech Focus */}
-                        <motion.div variants={itemVariants} className="flex flex-col gap-4 md:gap-6 h-full">
+                        <motion.div variants={itemVariants} className="flex flex-col gap-4 md:gap-6">
 
                             {/* Education */}
-                            <div className="flex flex-col flex-1">
+                            <div className="flex flex-col">
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
 
-                                <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 flex-1">
+                                <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6">
                                     {education.length > 0 ? education.map((edu, idx) => (
                                         <div key={idx} className="border-l-4 border-emerald-500/30 pl-6 py-1 last:mb-0 mb-6 group hover:border-emerald-500/60 transition-colors">
                                             <h4 className="text-xl font-bold text-white mb-1">{edu.institution}</h4>
@@ -421,6 +421,8 @@ const CertificateCard = ({ cert, idx, variants, onClick }) => {
     );
 };
 
+import { createPortal } from 'react-dom';
+
 const CertificationDetail = ({ cert, onClose }) => {
     const [showFullImage, setShowFullImage] = React.useState(false);
 
@@ -472,9 +474,9 @@ const CertificationDetail = ({ cert, onClose }) => {
                 </div>
             </motion.div>
 
-            {/* Full Screen Image Overlay */}
+            {/* Full Screen Image Overlay - Portalled to body */}
             <AnimatePresence>
-                {showFullImage && cert.image && (
+                {showFullImage && cert.image && createPortal(
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -483,18 +485,19 @@ const CertificationDetail = ({ cert, onClose }) => {
                         onClick={() => setShowFullImage(false)}
                     >
                         <button
-                            className="absolute top-6 right-6 p-4 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors z-[10000]"
-                            onClick={() => setShowFullImage(false)}
+                            className="fixed top-6 right-6 p-4 bg-red-600 hover:bg-red-700 rounded-full text-white shadow-lg transition-all z-[10000] hover:scale-110 active:scale-95"
+                            onClick={(e) => { e.stopPropagation(); setShowFullImage(false); }}
                         >
                             <X size={32} />
                         </button>
                         <img
                             src={cert.image}
                             alt={cert.title}
-                            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image itself
+                            className="max-w-[95vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
                         />
-                    </motion.div>
+                    </motion.div>,
+                    document.body
                 )}
             </AnimatePresence>
         </>
