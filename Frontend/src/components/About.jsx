@@ -182,48 +182,29 @@ const About = () => {
                                 </SpotlightCard>
                             </div>
 
-                            {/* Tech Stack Summary (Large) */}
-                            <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 flex-1 flex flex-col justify-center relative overflow-hidden group">
-                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            {/* Certifications (Moved here) */}
+                            {certifications.length > 0 && (
+                                <div className="flex flex-col flex-1">
+                                    <SectionTitle icon={Award} title="Certifications" color="amber" />
 
-                                <div className="flex flex-col xl:flex-row items-center justify-between gap-6 relative z-10 w-full">
-                                    <div className="text-center xl:text-left">
-                                        <h4 className="text-xl font-bold text-white mb-2">My Tech Stack</h4>
-                                        <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
-                                            Architecting scalable solutions with a modern, performance-first ecosystem.
-                                        </p>
-                                    </div>
-                                    <div className="grid grid-cols-4 gap-4">
-                                        {[Globe, Server, Cpu, Terminal].map((Icon, i) => (
-                                            <div key={i} className="w-12 h-12 bg-slate-950/50 rounded-xl flex items-center justify-center text-slate-300 border border-white/10 group-hover:scale-110 transition-all shadow-md group-hover:text-white group-hover:border-white/20">
-                                                <Icon size={24} />
-                                            </div>
+                                    <div className="grid grid-cols-1 gap-4 flex-1">
+                                        {certifications.map((cert, idx) => (
+                                            <CertificateCard
+                                                key={idx}
+                                                cert={cert}
+                                                idx={idx}
+                                                variants={itemVariants}
+                                                onClick={() => setSelectedCert(cert)}
+                                            />
                                         ))}
                                     </div>
                                 </div>
-                            </SpotlightCard>
+                            )}
 
                         </motion.div>
                     </div>
 
-                    {/* 3. CERTIFICATIONS SECTION */}
-                    {certifications.length > 0 && (
-                        <div className="mt-6">
-                            <SectionTitle icon={Award} title="Certifications" color="amber" />
 
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                                {certifications.map((cert, idx) => (
-                                    <CertificateCard
-                                        key={idx}
-                                        cert={cert}
-                                        idx={idx}
-                                        variants={itemVariants}
-                                        onClick={() => setSelectedCert(cert)}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    )}
                 </motion.div>
 
                 {/* Full Screen Overlay for Certifications */}
