@@ -126,7 +126,7 @@ const About = () => {
                     </SpotlightCard>
 
                     {/* 2. SPLIT SECTION: Experience & Education */}
-                    <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-stretch">
+                    <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-start">
 
                         {/* Experience Column */}
                         <motion.div variants={itemVariants} className="flex flex-col h-full">
