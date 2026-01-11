@@ -102,14 +102,24 @@ const Dashboard = () => {
 
     const updatePortfolio = async (updates) => {
         const token = localStorage.getItem('adminToken');
+
+        // Check Payload Size Client-Side (Vercel limit ~4.5MB)
         try {
+            const payload = JSON.stringify(updates);
+            const payloadSizeMB = new Blob([payload]).size / (1024 * 1024);
+
+            if (payloadSizeMB > 4.0) {
+                alert(`Upload Failed: Data size (${payloadSizeMB.toFixed(2)}MB) exceeds Vercel's 4.5MB limit. Please compress images.`);
+                return;
+            }
+
             const res = await fetch(`${API_BASE}/portfolio`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(updates)
+                body: payload
             });
             const data = await res.json();
             setPortfolioData(data);
@@ -126,7 +136,8 @@ const Dashboard = () => {
 
             alert('Updated Successfully!');
         } catch (error) {
-            alert('Update Failed');
+            console.error('Update Failed:', error);
+            alert(`Update Failed: ${error.message}`);
         }
     };
 
