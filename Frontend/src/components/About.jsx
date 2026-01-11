@@ -126,7 +126,7 @@ const About = () => {
                     </SpotlightCard>
 
                     {/* 2. SPLIT SECTION: Experience & Education */}
-                    <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-start">
+                    <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-stretch">
 
                         {/* Experience Column */}
                         <motion.div variants={itemVariants} className="flex flex-col h-full">
@@ -156,7 +156,7 @@ const About = () => {
                         </motion.div>
 
                         {/* Education Column & Tech Focus */}
-                        <motion.div variants={itemVariants} className="flex flex-col gap-4 md:gap-6">
+                        <motion.div variants={itemVariants} className="flex flex-col gap-4 md:gap-6 h-full">
 
                             {/* Education */}
                             <div className="flex flex-col">
@@ -183,21 +183,23 @@ const About = () => {
                             </div>
 
                             {/* Tech Stack Summary (Large) */}
-                            <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 flex flex-col xl:flex-row items-center justify-between gap-6 relative overflow-hidden group">
+                            <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 flex-1 flex flex-col justify-center relative overflow-hidden group">
                                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                                <div className="text-center xl:text-left relative z-10">
-                                    <h4 className="text-xl font-bold text-white mb-2">My Tech Stack</h4>
-                                    <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
-                                        Architecting scalable solutions with a modern, performance-first ecosystem.
-                                    </p>
-                                </div>
-                                <div className="grid grid-cols-4 gap-4 relative z-10">
-                                    {[Globe, Server, Cpu, Terminal].map((Icon, i) => (
-                                        <div key={i} className="w-12 h-12 bg-slate-950/50 rounded-xl flex items-center justify-center text-slate-300 border border-white/10 group-hover:scale-110 transition-all shadow-md group-hover:text-white group-hover:border-white/20">
-                                            <Icon size={24} />
-                                        </div>
-                                    ))}
+                                <div className="flex flex-col xl:flex-row items-center justify-between gap-6 relative z-10 w-full">
+                                    <div className="text-center xl:text-left">
+                                        <h4 className="text-xl font-bold text-white mb-2">My Tech Stack</h4>
+                                        <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
+                                            Architecting scalable solutions with a modern, performance-first ecosystem.
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-4 gap-4">
+                                        {[Globe, Server, Cpu, Terminal].map((Icon, i) => (
+                                            <div key={i} className="w-12 h-12 bg-slate-950/50 rounded-xl flex items-center justify-center text-slate-300 border border-white/10 group-hover:scale-110 transition-all shadow-md group-hover:text-white group-hover:border-white/20">
+                                                <Icon size={24} />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </SpotlightCard>
 
