@@ -422,42 +422,82 @@ const CertificateCard = ({ cert, idx, variants, onClick }) => {
 };
 
 const CertificationDetail = ({ cert, onClose }) => {
+    const [showFullImage, setShowFullImage] = React.useState(false);
+
     return (
-        <motion.div
-            layoutId={`cert-card-${cert?.index}`}
-            className="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden z-50 backdrop-blur-xl flex flex-col"
-        >
-            <button
-                onClick={(e) => { e.stopPropagation(); onClose(); }}
-                className="absolute top-6 right-6 z-50 p-3 rounded-full bg-black/20 hover:bg-white/10 text-white/70 hover:text-white transition-all backdrop-blur-md border border-white/5"
+        <>
+            <motion.div
+                layoutId={`cert-card-${cert?.index}`}
+                className="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden z-50 backdrop-blur-xl flex flex-col"
             >
-                <X size={24} />
-            </button>
+                <button
+                    onClick={(e) => { e.stopPropagation(); onClose(); }}
+                    className="absolute top-6 right-6 z-50 p-3 rounded-full bg-black/20 hover:bg-white/10 text-white/70 hover:text-white transition-all backdrop-blur-md border border-white/5"
+                >
+                    <X size={24} />
+                </button>
 
-            <div className="relative p-10 flex flex-col items-center text-center bg-gradient-to-b from-amber-500/5 to-transparent">
-                <div className="w-32 h-32 rounded-3xl bg-white/5 p-6 flex items-center justify-center border border-white/10 shadow-2xl mb-8">
-                    {cert.image ? (
-                        <img src={cert.image} alt={cert.issuer} className="w-full h-full object-contain" />
-                    ) : (
-                        <Award className="text-amber-400" size={64} />
-                    )}
+                <div className="relative p-10 flex flex-col items-center text-center bg-gradient-to-b from-amber-500/5 to-transparent">
+                    <div
+                        className="w-32 h-32 rounded-3xl bg-white/5 p-6 flex items-center justify-center border border-white/10 shadow-2xl mb-8 cursor-pointer group relative overflow-hidden transition-transform hover:scale-105"
+                        onClick={() => setShowFullImage(true)}
+                    >
+                        {cert.image ? (
+                            <>
+                                <img src={cert.image} alt={cert.issuer} className="w-full h-full object-contain" />
+                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                    <span className="text-xs font-bold text-white uppercase tracking-wider">Tap to View</span>
+                                </div>
+                            </>
+                        ) : (
+                            <Award className="text-amber-400" size={64} />
+                        )}
+                    </div>
+
+                    <p className="text-xs text-slate-500 mb-2 animate-pulse">Tap logo to view certificate</p>
+
+                    <h2 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight">
+                        {cert.title}
+                    </h2>
+                    <p className="text-xl text-amber-400 font-medium mb-8">{cert.issuer}</p>
+
+                    <div className="flex items-center gap-4 text-sm font-mono text-slate-400 mb-8">
+                        <span className="bg-white/5 px-4 py-2 rounded-xl border border-white/5 flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                            Issued: {cert.date}
+                        </span>
+                    </div>
+
+
                 </div>
+            </motion.div>
 
-                <h2 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight">
-                    {cert.title}
-                </h2>
-                <p className="text-xl text-amber-400 font-medium mb-8">{cert.issuer}</p>
-
-                <div className="flex items-center gap-4 text-sm font-mono text-slate-400 mb-8">
-                    <span className="bg-white/5 px-4 py-2 rounded-xl border border-white/5 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                        Issued: {cert.date}
-                    </span>
-                </div>
-
-
-            </div>
-        </motion.div>
+            {/* Full Screen Image Overlay */}
+            <AnimatePresence>
+                {showFullImage && cert.image && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-md"
+                        onClick={() => setShowFullImage(false)}
+                    >
+                        <button
+                            className="absolute top-6 right-6 p-4 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors z-[110]"
+                            onClick={() => setShowFullImage(false)}
+                        >
+                            <X size={32} />
+                        </button>
+                        <img
+                            src={cert.image}
+                            alt={cert.title}
+                            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image itself
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 };
 
