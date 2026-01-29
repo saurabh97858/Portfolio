@@ -117,7 +117,7 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="relative hidden lg:block"
                 >
-                    <div className="w-full max-w-[320px] mx-auto relative">
+                    <div className="w-full max-w-[320px] mx-auto lg:mx-0 lg:ml-12 relative">
                         {/* Abstract tech background */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-tr from-violet-600/20 to-pink-600/20 rounded-full blur-[60px] animate-pulse-slow"></div>
 
