@@ -50,8 +50,8 @@ const About = () => {
                 <MeteorEffect number={20} />
             </div>
 
-            {/* Main Container - Widened to max-w-6xl and centered */}
-            <div className="w-full max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+            {/* Main Container - Widened to max-w-5xl and centered */}
+            <div className="w-full max-w-5xl mx-auto px-8 md:px-16 relative z-10">
 
                 {/* Header - Premium & Compact */}
                 <motion.div
