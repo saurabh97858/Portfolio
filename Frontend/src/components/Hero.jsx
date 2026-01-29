@@ -94,20 +94,11 @@ const Hero = () => {
                         </button>
                     </div>
 
-                    {/* Stats Section */}
-                    <div className="grid grid-cols-3 gap-6 md:gap-10 w-full max-w-md border-t border-slate-800 pt-6">
-                        <div>
-                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">2+</h3>
-                            <p className="text-slate-500 uppercase tracking-wider text-xs font-medium">Years Exp.</p>
-                        </div>
-                        <div>
-                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">15+</h3>
-                            <p className="text-slate-500 uppercase tracking-wider text-xs font-medium">Projects</p>
-                        </div>
-                        <div>
-                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">10+</h3>
-                            <p className="text-slate-500 uppercase tracking-wider text-xs font-medium">Clients</p>
-                        </div>
+                    {/* Description Section */}
+                    <div className="w-full max-w-lg border-t border-slate-800 pt-6">
+                        <p className="text-slate-400 text-lg leading-relaxed font-light">
+                            Bridging the gap between <span className="text-cyan-400 font-medium">Development</span> and <span className="text-violet-400 font-medium">Operations</span>. I architect robust <span className="text-white font-medium">Full Stack</span> systems and streamline workflows with modern <span className="text-pink-400 font-medium">DevOps</span> practices.
+                        </p>
                     </div>
                 </motion.div>
 
