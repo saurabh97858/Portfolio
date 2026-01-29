@@ -18,7 +18,7 @@ const Navbar = () => {
         <nav className="fixed top-0 left-0 w-full z-[999] bg-slate-950 border-b border-white/5 py-6">
             <div className="w-full px-6 md:px-12 h-full flex justify-between items-center relative">
                 {/* Logo Section */}
-                <div className="flex items-center gap-2 font-bold text-3xl cursor-pointer">
+                <div className="flex items-center gap-2 font-bold text-3xl cursor-pointer ml-4 md:ml-8">
                     <Code2 className="text-violet-500 w-10 h-10" />
                     <span className="tracking-tight">Saurabh Gupta<span className="text-violet-500">.</span></span>
                 </div>
