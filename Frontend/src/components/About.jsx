@@ -50,8 +50,8 @@ const About = () => {
                 <MeteorEffect number={20} />
             </div>
 
-            {/* Main Container - Widened to max-w-6xl and centered */}
-            <div className="container mx-auto px-8 md:px-24 max-w-7xl w-full relative z-10">
+            {/* Main Container - Widened to max-w-7xl and centered */}
+            <div className="container mx-auto px-10 md:px-32 max-w-7xl w-full relative z-10">
 
                 {/* Header - Premium & Compact */}
                 <motion.div
@@ -86,7 +86,7 @@ const About = () => {
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {/* 1. HERO BIO SECTION (Spotlight Card) */}
-                    <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 from-violet-500/20 via-slate-900 to-slate-900">
+                    <SpotlightCard className="rounded-xl p-4 md:p-6 from-violet-500/20 via-slate-900 to-slate-900">
                         {/* Decorative Elements */}
                         <div className="absolute top-0 right-0 p-8 opacity-5 transition-opacity transform rotate-12 scale-125 pointer-events-none">
                             <Terminal size={200} />
@@ -132,7 +132,7 @@ const About = () => {
                         <motion.div variants={itemVariants} className="flex flex-col h-full">
                             <SectionTitle icon={Briefcase} title="Experience" color="violet" />
 
-                            <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6 h-full flex flex-col">
+                            <SpotlightCard className="rounded-xl p-4 md:p-6 h-full flex flex-col">
                                 <div className="space-y-8 flex-1">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
                                         <div key={idx} className="relative group/item pl-4 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
@@ -162,7 +162,7 @@ const About = () => {
                             <div className="flex flex-col">
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
 
-                                <SpotlightCard className="rounded-[1.5rem] p-4 md:p-6">
+                                <SpotlightCard className="rounded-xl p-4 md:p-6">
                                     {education.length > 0 ? education.map((edu, idx) => (
                                         <div key={idx} className="border-l-4 border-emerald-500/30 pl-6 py-1 last:mb-0 mb-6 group hover:border-emerald-500/60 transition-colors">
                                             <h4 className="text-xl font-bold text-white mb-1">{edu.institution}</h4>
@@ -365,7 +365,7 @@ const CertificateCard = ({ cert, idx, variants, onClick }) => {
             onClick={onClick}
             className="h-full"
         >
-            <SpotlightCard className="rounded-3xl p-6 flex flex-col gap-4 cursor-pointer h-full group">
+            <SpotlightCard className="rounded-xl p-6 flex flex-col gap-4 cursor-pointer h-full group">
                 <div className="flex justify-between items-start">
                     <motion.div
                         layoutId={`cert-icon-${idx}`}
