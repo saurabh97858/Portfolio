@@ -24,7 +24,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Desktop Menu - Centered */}
-                <div className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
+                <div className="hidden md:flex items-center gap-8 absolute left-[55%] top-1/2 -translate-y-1/2 -translate-x-1/2">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
