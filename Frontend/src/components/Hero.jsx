@@ -24,41 +24,43 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-4">
-            {/* Background Glows (Optional, reduced opacity for cleaner look) */}
-            <div className="absolute top-20 left-10 w-72 h-72 bg-violet-600/10 rounded-full blur-[100px] animate-pulse pointer-events-none" />
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/10 rounded-full blur-[100px] animate-pulse delay-700 pointer-events-none" />
+        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-32 md:pt-40">
+            {/* Background Glows */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[120px] animate-pulse pointer-events-none mix-blend-screen" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pink-600/20 rounded-full blur-[120px] animate-pulse delay-700 pointer-events-none mix-blend-screen" />
 
-            {/* Left Sidebar - Social Links */}
-            <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-8 items-center z-20">
-                <div className="w-[2px] h-24 bg-gradient-to-b from-transparent via-violet-500 to-transparent"></div>
+            {/* Left Sidebar - Social Links (Adjusted for new layout) */}
+            <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden 2xl:flex flex-col gap-8 items-center z-20">
+                <div className="w-[2px] h-32 bg-gradient-to-b from-transparent via-violet-500 to-transparent"></div>
                 <div className="flex flex-col gap-6">
-                    <a href={portfolioData?.socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-violet-500/30">
-                        <Github size={24} />
+                    <a href={portfolioData?.socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-violet-500/30">
+                        <Github size={28} />
                     </a>
-                    <a href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full text-slate-400 hover:text-cyan-400 hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-cyan-500/30">
-                        <Linkedin size={24} />
+                    <a href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 rounded-full text-slate-400 hover:text-cyan-400 hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-cyan-500/30">
+                        <Linkedin size={28} />
                     </a>
-                    <a href={`mailto:${portfolioData?.email || "email@example.com"}`} className="p-3 bg-white/5 rounded-full text-slate-400 hover:text-pink-400 hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-pink-500/30">
-                        <Mail size={24} />
+                    <a href={`mailto:${portfolioData?.email || "email@example.com"}`} className="p-4 bg-white/5 rounded-full text-slate-400 hover:text-pink-400 hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-pink-500/30">
+                        <Mail size={28} />
                     </a>
                 </div>
-                <div className="w-[2px] h-24 bg-gradient-to-b from-violet-500 to-transparent"></div>
+                <div className="w-[2px] h-32 bg-gradient-to-b from-violet-500 to-transparent"></div>
             </div>
 
-            <div className="section-container relative z-10 w-full grid md:grid-cols-2 gap-12 items-center">
+            <div className="container mx-auto px-6 md:px-12 relative z-10 w-full grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-100px)]">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="w-full px-6 md:px-4 pl-0 md:pl-8 text-center md:text-left -mt-16 md:mt-0"
+                    className="w-full text-center lg:text-left flex flex-col items-center lg:items-start"
                 >
-                    <div className="inline-block px-4 py-2 border border-slate-700 rounded-full bg-slate-900/50 backdrop-blur-sm mb-6 shadow-[0_0_20px_rgba(139,92,246,0.3)]">
-                        <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent font-medium flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Available for work
+                    <div className="inline-block px-5 py-2 border border-slate-700 rounded-full bg-slate-900/50 backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(139,92,246,0.2)]">
+                        <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent font-semibold text-base flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
+                            Available for freelance work
                         </span>
                     </div>
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-4 tracking-tight min-h-[90px] md:min-h-[auto]">
+
+                    <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 tracking-tight">
                         Architecting <br />
                         <motion.span
                             key={textIndex}
@@ -66,23 +68,46 @@ const Hero = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.5 }}
-                            className="gradient-text text-glow inline-block"
+                            className="bg-gradient-to-r from-violet-500 via-pink-500 to-orange-500 bg-clip-text text-transparent inline-block pb-1"
                         >
                             {words[textIndex]}
                         </motion.span> <br />
-                        Solutions.
+                        <span className="text-white">Solutions.</span>
                     </h1>
-                    <p className="text-slate-400 text-sm md:text-base mb-6 max-w-lg leading-relaxed">
-                        I specialize in building high-performance, secure, and scalable web applications using modern technologies like MERN Stack and Next.js.
+
+                    <p className="text-slate-400 text-base md:text-lg mb-8 max-w-xl leading-relaxed font-light">
+                        I specialize in building <span className="text-violet-300 font-medium">high-performance</span>, <span className="text-pink-300 font-medium">secure</span>, and <span className="text-cyan-300 font-medium">scalable</span> web applications using the modern MERN ecosystem.
                     </p>
 
-                    <div className="flex flex-wrap gap-6 relative z-50">
+                    <div className="flex flex-wrap gap-4 justify-center lg:justify-start mb-12">
                         <button
                             onClick={() => navigate('/projects')}
-                            className="btn-primary flex items-center gap-3 text-lg px-8 py-4 group pointer-events-auto"
+                            className="bg-white text-slate-950 hover:bg-violet-50 font-bold text-lg px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
                         >
-                            View My Work <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            View Projects <ArrowRight size={20} />
                         </button>
+                        <button
+                            onClick={() => navigate('/contact')}
+                            className="bg-slate-800/50 text-white font-bold text-lg px-8 py-4 rounded-full border border-slate-700 hover:bg-slate-800 hover:border-violet-500/50 transition-all hover:scale-105 active:scale-95"
+                        >
+                            Contact Me
+                        </button>
+                    </div>
+
+                    {/* Stats Section */}
+                    <div className="grid grid-cols-3 gap-6 md:gap-10 w-full max-w-md border-t border-slate-800 pt-6">
+                        <div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">2+</h3>
+                            <p className="text-slate-500 uppercase tracking-wider text-xs font-medium">Years Exp.</p>
+                        </div>
+                        <div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">15+</h3>
+                            <p className="text-slate-500 uppercase tracking-wider text-xs font-medium">Projects</p>
+                        </div>
+                        <div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">10+</h3>
+                            <p className="text-slate-500 uppercase tracking-wider text-xs font-medium">Clients</p>
+                        </div>
                     </div>
                 </motion.div>
 
@@ -90,44 +115,51 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="relative animate-float"
+                    className="relative hidden lg:block"
                 >
-                    {/* Abstract tech background */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/30 to-pink-600/30 rounded-full blur-[60px] animate-pulse"></div>
+                    <div className="w-full max-w-[320px] mx-auto relative">
+                        {/* Abstract tech background */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-tr from-violet-600/20 to-pink-600/20 rounded-full blur-[60px] animate-pulse-slow"></div>
 
-                    {/* Main Hero Image - Dynamic */}
-                    <div className="relative z-10 w-full max-w-[280px] mx-auto group perspective-1000">
-                        <div className="relative transform transition-transform duration-500 group-hover:rotate-y-6 group-hover:rotate-x-6 preserve-3d">
-                            <img
-                                src={heroImgSrc}
-                                alt="Saurabh Gupta"
-                                className="w-full h-auto aspect-square object-cover object-center rounded-2xl shadow-2xl border border-slate-700/50 relative z-20"
-                            />
+                        {/* Main Hero Image - Scaled Down & Right Aligned */}
+                        <div className="relative z-10 w-full group perspective-1000">
+                            <div className="relative transform transition-transform duration-700 group-hover:rotate-y-3 group-hover:rotate-x-3 preserve-3d">
+                                <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-pink-600 rounded-[2rem] transform rotate-6 scale-105 opacity-30 group-hover:rotate-12 transition-transform duration-700"></div>
+                                <img
+                                    src={heroImgSrc}
+                                    alt="Saurabh Gupta"
+                                    className="w-full h-auto aspect-[4/5] object-cover object-top rounded-[2rem] shadow-2xl border border-slate-700/50 relative z-20"
+                                />
 
-                            {/* Floating Tech Icons */}
-                            <motion.div
-                                animate={{ y: [0, -10, 0] }}
-                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute -right-6 top-10 bg-slate-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-700 shadow-xl z-30"
-                            >
-                                <Code2 className="text-cyan-400" size={32} />
-                            </motion.div>
+                                {/* Floating Tech Cards */}
+                                <motion.div
+                                    animate={{ y: [0, -15, 0] }}
+                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                    className="absolute -right-8 top-16 bg-slate-900/90 backdrop-blur-xl p-4 rounded-xl border border-slate-700 shadow-xl z-30 flex items-center gap-3"
+                                >
+                                    <div className="p-2 bg-cyan-500/20 rounded-lg">
+                                        <Code2 className="text-cyan-400" size={24} />
+                                    </div>
+                                    <div>
+                                        <p className="text-slate-400 text-[10px] font-bold uppercase">Stack</p>
+                                        <p className="text-white text-sm font-bold">Full MERN</p>
+                                    </div>
+                                </motion.div>
 
-                            <motion.div
-                                animate={{ y: [0, 15, 0] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                className="absolute -left-6 bottom-20 bg-slate-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-700 shadow-xl z-30"
-                            >
-                                <Database className="text-green-400" size={32} />
-                            </motion.div>
-
-                            <motion.div
-                                animate={{ x: [0, 10, 0] }}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                                className="absolute right-10 bottom-10 bg-slate-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-700 shadow-xl z-30 hidden md:block"
-                            >
-                                <Globe className="text-violet-400" size={32} />
-                            </motion.div>
+                                <motion.div
+                                    animate={{ y: [0, 20, 0] }}
+                                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                    className="absolute -left-8 bottom-24 bg-slate-900/90 backdrop-blur-xl p-4 rounded-xl border border-slate-700 shadow-xl z-30 flex items-center gap-3"
+                                >
+                                    <div className="p-2 bg-green-500/20 rounded-lg">
+                                        <Database className="text-green-400" size={24} />
+                                    </div>
+                                    <div>
+                                        <p className="text-slate-400 text-[10px] font-bold uppercase">Backend</p>
+                                        <p className="text-white text-sm font-bold">Scalable</p>
+                                    </div>
+                                </motion.div>
+                            </div>
                         </div>
                     </div>
                 </motion.div>

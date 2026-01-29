@@ -15,20 +15,21 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-[999] bg-slate-950 border-b border-white/5 py-4">
-            <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                <div className="flex items-center gap-2 font-bold text-2xl cursor-pointer">
-                    <Code2 className="text-violet-500 w-8 h-8" />
+        <nav className="fixed top-0 left-0 w-full z-[999] bg-slate-950 border-b border-white/5 py-6">
+            <div className="container mx-auto px-6 md:px-12 h-full flex justify-between items-center relative">
+                {/* Logo Section */}
+                <div className="flex items-center gap-2 font-bold text-3xl cursor-pointer">
+                    <Code2 className="text-violet-500 w-10 h-10" />
                     <span className="tracking-tight">Saurabh Gupta<span className="text-violet-500">.</span></span>
                 </div>
 
-                {/* Desktop Menu & Admin Logo */}
-                <div className="hidden md:flex items-center gap-8">
+                {/* Desktop Menu - Centered */}
+                <div className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             to={link.to}
-                            className={`font-medium cursor-pointer transition-colors ${location.pathname === link.to
+                            className={`text-lg font-medium cursor-pointer transition-colors ${location.pathname === link.to
                                 ? 'text-violet-400'
                                 : 'text-slate-300 hover:text-violet-400'
                                 }`}
@@ -36,12 +37,14 @@ const Navbar = () => {
                             {link.name}
                         </Link>
                     ))}
+                </div>
 
-                    {/* Admin Dropdown/Logo */}
+                {/* Admin/User Section - Right Aligned */}
+                <div className="hidden md:flex items-center gap-6">
                     <div className="pl-6 border-l border-slate-800/50">
                         <a
                             href="/login"
-                            className="w-10 h-10 rounded-full bg-gradient-to-tr from-violet-600 to-pink-600 flex items-center justify-center text-white font-bold text-sm hover:scale-110 transition-transform cursor-pointer shadow-lg shadow-violet-500/20 group relative"
+                            className="w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-pink-600 flex items-center justify-center text-white font-bold text-xs hover:scale-110 transition-transform cursor-pointer shadow-lg shadow-violet-500/20 group relative"
                         >
                             SG
                             <span className="absolute -bottom-10 right-0 text-xs bg-slate-900 border border-slate-700 text-slate-300 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
