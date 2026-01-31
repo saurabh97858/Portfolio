@@ -77,95 +77,85 @@ const About = () => {
                     </p>
                 </motion.div>
 
-                <div className="flex flex-col gap-16 md:gap-24 relative" style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}>
+                <div className="flex flex-col gap-8 md:gap-12 relative" style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}>
 
-                    {/* SECTION 1: BIO (Left) - Right Empty */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <motion.div
-                            variants={containerVariants}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            className="relative group"
-                        >
-                            <SpotlightCard className="rounded-xl p-6 md:p-8 from-violet-500/20 via-slate-900 to-slate-900 h-full border-l-4 border-l-violet-500/40">
-                                {/* Decorative Elements */}
-                                <div className="absolute top-0 right-0 p-8 opacity-5 transition-opacity transform rotate-12 scale-125 pointer-events-none">
-                                    <Terminal size={200} />
+                    {/* SECTION 1: BIO (Full Width) */}
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
+                        <SpotlightCard className="rounded-xl p-6 md:p-8 from-violet-500/20 via-slate-900 to-slate-900 border-l-4 border-l-violet-500/40">
+                            {/* Decorative Elements */}
+                            <div className="absolute top-0 right-0 p-8 opacity-5 transition-opacity transform rotate-12 scale-125 pointer-events-none">
+                                <Terminal size={200} />
+                            </div>
+
+                            <div className="flex flex-col md:flex-row gap-8 items-center relative z-10">
+                                <div className="relative group/avatar shrink-0">
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-xl opacity-40 animate-pulse group-hover/avatar:opacity-60 transition-opacity"></div>
+                                    <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center overflow-hidden shadow-xl relative z-10 group-hover/avatar:scale-105 transition-transform duration-500">
+                                        {aboutData?.profileImage ? (
+                                            <img
+                                                src={aboutData.profileImage}
+                                                alt={aboutData.name || "Profile"}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <User className="text-slate-200" size={50} />
+                                        )}
+                                    </div>
                                 </div>
 
-                                <div className="flex flex-col gap-6 relative z-10">
-                                    <div className="flex items-center gap-6">
-                                        <div className="relative group/avatar">
-                                            <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-xl opacity-40 animate-pulse group-hover/avatar:opacity-60 transition-opacity"></div>
-                                            <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 rounded-full bg-slate-950 border-2 border-white/10 flex items-center justify-center overflow-hidden shadow-xl relative z-10 group-hover/avatar:scale-105 transition-transform duration-500">
-                                                {aboutData?.profileImage ? (
-                                                    <img
-                                                        src={aboutData.profileImage}
-                                                        alt={aboutData.name || "Profile"}
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                ) : (
-                                                    <User className="text-slate-200" size={40} />
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-white leading-tight">
-                                                <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">{aboutData?.name || 'Saurabh'}</span>
-                                            </h3>
-                                            <p className="text-slate-400 text-sm font-mono mt-1">Full Stack Developer</p>
-                                        </div>
-                                    </div>
-
-                                    <p className="text-base text-slate-300 leading-relaxed font-light">
+                                <div className="text-center md:text-left">
+                                    <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-4">
+                                        Hi, I'm <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">{aboutData?.name || 'Saurabh'}</span>.
+                                    </h3>
+                                    <p className="text-base md:text-lg text-slate-300 leading-relaxed font-light mb-6">
                                         {aboutData?.about || defaultBio}
                                     </p>
 
-                                    <div className="pt-4 flex flex-wrap gap-4">
+                                    <div className="flex flex-wrap justify-center md:justify-start gap-4">
                                         <StatsBadge icon={Code2} value={`${aboutData?.projects?.length || 5}+`} label="Projects" color="cyan" />
                                         <StatsBadge icon={Briefcase} value="2+" label="Years Exp." color="violet" />
                                     </div>
                                 </div>
-                            </SpotlightCard>
-                        </motion.div>
-                        {/* Empty Right Column */}
-                        <div className="hidden md:block"></div>
-                    </div>
+                            </div>
+                        </SpotlightCard>
+                    </motion.div>
 
-                    {/* SECTION 2: EXPERIENCE (Right) - Left Empty */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        {/* Empty Left Column */}
-                        <div className="hidden md:block"></div>
+                    {/* SECTION 2: SPLIT VIEW (Experience Left, Education Right) */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
 
+                        {/* Experience Column */}
                         <motion.div
                             variants={itemVariants}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
+                            className="flex flex-col h-full"
                         >
                             <SectionTitle icon={Briefcase} title="Experience" color="violet" />
-                            <SpotlightCard className="rounded-xl p-6 md:p-8 h-full border-r-4 border-r-cyan-500/40">
-                                <div className="space-y-10">
+                            <SpotlightCard className="rounded-xl p-6 md:p-8 h-full border-t-4 border-t-violet-500/40 flex flex-col">
+                                <div className="space-y-8">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
-                                        <div key={idx} className="relative group/item">
-                                            {/* Simplified Timeline Line */}
-                                            {idx !== experiences.length - 1 && (
-                                                <div className="absolute left-[3px] top-8 bottom-[-40px] w-[2px] bg-slate-800 group-hover/item:bg-violet-900/50 transition-colors"></div>
-                                            )}
+                                        <div key={idx} className="relative group/item pl-6 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
+                                            {/* Timeline Dot */}
+                                            <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-800 group-hover/item:bg-violet-500 transition-colors border border-slate-600"></div>
 
                                             <div className="flex flex-col gap-2">
-                                                <div className="flex items-baseline justify-between">
+                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
                                                     <h4 className="text-lg font-bold text-white group-hover/item:text-violet-400 transition-colors">{exp.role}</h4>
-                                                    <span className="text-xs font-mono text-slate-500">{exp.duration}</span>
+                                                    <span className="text-xs font-mono text-slate-500 bg-white/5 px-2 py-1 rounded">{exp.duration}</span>
                                                 </div>
 
-                                                <div className="text-cyan-400 text-xs font-bold uppercase tracking-wider flex items-center gap-2 mb-1">
+                                                <div className="text-cyan-400 text-sm font-bold uppercase tracking-wider flex items-center gap-2 mb-2">
                                                     <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                                                     {exp.company}
                                                 </div>
 
-                                                <p className="text-slate-400 text-sm leading-relaxed pl-4 border-l-2 border-slate-800 group-hover/item:border-violet-500/50 transition-colors">
+                                                <p className="text-slate-400 text-sm leading-relaxed">
                                                     {exp.description}
                                                 </p>
                                             </div>
@@ -176,28 +166,26 @@ const About = () => {
                                 </div>
                             </SpotlightCard>
                         </motion.div>
-                    </div>
 
-                    {/* SECTION 3: EDUCATION & CERTIFICATIONS (Left) - Right Empty */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        {/* Education & Certs Column */}
                         <motion.div
                             variants={itemVariants}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
-                            className="flex flex-col gap-6"
+                            className="flex flex-col gap-8 h-full"
                         >
-                            <div>
+                            <div className="flex flex-col">
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
-                                <SpotlightCard className="rounded-xl p-6 md:p-8 border-l-4 border-l-emerald-500/40">
+                                <SpotlightCard className="rounded-xl p-6 md:p-8 border-t-4 border-t-emerald-500/40 h-full">
                                     {education.length > 0 ? education.map((edu, idx) => (
-                                        <div key={idx} className="relative group">
-                                            <h4 className="text-xl font-bold text-white mb-1">{edu.institution}</h4>
-                                            <p className="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3">{edu.degree}</p>
-                                            <div className="flex justify-between items-center text-xs text-slate-500 font-mono bg-white/5 p-3 rounded-lg border border-white/5">
-                                                <span>{edu.year}</span>
-                                                {edu.cgpa && <span className="font-bold text-emerald-500/80">CGPA: {edu.cgpa}</span>}
+                                        <div key={idx} className="relative group mb-8 last:mb-0">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <h4 className="text-xl font-bold text-white">{edu.institution}</h4>
+                                                <span className="text-xs font-mono text-slate-500 bg-white/5 px-2 py-1 rounded border border-white/5 whitespace-nowrap">{edu.year}</span>
                                             </div>
+                                            <p className="text-emerald-400 text-sm font-bold uppercase tracking-wider mb-2">{edu.degree}</p>
+                                            {edu.cgpa && <div className="inline-block text-xs font-bold text-emerald-500/80 bg-emerald-500/10 px-2 py-1 rounded">CGPA: {edu.cgpa}</div>}
                                         </div>
                                     )) : (
                                         <div className="text-slate-500">No education details.</div>
@@ -205,11 +193,11 @@ const About = () => {
                                 </SpotlightCard>
                             </div>
 
-                            {/* Certifications (Nested here to keep balanced on Left) */}
+                            {/* Certifications (Nested here) */}
                             {certifications.length > 0 && (
-                                <div>
+                                <div className="flex flex-col flex-1">
                                     <SectionTitle icon={Award} title="Certifications" color="amber" />
-                                    <div className="grid grid-cols-1 gap-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         {certifications.map((cert, idx) => (
                                             <CertificateCard
                                                 key={idx}
@@ -223,8 +211,6 @@ const About = () => {
                                 </div>
                             )}
                         </motion.div>
-                        {/* Empty Right Column */}
-                        <div className="hidden md:block"></div>
                     </div>
 
                 </div>
