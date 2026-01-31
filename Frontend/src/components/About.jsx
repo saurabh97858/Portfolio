@@ -51,7 +51,7 @@ const About = () => {
             </div>
 
             {/* Main Container - Widened to max-w-5xl and centered */}
-            <div className="w-full max-w-5xl mx-auto px-8 md:px-16 relative z-10">
+            <div className="w-full max-w-6xl mx-auto px-6 md:px-24 lg:px-32 relative z-10">
 
                 {/* Header - Premium & Compact */}
                 <motion.div
