@@ -50,15 +50,15 @@ const About = () => {
                 <MeteorEffect number={20} />
             </div>
 
-            {/* Main Container - Widened to max-w-5xl and centered */}
-            <div className="w-full max-w-7xl mx-auto px-6 md:px-16 lg:px-24 relative z-10">
+            {/* Main Container - Standard Width */}
+            <div className="w-full max-w-7xl mx-auto px-6 md:px-24 lg:px-32 relative z-10">
 
                 {/* Header - Premium & Compact */}
                 <motion.div
                     initial={{ opacity: 0, y: -30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-8 relative"
+                    className="text-center mb-16 relative"
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     <div className="inline-block relative group">
@@ -77,117 +77,139 @@ const About = () => {
                     </p>
                 </motion.div>
 
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="flex flex-col gap-4 md:gap-6"
-                    style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
-                >
-                    {/* 1. HERO BIO SECTION (Spotlight Card) */}
-                    <SpotlightCard className="rounded-xl p-4 md:p-6 from-violet-500/20 via-slate-900 to-slate-900">
-                        {/* Decorative Elements */}
-                        <div className="absolute top-0 right-0 p-8 opacity-5 transition-opacity transform rotate-12 scale-125 pointer-events-none">
-                            <Terminal size={200} />
-                        </div>
+                <div className="flex flex-col gap-16 md:gap-24 relative" style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}>
 
-                        <div className="flex flex-col lg:flex-row gap-10 items-center justify-center relative z-10">
-                            {/* Avatar / Icon Placeholder - Larger */}
-                            <div className="relative group">
-                                <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-2xl opacity-40 animate-pulse group-hover:opacity-60 transition-opacity"></div>
-                                <div className="w-32 h-32 md:w-48 md:h-48 flex-shrink-0 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center overflow-hidden shadow-xl relative z-10 group-hover:scale-105 transition-transform duration-500">
-                                    {aboutData?.profileImage ? (
-                                        <img
-                                            src={aboutData.profileImage}
-                                            alt={aboutData.name || "Profile"}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    ) : (
-                                        <User className="text-slate-200" size={64} />
-                                    )}
+                    {/* SECTION 1: BIO (Left) - Right Empty */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            className="relative group"
+                        >
+                            <SpotlightCard className="rounded-xl p-6 md:p-8 from-violet-500/20 via-slate-900 to-slate-900 h-full border-l-4 border-l-violet-500/40">
+                                {/* Decorative Elements */}
+                                <div className="absolute top-0 right-0 p-8 opacity-5 transition-opacity transform rotate-12 scale-125 pointer-events-none">
+                                    <Terminal size={200} />
                                 </div>
-                            </div>
 
-                            <div className="flex-1 text-center">
-                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
-                                    Hi, I'm <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">{aboutData?.name || 'Saurabh'}</span>.
-                                </h3>
-                                <p className="text-base md:text-xl text-slate-300 leading-relaxed font-light max-w-4xl mx-auto">
-                                    {aboutData?.about || defaultBio}
-                                </p>
+                                <div className="flex flex-col gap-6 relative z-10">
+                                    <div className="flex items-center gap-6">
+                                        <div className="relative group/avatar">
+                                            <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-xl opacity-40 animate-pulse group-hover/avatar:opacity-60 transition-opacity"></div>
+                                            <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 rounded-full bg-slate-950 border-2 border-white/10 flex items-center justify-center overflow-hidden shadow-xl relative z-10 group-hover/avatar:scale-105 transition-transform duration-500">
+                                                {aboutData?.profileImage ? (
+                                                    <img
+                                                        src={aboutData.profileImage}
+                                                        alt={aboutData.name || "Profile"}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                ) : (
+                                                    <User className="text-slate-200" size={40} />
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-bold text-white leading-tight">
+                                                <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">{aboutData?.name || 'Saurabh'}</span>
+                                            </h3>
+                                            <p className="text-slate-400 text-sm font-mono mt-1">Full Stack Developer</p>
+                                        </div>
+                                    </div>
 
-                                <div className="mt-8 flex flex-wrap justify-center gap-4">
-                                    <StatsBadge icon={Code2} value={`${aboutData?.projects?.length || 5}+`} label="Projects" color="cyan" />
-                                    <StatsBadge icon={Briefcase} value="2+" label="Years Exp." color="violet" />
+                                    <p className="text-base text-slate-300 leading-relaxed font-light">
+                                        {aboutData?.about || defaultBio}
+                                    </p>
+
+                                    <div className="pt-4 flex flex-wrap gap-4">
+                                        <StatsBadge icon={Code2} value={`${aboutData?.projects?.length || 5}+`} label="Projects" color="cyan" />
+                                        <StatsBadge icon={Briefcase} value="2+" label="Years Exp." color="violet" />
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </SpotlightCard>
+                            </SpotlightCard>
+                        </motion.div>
+                        {/* Empty Right Column */}
+                        <div className="hidden md:block"></div>
+                    </div>
 
-                    {/* 2. SPLIT SECTION: Experience & Education */}
-                    <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-stretch">
+                    {/* SECTION 2: EXPERIENCE (Right) - Left Empty */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        {/* Empty Left Column */}
+                        <div className="hidden md:block"></div>
 
-                        {/* Experience Column */}
-                        <motion.div variants={itemVariants} className="flex flex-col h-full">
+                        <motion.div
+                            variants={itemVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                        >
                             <SectionTitle icon={Briefcase} title="Experience" color="violet" />
-
-                            <SpotlightCard className="rounded-xl p-4 md:p-6 h-full flex flex-col">
-                                <div className="space-y-8 flex-1">
+                            <SpotlightCard className="rounded-xl p-6 md:p-8 h-full border-r-4 border-r-cyan-500/40">
+                                <div className="space-y-10">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
-                                        <div key={idx} className="relative group/item pl-6 border-l-4 border-white/5 hover:border-violet-500/50 transition-colors mb-6 last:mb-0">
-                                            <h4 className="text-xl font-bold text-white group-hover/item:text-violet-400 transition-colors mb-1">{exp.role}</h4>
-                                            <div className="mb-2">
-                                                <span className="text-xs font-mono py-1 px-3 bg-white/5 rounded-full text-slate-300 border border-white/10 shadow-inner whitespace-nowrap inline-block">{exp.duration}</span>
+                                        <div key={idx} className="relative group/item">
+                                            {/* Simplified Timeline Line */}
+                                            {idx !== experiences.length - 1 && (
+                                                <div className="absolute left-[3px] top-8 bottom-[-40px] w-[2px] bg-slate-800 group-hover/item:bg-violet-900/50 transition-colors"></div>
+                                            )}
+
+                                            <div className="flex flex-col gap-2">
+                                                <div className="flex items-baseline justify-between">
+                                                    <h4 className="text-lg font-bold text-white group-hover/item:text-violet-400 transition-colors">{exp.role}</h4>
+                                                    <span className="text-xs font-mono text-slate-500">{exp.duration}</span>
+                                                </div>
+
+                                                <div className="text-cyan-400 text-xs font-bold uppercase tracking-wider flex items-center gap-2 mb-1">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                                                    {exp.company}
+                                                </div>
+
+                                                <p className="text-slate-400 text-sm leading-relaxed pl-4 border-l-2 border-slate-800 group-hover/item:border-violet-500/50 transition-colors">
+                                                    {exp.description}
+                                                </p>
                                             </div>
-                                            <div className="text-cyan-400 text-sm font-bold mb-2 uppercase tracking-wider flex items-center gap-2">
-                                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                                                {exp.company}
-                                            </div>
-                                            <p className="text-slate-400 leading-relaxed text-sm md:text-base break-words pr-4 md:pr-12">
-                                                {exp.description}
-                                            </p>
                                         </div>
                                     )) : (
-                                        <div className="pl-6 text-slate-500 italic text-base">No experience entries found.</div>
+                                        <div className="text-slate-500 italic">No experience entries found.</div>
                                     )}
                                 </div>
                             </SpotlightCard>
                         </motion.div>
+                    </div>
 
-                        {/* Education Column & Tech Focus */}
-                        <motion.div variants={itemVariants} className="flex flex-col gap-4 md:gap-6 h-full">
-
-                            {/* Education */}
-                            <div className="flex flex-col">
+                    {/* SECTION 3: EDUCATION & CERTIFICATIONS (Left) - Right Empty */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <motion.div
+                            variants={itemVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            className="flex flex-col gap-6"
+                        >
+                            <div>
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
-
-                                <SpotlightCard className="rounded-xl p-4 md:p-6">
+                                <SpotlightCard className="rounded-xl p-6 md:p-8 border-l-4 border-l-emerald-500/40">
                                     {education.length > 0 ? education.map((edu, idx) => (
-                                        <div key={idx} className="border-l-4 border-emerald-500/30 pl-6 py-1 last:mb-0 mb-6 group hover:border-emerald-500/60 transition-colors">
+                                        <div key={idx} className="relative group">
                                             <h4 className="text-xl font-bold text-white mb-1">{edu.institution}</h4>
-                                            <p className="text-emerald-400 text-sm font-bold uppercase tracking-wider">{edu.degree}</p>
-                                            <div className="mt-2 flex items-center gap-4 text-xs text-slate-400 font-mono">
-                                                <span className="bg-white/5 px-2 py-1 rounded-md border border-white/5">{edu.year}</span>
-                                                {edu.cgpa && <span className="px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded-md font-bold border border-emerald-500/20">CGPA: {edu.cgpa}</span>}
+                                            <p className="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3">{edu.degree}</p>
+                                            <div className="flex justify-between items-center text-xs text-slate-500 font-mono bg-white/5 p-3 rounded-lg border border-white/5">
+                                                <span>{edu.year}</span>
+                                                {edu.cgpa && <span className="font-bold text-emerald-500/80">CGPA: {edu.cgpa}</span>}
                                             </div>
                                         </div>
                                     )) : (
-                                        <div className="border-l-4 border-emerald-500/30 pl-6 py-1">
-                                            <h4 className="text-xl font-bold text-white mb-1">Shaheed Bhagat Singh State University</h4>
-                                            <p className="text-emerald-400 text-sm font-bold uppercase tracking-wider">B.Tech - Computer Science</p>
-                                            <div className="mt-2 text-xs text-slate-400 font-mono">2022 - 2026</div>
-                                        </div>
+                                        <div className="text-slate-500">No education details.</div>
                                     )}
                                 </SpotlightCard>
                             </div>
 
-                            {/* Certifications (Moved here) */}
+                            {/* Certifications (Nested here to keep balanced on Left) */}
                             {certifications.length > 0 && (
-                                <div className="flex flex-col flex-1">
+                                <div>
                                     <SectionTitle icon={Award} title="Certifications" color="amber" />
-
-                                    <div className="grid grid-cols-1 gap-4 flex-1">
+                                    <div className="grid grid-cols-1 gap-4">
                                         {certifications.map((cert, idx) => (
                                             <CertificateCard
                                                 key={idx}
@@ -200,12 +222,12 @@ const About = () => {
                                     </div>
                                 </div>
                             )}
-
                         </motion.div>
+                        {/* Empty Right Column */}
+                        <div className="hidden md:block"></div>
                     </div>
 
-
-                </motion.div>
+                </div>
 
                 {/* Full Screen Overlay for Certifications */}
                 <AnimatePresence>
