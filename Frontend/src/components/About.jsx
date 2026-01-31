@@ -135,7 +135,7 @@ const About = () => {
                             <SpotlightCard className="rounded-xl p-4 md:p-6 h-full flex flex-col">
                                 <div className="space-y-8 flex-1">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
-                                        <div key={idx} className="relative group/item pl-4 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
+                                        <div key={idx} className="relative group/item pl-6 border-l-4 border-white/5 hover:border-violet-500/50 transition-colors mb-6 last:mb-0">
                                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
                                                 <h4 className="text-xl font-bold text-white group-hover/item:text-violet-400 transition-colors">{exp.role}</h4>
                                                 <span className="text-xs font-mono py-1 px-3 bg-white/5 rounded-full text-slate-300 border border-white/10 shadow-inner whitespace-nowrap">{exp.duration}</span>

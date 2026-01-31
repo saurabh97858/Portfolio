@@ -15,12 +15,13 @@ export const PortfolioProvider = ({ children }) => {
             // Using VITE_API_URL or fallback to localhost for safety, though VITE_API_URL should be set
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-            // Fetch Text Data First (Critical)
-            let combinedData = {};
+            // 1. Fetch Text Data First (Critical & Fast)
+            let currentData = {};
             try {
                 const textRes = await fetch(`${apiUrl}/api/portfolio`);
                 if (textRes.ok) {
-                    combinedData = await textRes.json();
+                    currentData = await textRes.json();
+                    setPortfolioData(currentData); // Show text immediately
                 } else {
                     console.error("Text data fetch failed:", textRes.status);
                 }
@@ -28,16 +29,20 @@ export const PortfolioProvider = ({ children }) => {
                 console.error("Text fetch network error", err);
             }
 
-            // Fetch Images Separately (Non-Critical, Heavy)
+            // Unblock UI immediately after text fetch attempt
+            setLoading(false);
+
+            // 2. Fetch Images Separately (Non-Critical, Heavy)
+            // This runs in background after UI is already visible
             try {
                 const imgRes = await fetch(`${apiUrl}/api/portfolio/images`);
                 if (imgRes.ok) {
                     const imgData = await imgRes.json();
-                    combinedData = {
-                        ...combinedData,
-                        profileImage: imgData.profileImage || combinedData.profileImage,
-                        heroImage: imgData.heroImage || combinedData.heroImage
-                    };
+                    setPortfolioData(prev => ({
+                        ...(prev || currentData),
+                        profileImage: imgData.profileImage,
+                        heroImage: imgData.heroImage
+                    }));
                 } else {
                     console.warn("Images fetch failed:", imgRes.status);
                 }
@@ -46,11 +51,9 @@ export const PortfolioProvider = ({ children }) => {
                 console.warn("Image fetch network error", err);
             }
 
-            setPortfolioData(combinedData);
         } catch (error) {
             console.error("Global fetch error", error);
-        } finally {
-            setLoading(false);
+            setLoading(false); // Ensure loading stops even on catastropic error
         }
     };
 
