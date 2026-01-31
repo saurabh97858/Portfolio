@@ -144,7 +144,7 @@ const About = () => {
                                                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                                                 {exp.company}
                                             </div>
-                                            <p className="text-slate-400 leading-relaxed text-sm md:text-base break-words">
+                                            <p className="text-slate-400 leading-relaxed text-sm md:text-base break-words pr-4 md:pr-12">
                                                 {exp.description}
                                             </p>
                                         </div>
