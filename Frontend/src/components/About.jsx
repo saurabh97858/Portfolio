@@ -126,7 +126,7 @@ const About = () => {
                     </motion.div>
 
                     {/* SECTION 2: SPLIT VIEW (Experience Left, Education Right) */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
 
                         {/* Experience Column */}
                         <motion.div
