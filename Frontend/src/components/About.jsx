@@ -50,8 +50,8 @@ const About = () => {
                 <MeteorEffect number={20} />
             </div>
 
-            {/* Main Container - Standard Width */}
-            <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            {/* Main Container - Standard Wide & Centered */}
+            <div className="layout-wrapper relative z-10">
 
                 {/* Header - Premium & Compact */}
                 <motion.div
@@ -93,7 +93,7 @@ const About = () => {
                             </div>
 
                             <div className="flex flex-col md:flex-row gap-8 items-center relative z-10">
-                                <div className="relative group/avatar shrink-0">
+                                <div className="relative group/avatar shrink-0 ml-8 md:ml-20">
                                     <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-xl opacity-40 animate-pulse group-hover/avatar:opacity-60 transition-opacity"></div>
                                     <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center overflow-hidden shadow-xl relative z-10 group-hover/avatar:scale-105 transition-transform duration-500">
                                         {aboutData?.profileImage ? (
@@ -137,7 +137,7 @@ const About = () => {
                             className="flex flex-col h-full"
                         >
                             <SectionTitle icon={Briefcase} title="Experience" color="violet" />
-                            <SpotlightCard className="rounded-xl p-6 md:p-8 h-full border-t-4 border-t-violet-500/40 flex flex-col">
+                            <SpotlightCard className="rounded-xl p-5 md:p-6 h-full border-t-4 border-t-violet-500/40 flex flex-col">
                                 <div className="space-y-8">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
                                         <div key={idx} className="relative group/item pl-6 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
@@ -177,7 +177,7 @@ const About = () => {
                         >
                             <div className="flex flex-col">
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
-                                <SpotlightCard className="rounded-xl p-6 md:p-8 border-t-4 border-t-emerald-500/40 h-full">
+                                <SpotlightCard className="rounded-xl p-5 md:p-6 border-t-4 border-t-emerald-500/40 h-full">
                                     {education.length > 0 ? education.map((edu, idx) => (
                                         <div key={idx} className="relative group mb-8 last:mb-0">
                                             <div className="flex justify-between items-start mb-2">
@@ -334,7 +334,7 @@ const SectionTitle = ({ icon: Icon, title, color }) => {
     };
 
     return (
-        <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-4 pl-2">
+        <h3 className="text-2xl font-bold text-white flex items-center justify-center gap-3 mb-4 pl-2">
             <div className={`p-2 rounded-lg ring-1 ${colors[color] || colors.violet}`}>
                 <Icon size={20} />
             </div>

@@ -4,7 +4,7 @@ import { Heart } from 'lucide-react';
 const Footer = () => {
     return (
         <footer className="py-8 bg-slate-950 border-t border-white/10 relative z-50">
-            <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="layout-wrapper flex flex-col md:flex-row justify-between items-center gap-4">
                 <p className="text-slate-400 text-sm font-medium">
                     © {new Date().getFullYear()} Saurabh Gupta. All rights reserved.
                 </p>

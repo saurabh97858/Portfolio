@@ -120,6 +120,25 @@ body::before {
     }
 }
 
+/* Global Layout Wrapper for Perfect Symmetry */
+.layout-wrapper {
+    width: 85%;
+    /* Mobile Width */
+    margin-inline: auto;
+    /* Force Centering */
+    max-width: 1280px;
+    /* Limit Max Width */
+    padding-inline: 0;
+    /* Reset Padding */
+}
+
+@media (min-width: 768px) {
+    .layout-wrapper {
+        width: 80%;
+        /* Desktop Width */
+    }
+}
+
 @keyframes float {
 
     0%,

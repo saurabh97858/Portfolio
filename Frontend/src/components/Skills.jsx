@@ -59,7 +59,7 @@ const Skills = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0)_0%,rgba(2,6,23,0.8)_100%)] z-0" />
             </div>
 
-            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
+            <div className="layout-wrapper relative z-10">
 
                 {/* Header */}
                 <motion.div

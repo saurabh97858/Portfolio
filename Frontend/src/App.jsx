@@ -56,11 +56,16 @@ function App() {
                     <Routes>
                         {/* Public Routes wrapped in Layout */}
                         <Route element={<Layout />}>
-                            <Route path="/" element={<><Hero /><TechMarquee /><HomeNavigation /></>} />
-                            <Route path="/about" element={<About />} />
-                            <Route path="/skills" element={<Skills />} />
-                            <Route path="/projects" element={<Projects />} />
-                            <Route path="/contact" element={<Contact />} />
+                            <Route path="/" element={
+                                <>
+                                    <section id="home"><Hero /></section>
+                                    <TechMarquee />
+                                    <section id="about"><About /></section>
+                                    <section id="skills"><Skills /></section>
+                                    <section id="projects"><Projects /></section>
+                                    <section id="contact"><Contact /></section>
+                                </>
+                            } />
                         </Route>
 
                         {/* Standalone Pages */}

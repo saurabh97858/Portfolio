@@ -30,28 +30,16 @@ const Hero = () => {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pink-600/20 rounded-full blur-[120px] animate-pulse delay-700 pointer-events-none mix-blend-screen" />
 
             {/* Left Sidebar - Social Links (Adjusted for new layout) */}
-            <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden 2xl:flex flex-col gap-8 items-center z-20">
-                <div className="w-[2px] h-32 bg-gradient-to-b from-transparent via-violet-500 to-transparent"></div>
-                <div className="flex flex-col gap-6">
-                    <a href={portfolioData?.socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-violet-500/30">
-                        <Github size={28} />
-                    </a>
-                    <a href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} target="_blank" rel="noopener noreferrer" className="p-4 bg-white/5 rounded-full text-slate-400 hover:text-cyan-400 hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-cyan-500/30">
-                        <Linkedin size={28} />
-                    </a>
-                    <a href={`mailto:${portfolioData?.email || "email@example.com"}`} className="p-4 bg-white/5 rounded-full text-slate-400 hover:text-pink-400 hover:bg-white/10 transition-all hover:scale-110 border border-white/5 hover:border-pink-500/30">
-                        <Mail size={28} />
-                    </a>
-                </div>
-                <div className="w-[2px] h-32 bg-gradient-to-b from-violet-500 to-transparent"></div>
-            </div>
+            {/* Left Sidebar - Removed to ensure empty side margins as per user request */}
+            {/* Social Links are now moved to the main content area */}
+            {/* <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden 2xl:flex flex-col gap-8 items-center z-20">...</div> */}
 
-            <div className="container mx-auto px-6 md:px-12 relative z-10 w-full grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-100px)]">
+            <div className="layout-wrapper relative z-10 grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-100px)]">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="w-full text-center lg:text-left flex flex-col items-center lg:items-start"
+                    className="w-full text-center lg:text-center flex flex-col items-center"
                 >
                     <div className="inline-block px-5 py-2 border border-slate-700 rounded-full bg-slate-900/50 backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(139,92,246,0.2)]">
                         <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent font-semibold text-base flex items-center gap-2">
@@ -79,7 +67,7 @@ const Hero = () => {
                         I specialize in building <span className="text-violet-300 font-medium">high-performance</span>, <span className="text-pink-300 font-medium">secure</span>, and <span className="text-cyan-300 font-medium">scalable</span> web applications using the modern MERN ecosystem.
                     </p>
 
-                    <div className="flex flex-wrap gap-4 justify-center lg:justify-start mb-12">
+                    <div className="flex flex-wrap gap-4 justify-center mb-8">
                         <button
                             onClick={() => navigate('/projects')}
                             className="bg-white text-slate-950 hover:bg-violet-50 font-bold text-lg px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
@@ -92,6 +80,19 @@ const Hero = () => {
                         >
                             Contact Me
                         </button>
+                    </div>
+
+                    {/* Social Links - Integrated into content for better spacing */}
+                    <div className="flex gap-6 mb-8 justify-center">
+                        <a href={portfolioData?.socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors hover:scale-110">
+                            <Github size={24} />
+                        </a>
+                        <a href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors hover:scale-110">
+                            <Linkedin size={24} />
+                        </a>
+                        <a href={`mailto:${portfolioData?.email || "email@example.com"}`} className="text-slate-400 hover:text-pink-400 transition-colors hover:scale-110">
+                            <Mail size={24} />
+                        </a>
                     </div>
 
                     {/* Description Section */}
@@ -108,7 +109,7 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="relative hidden lg:block"
                 >
-                    <div className="w-full max-w-[320px] mx-auto lg:mx-0 lg:ml-12 relative">
+                    <div className="w-full max-w-[320px] ml-auto mr-12 relative">
                         {/* Abstract tech background */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-tr from-violet-600/20 to-pink-600/20 rounded-full blur-[60px] animate-pulse-slow"></div>
 
