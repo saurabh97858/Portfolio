@@ -1132,6 +1132,9 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
         setFormData({ ...formData, education: newEducation });
     };
 
+    const profileImageRef = React.useRef(null);
+    const heroImageRef = React.useRef(null);
+
     const handleSubmit = () => {
         const updates = {
             name: formData.name,
@@ -1140,6 +1143,7 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
             email: formData.email,
             phone: formData.phone,
             profileImage: formData.profileImage,
+            heroImage: formData.heroImage,
             socialLinks: {
                 github: formData.github,
                 linkedin: formData.linkedin,
@@ -1258,11 +1262,28 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                         <label className="label">Profile Image</label>
                                         <div className="flex flex-col gap-3">
                                             {formData.profileImage && (
-                                                <div className="w-full flex justify-center bg-black/20 p-2 rounded-xl border border-white/5">
+                                                <div className="w-full flex flex-col items-center gap-3 bg-black/20 p-3 rounded-xl border border-white/5">
                                                     <img src={formData.profileImage} alt="Profile Preview" className="h-24 w-24 rounded-full object-cover border-2 border-cyan-400/50" />
+                                                    <div className="flex gap-2">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => profileImageRef.current?.click()}
+                                                            className="px-4 py-1.5 text-xs font-bold rounded-lg bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 transition-all flex items-center gap-1.5"
+                                                        >
+                                                            <Pencil size={12} /> Change
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setFormData(prev => ({ ...prev, profileImage: '' }))}
+                                                            className="px-4 py-1.5 text-xs font-bold rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all flex items-center gap-1.5"
+                                                        >
+                                                            <Trash2 size={12} /> Remove
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             )}
                                             <input
+                                                ref={profileImageRef}
                                                 type="file"
                                                 accept="image/*"
                                                 onChange={(e) => {
@@ -1275,8 +1296,9 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                                         reader.readAsDataURL(file);
                                                     }
                                                 }}
-                                                className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer"
+                                                className={`input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer ${formData.profileImage ? 'hidden' : ''}`}
                                             />
+                                            {!formData.profileImage && <p className="text-xs text-slate-500">Upload a profile photo.</p>}
                                         </div>
                                     </div>
 
@@ -1284,11 +1306,28 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                         <label className="label">Hero Image (Home Page)</label>
                                         <div className="flex flex-col gap-3">
                                             {formData.heroImage && (
-                                                <div className="w-full flex justify-center bg-black/20 p-2 rounded-xl border border-white/5">
+                                                <div className="w-full flex flex-col items-center gap-3 bg-black/20 p-3 rounded-xl border border-white/5">
                                                     <img src={formData.heroImage} alt="Hero Preview" className="h-24 w-auto object-cover rounded-lg border-2 border-pink-400/50" />
+                                                    <div className="flex gap-2">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => heroImageRef.current?.click()}
+                                                            className="px-4 py-1.5 text-xs font-bold rounded-lg bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 transition-all flex items-center gap-1.5"
+                                                        >
+                                                            <Pencil size={12} /> Change
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setFormData(prev => ({ ...prev, heroImage: '' }))}
+                                                            className="px-4 py-1.5 text-xs font-bold rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all flex items-center gap-1.5"
+                                                        >
+                                                            <Trash2 size={12} /> Remove
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             )}
                                             <input
+                                                ref={heroImageRef}
                                                 type="file"
                                                 accept="image/*"
                                                 onChange={(e) => {
@@ -1301,9 +1340,9 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                                         reader.readAsDataURL(file);
                                                     }
                                                 }}
-                                                className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-500/10 file:text-pink-400 hover:file:bg-pink-500/20 cursor-pointer"
+                                                className={`input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-500/10 file:text-pink-400 hover:file:bg-pink-500/20 cursor-pointer ${formData.heroImage ? 'hidden' : ''}`}
                                             />
-                                            <p className="text-xs text-slate-500">Recommended: High quality portrait/square image.</p>
+                                            {!formData.heroImage && <p className="text-xs text-slate-500">Recommended: High quality portrait/square image.</p>}
                                         </div>
                                     </div>
                                     <div>
