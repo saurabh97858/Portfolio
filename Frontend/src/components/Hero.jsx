@@ -77,20 +77,20 @@ const Hero = () => {
                     <div className="flex flex-wrap gap-6 justify-center mt-8 mb-12">
                         <button
                             onClick={() => navigate('/projects')}
-                            className="bg-white text-slate-950 hover:bg-violet-50 font-bold text-lg px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                            className="bg-white text-slate-950 hover:bg-violet-600 hover:text-white hover:border-violet-600 font-bold text-base px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
                         >
                             View Projects <ArrowRight size={20} />
                         </button>
                         <button
                             onClick={() => navigate('/contact')}
-                            className="bg-slate-800/50 text-white font-bold text-lg px-8 py-4 rounded-full border border-slate-700 hover:bg-slate-800 hover:border-violet-500/50 transition-all hover:scale-105 active:scale-95"
+                            className="bg-slate-800/50 text-white font-bold text-base px-8 py-4 rounded-full border border-slate-700 hover:bg-cyan-900/30 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all hover:scale-105 active:scale-95"
                         >
                             Contact Me
                         </button>
                     </div>
 
                     {/* Social Links */}
-                    <div className="flex gap-6 justify-center mt-2">
+                    <div className="flex gap-6 justify-center mt-8">
                         <a href={portfolioData?.socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors hover:scale-110">
                             <Github size={24} />
                         </a>

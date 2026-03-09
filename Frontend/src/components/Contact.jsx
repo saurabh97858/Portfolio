@@ -87,10 +87,10 @@ const Contact = () => {
                             <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
                                 Get in Touch
                             </span>
-                            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-6 drop-shadow-2xl leading-tight">
+                            <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-6 drop-shadow-2xl leading-tight">
                                 Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Collaboration</span> Begin.
                             </h2>
-                            <p className="text-slate-400 text-lg md:text-xl font-light leading-relaxed max-w-lg">
+                            <p className="text-slate-400 text-base md:text-lg font-light leading-relaxed max-w-lg">
                                 Have a project in mind or just want to explore new possibilities? I'm always open to discussing new ideas and opportunities.
                             </p>
                         </div>
@@ -117,21 +117,14 @@ const Contact = () => {
                                 color="emerald"
                             />
                         </div>
-
-                        {/* Social Links */}
-                        <div className="flex gap-3 pt-4">
-                            <SocialButton icon={Github} href={portfolioData?.socialLinks?.github || "https://github.com"} />
-                            <SocialButton icon={Linkedin} href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} />
-                            <SocialButton icon={Twitter} href={portfolioData?.socialLinks?.instagram || "https://instagram.com"} />
-                        </div>
                     </motion.div>
 
                     {/* Right Side: Glass Contact Form */}
                     <motion.div variants={itemVariants} className="relative">
                         {/* Glow effect behind form */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-[2.5rem] blur-xl opacity-20 animate-tilt"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-2xl blur-xl opacity-20 animate-tilt"></div>
 
-                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-[2rem] shadow-2xl">
+                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-2xl shadow-2xl">
                             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
                                 <MessageSquare className="text-violet-400 shrink-0" size={20} />
                                 Send a Message
@@ -210,7 +203,7 @@ const Contact = () => {
                     </motion.div>
                 </motion.div>
             </div>
-        </section>
+        </section >
     );
 };
 
@@ -226,14 +219,14 @@ const ContactCard = ({ icon: Icon, title, value, href, color }) => {
     return (
         <Wrapper
             href={href}
-            className="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 hover:bg-white/10 transition-all"
+            className="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-violet-500/30 hover:bg-white/10 transition-all duration-300"
         >
             <div className={`p-4 rounded-xl transition-all duration-300 ${colorClasses[color]}`}>
-                <Icon size={24} />
+                <Icon size={22} />
             </div>
             <div>
-                <h4 className="text-sm font-medium text-slate-400 mb-1 uppercase tracking-wider">{title}</h4>
-                <p className="text-lg md:text-xl font-bold text-white group-hover:text-cyan-200 transition-colors">{value}</p>
+                <h4 className="text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">{title}</h4>
+                <p className="text-base md:text-lg font-bold text-white group-hover:text-cyan-200 transition-colors">{value}</p>
             </div>
         </Wrapper>
     );
