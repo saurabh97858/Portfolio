@@ -47,7 +47,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#12161b] relative overflow-hidden font-sans select-none flex items-center justify-center p-4">
+        <div className="min-h-screen bg-black relative overflow-hidden font-sans select-none flex items-center justify-center p-4">
 
             {/* Background Texture Overlay */}
             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
@@ -211,35 +211,47 @@ const Login = () => {
 
                                     {/* Credentials Form */}
                                     <form onSubmit={handleLogin} className="space-y-5">
-                                        <div className="space-y-1.5">
+                                        <div className="space-y-1.5 relative">
                                             <label className="text-xs font-semibold text-slate-400 ml-1">Username</label>
                                             <div className="relative group/input">
-                                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within/input:text-[#849b87] transition-colors">
-                                                    <Fingerprint size={16} />
+                                                {/* Hover Glow Background */}
+                                                <div className="absolute inset-0 bg-yellow-500/0 rounded-xl blur-md transition-colors duration-300 group-hover/input:bg-yellow-500/10 pointer-events-none"></div>
+
+                                                {/* Focus Glow Border Container */}
+                                                <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
+
+                                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within/input:text-orange-400 transition-colors z-10">
+                                                    <Fingerprint size={18} />
                                                 </div>
                                                 <input
                                                     type="text"
                                                     required
                                                     value={username}
                                                     onChange={(e) => setUsername(e.target.value)}
-                                                    className="w-full bg-[#12161b] border border-[#2d343f] text-slate-200 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:border-[#849b87]/50 focus:ring-1 focus:ring-[#849b87]/50 transition-all placeholder:text-slate-600 text-sm font-medium"
+                                                    className="w-full relative z-10 bg-[#0a0a0a] border border-[#222] text-slate-200 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-transparent transition-all placeholder:text-slate-600 text-sm font-medium"
                                                     placeholder="Enter your username"
                                                 />
                                             </div>
                                         </div>
 
-                                        <div className="space-y-1.5">
+                                        <div className="space-y-1.5 relative mt-6">
                                             <label className="text-xs font-semibold text-slate-400 ml-1">Password</label>
                                             <div className="relative group/input">
-                                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within/input:text-[#849b87] transition-colors">
-                                                    <Terminal size={16} />
+                                                {/* Hover Glow Background */}
+                                                <div className="absolute inset-0 bg-yellow-500/0 rounded-xl blur-md transition-colors duration-300 group-hover/input:bg-yellow-500/10 pointer-events-none"></div>
+
+                                                {/* Focus Glow Border Container */}
+                                                <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
+
+                                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within/input:text-green-400 transition-colors z-10">
+                                                    <Terminal size={18} />
                                                 </div>
                                                 <input
                                                     type="password"
                                                     required
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
-                                                    className="w-full bg-[#12161b] border border-[#2d343f] text-slate-200 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:border-[#849b87]/50 focus:ring-1 focus:ring-[#849b87]/50 transition-all placeholder:text-slate-600 text-sm font-medium"
+                                                    className="w-full relative z-10 bg-[#0a0a0a] border border-[#222] text-slate-200 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-transparent transition-all placeholder:text-slate-600 text-sm font-medium"
                                                     placeholder="Enter your password"
                                                 />
                                             </div>
