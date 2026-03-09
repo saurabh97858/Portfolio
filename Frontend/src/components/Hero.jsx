@@ -74,7 +74,7 @@ const Hero = () => {
                         </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-4 justify-center mt-4 mb-10">
+                    <div className="flex flex-wrap gap-6 justify-center mt-8 mb-12">
                         <button
                             onClick={() => navigate('/projects')}
                             className="bg-white text-slate-950 hover:bg-violet-50 font-bold text-lg px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
