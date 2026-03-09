@@ -24,17 +24,12 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="hero" className="min-h-[90vh] flex items-center justify-center relative overflow-hidden pt-40 md:pt-48">
+        <section id="hero" className="min-h-[100vh] flex flex-col justify-start relative overflow-hidden pt-[150px] md:pt-[200px] lg:pt-[240px] pb-20">
             {/* Background Glows */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[120px] animate-pulse pointer-events-none mix-blend-screen" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pink-600/20 rounded-full blur-[120px] animate-pulse delay-700 pointer-events-none mix-blend-screen" />
 
-            {/* Left Sidebar - Social Links (Adjusted for new layout) */}
-            {/* Left Sidebar - Removed to ensure empty side margins as per user request */}
-            {/* Social Links are now moved to the main content area */}
-            {/* <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden 2xl:flex flex-col gap-8 items-center z-20">...</div> */}
-
-            <div className="layout-wrapper relative z-10 lg:grid lg:grid-cols-2 gap-12 items-center mt-12 md:mt-20">
+            <div className="layout-wrapper relative z-10 lg:grid lg:grid-cols-2 gap-12 items-center w-full">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
