@@ -49,8 +49,6 @@ const Login = () => {
     return (
         <div className="min-h-screen bg-black relative overflow-hidden font-sans select-none flex items-center justify-center p-4">
 
-            {/* Background Texture Overlay */}
-            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
             <motion.div
                 layout
@@ -188,7 +186,7 @@ const Login = () => {
                                 {/* Ambient Form Glow - Matching the image's soft border glow */}
                                 <div className="absolute -inset-0.5 bg-[#849b87]/30 rounded-3xl blur-[8px] opacity-70 group-hover/form:opacity-100 transition-opacity duration-500"></div>
 
-                                <div className="relative bg-[#0d1115] rounded-3xl p-8 px-10 shadow-2xl">
+                                <div className="relative bg-[#0a0c0a] rounded-3xl p-8 px-10 shadow-2xl">
                                     {/* Header */}
                                     <div className="text-center mb-10 mt-2">
                                         <h2 className="text-[22px] font-bold tracking-wide text-white">
@@ -224,7 +222,7 @@ const Login = () => {
                                                     required
                                                     value={username}
                                                     onChange={(e) => setUsername(e.target.value)}
-                                                    className="w-full relative z-10 bg-[#151a21] text-slate-200 rounded-[10px] py-3.5 px-4 focus:outline-none focus:bg-[#1a2028] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
+                                                    className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
                                                     placeholder="Enter your username"
                                                 />
                                             </div>
@@ -244,7 +242,7 @@ const Login = () => {
                                                     required
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
-                                                    className="w-full relative z-10 bg-[#151a21] text-slate-200 rounded-[10px] py-3.5 px-4 focus:outline-none focus:bg-[#1a2028] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
+                                                    className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
                                                     placeholder="Enter your password"
                                                 />
                                             </div>
