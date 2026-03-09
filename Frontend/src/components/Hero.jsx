@@ -24,7 +24,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="hero" className="min-h-[100vh] flex flex-col justify-start relative overflow-hidden pt-[220px] md:pt-[280px] lg:pt-[320px] pb-20">
+        <section id="hero" className="min-h-[100vh] flex flex-col justify-center relative overflow-hidden pb-20 mt-16 md:mt-24 lg:mt-32" style={{ paddingTop: '12vh' }}>
             {/* Background Glows */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[120px] animate-pulse pointer-events-none mix-blend-screen" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pink-600/20 rounded-full blur-[120px] animate-pulse delay-700 pointer-events-none mix-blend-screen" />
