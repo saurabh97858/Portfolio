@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Lock, Fingerprint, ArrowRight, ShieldCheck, Terminal } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Fingerprint, ArrowRight, ShieldCheck, Terminal } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -9,6 +9,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [isLampOn, setIsLampOn] = useState(false);
+    const [isPulling, setIsPulling] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -44,139 +46,187 @@ const Login = () => {
         }
     };
 
+    const handlePull = () => {
+        setIsPulling(true);
+        setTimeout(() => {
+            setIsPulling(false);
+            setIsLampOn(!isLampOn);
+        }, 300);
+    };
+
     return (
-        <div className="min-h-screen bg-[#050505] flex items-center justify-center p-4 relative overflow-hidden font-sans">
+        <div className="min-h-screen bg-[#050505] flex items-center justify-center p-4 relative overflow-hidden font-sans select-none">
 
             {/* Hanging Lamp Component */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-                {/* Cord */}
-                <div className="w-[2px] h-32 bg-gradient-to-b from-slate-800 to-slate-600 shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center">
+                {/* Fixed Cord */}
+                <div className="w-[1.5px] h-32 bg-gradient-to-b from-slate-900 via-slate-700 to-slate-600 shadow-[0_0_10px_rgba(0,0,0,0.8)]"></div>
 
-                {/* Lamp Head */}
+                {/* Lamp Head & Interactive Pull String */}
                 <motion.div
-                    animate={{ rotate: [-1, 1, -1] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="relative"
+                    animate={{
+                        rotate: isLampOn ? [-0.5, 0.5, -0.5] : 0,
+                        y: isPulling ? 15 : 0
+                    }}
+                    transition={{
+                        rotate: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                        y: { type: "spring", stiffness: 300, damping: 10 }
+                    }}
+                    className="relative flex flex-col items-center"
                 >
-                    <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-2xl">
-                        <path d="M5 40L15 0H45L55 40H5Z" fill="#1a1a1a" stroke="#333" strokeWidth="1" />
-                        <rect x="20" y="35" width="20" height="5" rx="2" fill="#ffd700" className="animate-pulse" />
+                    {/* Lamp SVG */}
+                    <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-2xl relative z-10">
+                        <path d="M5 40L15 0H45L55 40H5Z" fill={isLampOn ? "#222" : "#111"} stroke={isLampOn ? "#444" : "#222"} strokeWidth="1" />
+                        <rect x="23" y="36" width="14" height="4" rx="1" fill={isLampOn ? "#ffcc00" : "#333"} className={isLampOn ? "animate-pulse" : ""} />
                     </svg>
 
-                    {/* Light Beam / Glow */}
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(255,215,0,0.15)_0%,transparent_70%)] blur-3xl pointer-events-none -mt-4 z-0"></div>
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-32 h-64 bg-gradient-to-b from-yellow-500/20 to-transparent blur-2xl pointer-events-none z-0 clip-path-lamp"></div>
+                    {/* Pull String Cord */}
+                    <div className="w-[1px] h-24 bg-slate-600/50 relative z-0 mt-[-2px]"></div>
+
+                    {/* Pull Handle (Trigger) */}
+                    <motion.div
+                        whileHover={{ scale: 1.2, backgroundColor: "#fff" }}
+                        whileTap={{ scale: 0.9, y: 10 }}
+                        onClick={handlePull}
+                        className="w-3 h-3 rounded-full bg-slate-400 cursor-pointer shadow-[0_0_10px_rgba(255,255,255,0.1)] transition-colors mt-[-2px]"
+                        title="Pull to toggle light"
+                    />
+
+                    {/* Light Beam / Glow (Visible when ON) */}
+                    <AnimatePresence>
+                        {isLampOn && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute top-[38px] left-1/2 -translate-x-1/2 pointer-events-none"
+                            >
+                                <div className="w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(255,200,0,0.1)_0%,transparent_70%)] blur-3xl -mt-10"></div>
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-80 bg-gradient-to-b from-yellow-500/10 via-yellow-500/5 to-transparent blur-3xl clip-path-lamp"></div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.div>
             </div>
 
-            {/* Background Texture */}
-            <div className="absolute inset-0 z-0 opacity-20 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]"></div>
+            {/* Background Texture Overlay */}
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
 
-            <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                className="relative z-10 w-full max-w-sm mt-20"
-            >
-                {/* Login Card */}
-                <div className="relative group">
-                    {/* Glowing Border Effect */}
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-500/50 to-orange-500/50 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            {/* Login Interface (Revealed when Lamp is ON) */}
+            <AnimatePresence>
+                {isLampOn && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 1.05, y: -20 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="relative z-10 w-full max-w-sm"
+                    >
+                        <div className="relative group mt-32">
+                            {/* Ambient Glow */}
+                            <div className="absolute -inset-0.5 bg-yellow-500/10 rounded-2xl blur-2xl opacity-50"></div>
 
-                    <div className="relative bg-black/40 backdrop-blur-3xl border border-white/5 rounded-2xl p-8 shadow-2xl">
-                        {/* Header */}
-                        <div className="text-center mb-8">
-                            <h2 className="text-xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent tracking-widest uppercase">
-                                System Access
-                            </h2>
-                            <div className="h-0.5 w-12 bg-yellow-500 mx-auto mt-2 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>
+                            <div className="relative bg-[#0a0a0a]/80 backdrop-blur-3xl border border-white/5 rounded-2xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                                {/* Header */}
+                                <div className="text-center mb-8">
+                                    <h2 className="text-sm font-black text-slate-500 tracking-[0.3em] uppercase mb-1">
+                                        Terminal Link
+                                    </h2>
+                                    <div className="h-[1px] w-8 bg-yellow-500/50 mx-auto rounded-full"></div>
+                                </div>
+
+                                {/* Error Display */}
+                                {error && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="bg-red-500/5 border border-red-500/10 rounded-lg p-2.5 mb-6 flex items-center gap-3 text-red-500/80 text-[10px] font-mono tracking-tighter"
+                                    >
+                                        <ShieldCheck size={12} />
+                                        {error.toUpperCase()}
+                                    </motion.div>
+                                )}
+
+                                {/* Credentials Form */}
+                                <form onSubmit={handleLogin} className="space-y-5">
+                                    <div className="space-y-1.5">
+                                        <div className="relative group/input">
+                                            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-600 group-focus-within/input:text-yellow-500 transition-colors">
+                                                <Fingerprint size={14} />
+                                            </div>
+                                            <input
+                                                type="text"
+                                                required
+                                                value={username}
+                                                onChange={(e) => setUsername(e.target.value)}
+                                                className="w-full bg-white/[0.01] border border-white/5 text-slate-300 rounded-lg py-2.5 pl-10 pr-4 focus:outline-none focus:border-yellow-500/20 focus:bg-white/[0.03] transition-all placeholder:text-slate-800 font-mono text-[11px] tracking-widest uppercase"
+                                                placeholder="ID_LOGIN"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-1.5">
+                                        <div className="relative group/input">
+                                            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-600 group-focus-within/input:text-yellow-500 transition-colors">
+                                                <Terminal size={14} />
+                                            </div>
+                                            <input
+                                                type="password"
+                                                required
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                className="w-full bg-white/[0.01] border border-white/5 text-slate-300 rounded-lg py-2.5 pl-10 pr-4 focus:outline-none focus:border-yellow-500/20 focus:bg-white/[0.03] transition-all placeholder:text-slate-800 font-mono text-[11px] tracking-widest"
+                                                placeholder="••••••••"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full relative group/btn overflow-hidden rounded-lg py-3 mt-6 transition-all active:scale-[0.98] disabled:opacity-50"
+                                    >
+                                        <div className="absolute inset-0 bg-yellow-500 shadow-[0_0_20px_rgba(234,179,8,0.2)] transition-transform group-hover/btn:scale-[1.02]"></div>
+                                        <div className="relative flex items-center justify-center gap-2 text-black font-black text-[10px] uppercase tracking-[0.2em]">
+                                            {loading ? (
+                                                <div className="w-3.5 h-3.5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                            ) : (
+                                                <>
+                                                    Access System <ArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
+                                                </>
+                                            )}
+                                        </div>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
 
-                        {/* Error Message */}
-                        {error && (
-                            <motion.div
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="bg-red-500/5 border border-red-500/20 rounded-lg p-2.5 mb-6 flex items-center gap-3 text-red-500 text-xs font-medium"
-                            >
-                                <ShieldCheck size={14} />
-                                {error}
-                            </motion.div>
-                        )}
+                        {/* Footer Status */}
+                        <div className="mt-8 flex items-center justify-center gap-4 opacity-10">
+                            <div className="h-[1px] w-6 bg-slate-500"></div>
+                            <p className="text-[8px] font-mono text-slate-500 tracking-widest uppercase">
+                                Root Channel Encrypted
+                            </p>
+                            <div className="h-[1px] w-6 bg-slate-500"></div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-                        {/* Form */}
-                        <form onSubmit={handleLogin} className="space-y-5">
-                            <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Identity</label>
-                                <div className="relative group/input">
-                                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500 group-focus-within/input:text-yellow-500 transition-colors">
-                                        <Fingerprint size={16} />
-                                    </div>
-                                    <input
-                                        type="text"
-                                        required
-                                        value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                        className="w-full bg-white/[0.03] border border-white/5 text-white rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:border-yellow-500/30 focus:bg-white/[0.05] transition-all placeholder:text-slate-700 font-mono text-xs tracking-wider"
-                                        placeholder="ADMIN_ID"
-                                    />
-                                </div>
-                            </div>
+            {/* Prompt for users when light is off */}
+            {!isLampOn && (
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.3 }}
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[10px] font-mono text-slate-500 tracking-[0.5em] uppercase"
+                >
+                    Pull the cord to initiate
+                </motion.p>
+            )}
 
-                            <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Passcode</label>
-                                <div className="relative group/input">
-                                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500 group-focus-within/input:text-yellow-500 transition-colors">
-                                        <Terminal size={16} />
-                                    </div>
-                                    <input
-                                        type="password"
-                                        required
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-white/[0.03] border border-white/5 text-white rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:border-yellow-500/30 focus:bg-white/[0.05] transition-all placeholder:text-slate-700 font-mono text-xs tracking-wider"
-                                        placeholder="••••••••"
-                                    />
-                                </div>
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full relative group/btn overflow-hidden rounded-lg py-2.5 mt-4 transition-all active:scale-[0.98] disabled:opacity-50"
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-orange-600 transition-transform group-hover/btn:scale-105"></div>
-                                <div className="relative flex items-center justify-center gap-2 text-black font-black text-xs uppercase tracking-widest">
-                                    {loading ? (
-                                        <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                                    ) : (
-                                        <>
-                                            Initialize <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                                        </>
-                                    )}
-                                </div>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <div className="mt-8 flex items-center justify-center gap-4 opacity-30 group">
-                    <div className="h-[1px] w-8 bg-slate-700"></div>
-                    <p className="text-[10px] font-mono text-slate-500 tracking-tighter uppercase">
-                        Master Control Interface • v3.0
-                    </p>
-                    <div className="h-[1px] w-8 bg-slate-700"></div>
-                </div>
-            </motion.div>
-
-            {/* Custom CSS for the lamp clip-path and animations */}
             <style jsx>{`
                 .clip-path-lamp {
-                    clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
-                }
-                @keyframes pulse-glow {
-                    0%, 100% { opacity: 0.15; transform: scale(1); }
-                    50% { opacity: 0.25; transform: scale(1.1); }
+                    clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
                 }
             `}</style>
         </div>
