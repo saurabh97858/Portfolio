@@ -24,7 +24,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="hero" className="min-h-[90vh] flex items-center justify-center relative overflow-hidden pt-52 md:pt-64">
+        <section id="hero" className="min-h-[90vh] flex items-center justify-center relative overflow-hidden pt-32 md:pt-40">
             {/* Background Glows */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[120px] animate-pulse pointer-events-none mix-blend-screen" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pink-600/20 rounded-full blur-[120px] animate-pulse delay-700 pointer-events-none mix-blend-screen" />
@@ -34,13 +34,16 @@ const Hero = () => {
             {/* Social Links are now moved to the main content area */}
             {/* <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden 2xl:flex flex-col gap-8 items-center z-20">...</div> */}
 
-            <div className="layout-wrapper relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            <div className="layout-wrapper relative z-10 lg:grid lg:grid-cols-2 gap-12 items-center">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
                     className="w-full text-center lg:text-center flex flex-col items-center"
                 >
+                    {/* Spacer to push content down as requested */}
+                    <div className="h-24 md:h-40"></div>
+
                     <div className="inline-block px-4 py-1.5 border border-slate-700 rounded-full bg-slate-900/50 backdrop-blur-md mb-4 shadow-[0_0_20px_rgba(139,92,246,0.2)]">
                         <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent font-semibold text-sm flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
