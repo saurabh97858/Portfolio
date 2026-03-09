@@ -196,3 +196,21 @@ body::before {
     color: #94a3b8;
     font-weight: 500;
 }
+
+/* Global Shining Hover for Inputs */
+input,
+textarea {
+    transition: all 0.3s ease-in-out !important;
+}
+
+input:hover,
+textarea:hover {
+    border-color: rgba(139, 92, 246, 0.5) !important;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.3) !important;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4) !important;
+}

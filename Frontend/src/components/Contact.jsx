@@ -63,9 +63,6 @@ const Contact = () => {
 
     return (
         <section id="contact" className="bg-slate-950 pb-32 relative font-sans overflow-hidden">
-            {/* SPACER: Micro-tuned for minimal gap */}
-            <div className="w-full h-8 md:h-10 shrink-0" aria-hidden="true" />
-
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px] -z-10 animate-pulse" />
@@ -82,7 +79,7 @@ const Contact = () => {
                     className="grid lg:grid-cols-2 gap-12 items-center"
                 >
                     {/* Left Side: Contact Info & CTA */}
-                    <motion.div variants={itemVariants} className="space-y-8 mt-6 md:mt-0">
+                    <motion.div variants={itemVariants} className="space-y-8 mt-0 md:mt-0">
                         <div>
                             <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
                                 Get in Touch

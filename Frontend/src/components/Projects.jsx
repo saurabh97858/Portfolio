@@ -83,9 +83,7 @@ const Projects = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Projects...</div>;
 
     return (
-        <section id="projects" className="bg-slate-950 pb-6 md:pb-12 relative font-sans overflow-hidden">
-            {/* SPACER: Micro-tuned for minimal gap */}
-            <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
+        <section id="projects" className="bg-slate-950 pb-0 md:pb-0 relative font-sans overflow-hidden">
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
