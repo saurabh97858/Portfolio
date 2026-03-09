@@ -67,6 +67,13 @@ const Hero = () => {
                         I specialize in building <span className="text-violet-300 font-medium">high-performance</span>, <span className="text-pink-300 font-medium">secure</span>, and <span className="text-cyan-300 font-medium">scalable</span> web applications using the modern MERN ecosystem.
                     </p>
 
+                    {/* Description Section */}
+                    <div className="w-full max-w-lg border-t border-slate-800 pt-6 mb-8">
+                        <p className="text-slate-400 text-lg leading-relaxed font-light">
+                            Bridging the gap between <span className="text-cyan-400 font-medium">Development</span> and <span className="text-violet-400 font-medium">Operations</span>. I architect robust <span className="text-white font-medium">Full Stack</span> systems and streamline workflows with modern <span className="text-pink-400 font-medium">DevOps</span> practices.
+                        </p>
+                    </div>
+
                     <div className="flex flex-wrap gap-4 justify-center mb-8">
                         <button
                             onClick={() => navigate('/projects')}
@@ -82,8 +89,8 @@ const Hero = () => {
                         </button>
                     </div>
 
-                    {/* Social Links - Integrated into content for better spacing */}
-                    <div className="flex gap-6 mb-8 justify-center">
+                    {/* Social Links */}
+                    <div className="flex gap-6 justify-center">
                         <a href={portfolioData?.socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors hover:scale-110">
                             <Github size={24} />
                         </a>
@@ -93,13 +100,6 @@ const Hero = () => {
                         <a href={`mailto:${portfolioData?.email || "email@example.com"}`} className="text-slate-400 hover:text-pink-400 transition-colors hover:scale-110">
                             <Mail size={24} />
                         </a>
-                    </div>
-
-                    {/* Description Section */}
-                    <div className="w-full max-w-lg border-t border-slate-800 pt-6">
-                        <p className="text-slate-400 text-lg leading-relaxed font-light">
-                            Bridging the gap between <span className="text-cyan-400 font-medium">Development</span> and <span className="text-violet-400 font-medium">Operations</span>. I architect robust <span className="text-white font-medium">Full Stack</span> systems and streamline workflows with modern <span className="text-pink-400 font-medium">DevOps</span> practices.
-                        </p>
                     </div>
                 </motion.div>
 
