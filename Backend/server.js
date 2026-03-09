@@ -17,7 +17,7 @@ app.use(helmet({
             defaultSrc: ["'self'"],
             imgSrc: ["'self'", "data:", "https:", "blob:"],
             scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // Required for some inline scripts often used in dev
-            connectSrc: ["'self'", "https:", "http://localhost:5000", "ws://localhost:5000"], // Allow connection to backend
+            connectSrc: ["'self'", "https:", "http://localhost:5005", "ws://localhost:5005", "http://localhost:5173"], // Allow connection to backend
         },
     },
     crossOriginResourcePolicy: { policy: "cross-origin" }

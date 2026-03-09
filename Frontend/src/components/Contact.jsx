@@ -62,7 +62,7 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-16 md:pb-24 overflow-hidden">
+        <section id="contact" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-32 md:pb-48 mb-20 md:mb-32 overflow-hidden">
             {/* SPACER: Micro-tuned for minimal gap */}
             <div className="w-full h-8 md:h-12 shrink-0" aria-hidden="true" />
             {/* Background Atmosphere */}
@@ -108,12 +108,6 @@ const Contact = () => {
                                 value="+91 96967 43829"
                                 href="tel:+919696743829"
                                 color="cyan"
-                            />
-                            <ContactCard
-                                icon={MapPin}
-                                title="Location"
-                                value="Gallamandi Naubasta, Kanpur Nagar"
-                                color="emerald"
                             />
                         </div>
                     </motion.div>

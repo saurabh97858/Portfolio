@@ -19,7 +19,8 @@ const portfolioSchema = new mongoose.Schema({
     about: { type: String, default: 'I am a passionate developer...' },
     email: { type: String, default: 'saurabhgupta24979@gmail.com' },
     phone: { type: String, default: '+91 96967 43829' },
-    address: { type: String, default: 'Gallamandi Naubasta, Kanpur Nagar' },
+    currentAddress: { type: String, default: '' },
+    permanentAddress: { type: String, default: '' },
     education: [{
         institution: String,
         degree: String, // Added field

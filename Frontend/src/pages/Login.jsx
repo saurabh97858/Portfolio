@@ -12,6 +12,14 @@ const Login = () => {
     const [isLampOn, setIsLampOn] = useState(false);
     const [isPulling, setIsPulling] = useState(false);
 
+    // Forgot Password States
+    const [isForgotPassword, setIsForgotPassword] = useState(false);
+    const [forgotStep, setForgotStep] = useState(1); // 1: Username, 2: OTP, 3: New Password
+    const [otp, setOtp] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [resetToken, setResetToken] = useState('');
+    const [successMessage, setSuccessMessage] = useState(null);
+
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -39,6 +47,77 @@ const Login = () => {
                 throw new Error('Not authorized as Admin');
             }
 
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleRequestOtp = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+        setSuccessMessage(null);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
+            setSuccessMessage(data.message);
+            setForgotStep(2);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleVerifyOtp = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/verify-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, otp })
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
+            setResetToken(data.resetToken);
+            setSuccessMessage(null);
+            setForgotStep(3);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleResetPassword = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ resetToken, newPassword })
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
+            setSuccessMessage(data.message);
+            // Reset to login screen
+            setTimeout(() => {
+                setIsForgotPassword(false);
+                setForgotStep(1);
+                setSuccessMessage(null);
+                setPassword('');
+            }, 3000);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -190,11 +269,14 @@ const Login = () => {
                                     {/* Header */}
                                     <div className="text-center mb-10 mt-2">
                                         <h2 className="text-[22px] font-bold tracking-wide text-white">
-                                            Welcome Back
+                                            {isForgotPassword ? (
+                                                forgotStep === 1 ? 'Reset Password' :
+                                                    forgotStep === 2 ? 'Enter OTP' : 'New Password'
+                                            ) : 'Welcome Back'}
                                         </h2>
                                     </div>
 
-                                    {/* Error Display */}
+                                    {/* Error/Success Display */}
                                     {error && (
                                         <motion.div
                                             initial={{ opacity: 0, height: 0 }}
@@ -205,65 +287,152 @@ const Login = () => {
                                             {error}
                                         </motion.div>
                                     )}
-
-                                    {/* Credentials Form */}
-                                    <form onSubmit={handleLogin} className="space-y-6">
-                                        <div className="space-y-2 relative">
-                                            <label className="text-[11px] font-semibold text-slate-400 ml-1 tracking-wide">Username</label>
-                                            <div className="relative group/input">
-                                                {/* Hover Glow Background */}
-                                                <div className="absolute inset-0 bg-yellow-500/0 rounded-[10px] blur-md transition-colors duration-300 group-hover/input:bg-yellow-500/10 pointer-events-none"></div>
-
-                                                {/* Focus Glow Border Container */}
-                                                <div className="absolute -inset-[1px] rounded-[10px] bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
-
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    value={username}
-                                                    onChange={(e) => setUsername(e.target.value)}
-                                                    className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
-                                                    placeholder="Enter your username"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="space-y-2 relative">
-                                            <label className="text-[11px] font-semibold text-slate-400 ml-1 tracking-wide">Password</label>
-                                            <div className="relative group/input">
-                                                {/* Hover Glow Background */}
-                                                <div className="absolute inset-0 bg-yellow-500/0 rounded-[10px] blur-md transition-colors duration-300 group-hover/input:bg-yellow-500/10 pointer-events-none"></div>
-
-                                                {/* Focus Glow Border Container */}
-                                                <div className="absolute -inset-[1px] rounded-[10px] bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
-
-                                                <input
-                                                    type="password"
-                                                    required
-                                                    value={password}
-                                                    onChange={(e) => setPassword(e.target.value)}
-                                                    className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
-                                                    placeholder="Enter your password"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <button
-                                            type="submit"
-                                            disabled={loading}
-                                            className="w-full bg-[#7a8c60] hover:bg-[#8da36f] text-[#0d1115] font-bold rounded-[10px] py-3.5 mt-8 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-[15px]"
+                                    {successMessage && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: 'auto' }}
+                                            className="bg-green-500/10 border border-green-500/20 rounded-xl p-3 mb-6 flex items-center gap-3 text-green-400 text-sm"
                                         >
-                                            {loading ? (
-                                                <div className="w-5 h-5 border-2 border-[#0d1115]/30 border-t-[#0d1115] rounded-full animate-spin" />
-                                            ) : (
-                                                <span>Login</span>
-                                            )}
-                                        </button>
-                                    </form>
+                                            <ShieldCheck size={16} />
+                                            {successMessage}
+                                        </motion.div>
+                                    )}
 
-                                    <div className="mt-6 text-center">
-                                        <a href="#" className="text-[11px] font-medium text-slate-500 hover:text-[#849b87] transition-colors">Forgot Password?</a>
-                                    </div>
+                                    {/* Forms Container */}
+                                    {!isForgotPassword ? (
+                                        <>
+                                            {/* Credentials Form */}
+                                            <form onSubmit={handleLogin} className="space-y-6">
+                                                <div className="space-y-2 relative">
+                                                    <label className="text-[11px] font-semibold text-slate-400 ml-1 tracking-wide">Username</label>
+                                                    <div className="relative group/input">
+                                                        {/* Hover Glow Background */}
+                                                        <div className="absolute inset-0 bg-yellow-500/0 rounded-[10px] blur-md transition-colors duration-300 group-hover/input:bg-yellow-500/10 pointer-events-none"></div>
+
+                                                        {/* Focus Glow Border Container */}
+                                                        <div className="absolute -inset-[1px] rounded-[10px] bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
+
+                                                        <input
+                                                            type="text"
+                                                            required
+                                                            value={username}
+                                                            onChange={(e) => setUsername(e.target.value)}
+                                                            className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
+                                                            placeholder="Enter your username"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="space-y-2 relative">
+                                                    <label className="text-[11px] font-semibold text-slate-400 ml-1 tracking-wide">Password</label>
+                                                    <div className="relative group/input">
+                                                        {/* Hover Glow Background */}
+                                                        <div className="absolute inset-0 bg-yellow-500/0 rounded-[10px] blur-md transition-colors duration-300 group-hover/input:bg-yellow-500/10 pointer-events-none"></div>
+
+                                                        {/* Focus Glow Border Container */}
+                                                        <div className="absolute -inset-[1px] rounded-[10px] bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
+
+                                                        <input
+                                                            type="password"
+                                                            required
+                                                            value={password}
+                                                            onChange={(e) => setPassword(e.target.value)}
+                                                            className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
+                                                            placeholder="Enter your password"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <button
+                                                    type="submit"
+                                                    disabled={loading}
+                                                    className="w-full bg-[#7a8c60] hover:bg-[#8da36f] text-[#0d1115] font-bold rounded-[10px] py-3.5 mt-8 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-[15px]"
+                                                >
+                                                    {loading ? (
+                                                        <div className="w-5 h-5 border-2 border-[#0d1115]/30 border-t-[#0d1115] rounded-full animate-spin" />
+                                                    ) : (
+                                                        <span>Login</span>
+                                                    )}
+                                                </button>
+                                            </form>
+
+                                            <div className="mt-6 text-center">
+                                                <button type="button" onClick={() => { setIsForgotPassword(true); setError(null); setSuccessMessage(null); }} className="text-[11px] font-medium text-slate-500 hover:text-[#849b87] transition-colors">Forgot Password?</button>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        /* Forgot Password Flow */
+                                        <form onSubmit={forgotStep === 1 ? handleRequestOtp : forgotStep === 2 ? handleVerifyOtp : handleResetPassword} className="space-y-6">
+                                            {forgotStep === 1 && (
+                                                <div className="space-y-2 relative">
+                                                    <label className="text-[11px] font-semibold text-slate-400 ml-1 tracking-wide">Username</label>
+                                                    <div className="relative group/input">
+                                                        <div className="absolute inset-0 bg-yellow-500/0 rounded-[10px] blur-md transition-colors duration-300 group-hover/input:bg-yellow-500/10 pointer-events-none"></div>
+                                                        <div className="absolute -inset-[1px] rounded-[10px] bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
+                                                        <input
+                                                            type="text"
+                                                            required
+                                                            value={username}
+                                                            onChange={(e) => setUsername(e.target.value)}
+                                                            className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
+                                                            placeholder="Enter admin username"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {forgotStep === 2 && (
+                                                <div className="space-y-2 relative">
+                                                    <label className="text-[11px] font-semibold text-slate-400 ml-1 tracking-wide">Enter 6-digit OTP</label>
+                                                    <div className="relative group/input">
+                                                        <div className="absolute -inset-[1px] rounded-[10px] bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
+                                                        <input
+                                                            type="text"
+                                                            required
+                                                            maxLength={6}
+                                                            value={otp}
+                                                            onChange={(e) => setOtp(e.target.value)}
+                                                            className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 text-center tracking-[0.5em] focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-lg font-bold border border-transparent"
+                                                            placeholder="------"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {forgotStep === 3 && (
+                                                <div className="space-y-2 relative">
+                                                    <label className="text-[11px] font-semibold text-slate-400 ml-1 tracking-wide">New Password</label>
+                                                    <div className="relative group/input">
+                                                        <div className="absolute -inset-[1px] rounded-[10px] bg-gradient-to-r from-orange-500 via-yellow-500 to-green-500 opacity-0 group-focus-within/input:opacity-100 blur-[2px] transition-opacity duration-300 pointer-events-none"></div>
+                                                        <input
+                                                            type="password"
+                                                            required
+                                                            value={newPassword}
+                                                            onChange={(e) => setNewPassword(e.target.value)}
+                                                            className="w-full relative z-10 bg-[#161816] text-slate-200 rounded-[10px] py-4 px-4 focus:outline-none focus:ring-0 focus:bg-[#1a1c1a] transition-all placeholder:text-slate-600 text-sm font-medium border border-transparent"
+                                                            placeholder="Enter new password"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            <button
+                                                type="submit"
+                                                disabled={loading}
+                                                className="w-full bg-[#7a8c60] hover:bg-[#8da36f] text-[#0d1115] font-bold rounded-[10px] py-3.5 mt-8 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-[15px]"
+                                            >
+                                                {loading ? (
+                                                    <div className="w-5 h-5 border-2 border-[#0d1115]/30 border-t-[#0d1115] rounded-full animate-spin" />
+                                                ) : (
+                                                    <span>{forgotStep === 1 ? 'Send OTP' : forgotStep === 2 ? 'Verify OTP' : 'Reset Password'}</span>
+                                                )}
+                                            </button>
+
+                                            <div className="mt-6 text-center">
+                                                <button type="button" onClick={() => { setIsForgotPassword(false); setForgotStep(1); setError(null); setSuccessMessage(null); }} className="text-[11px] font-medium text-slate-500 hover:text-slate-300 transition-colors">Back to Login</button>
+                                            </div>
+                                        </form>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>

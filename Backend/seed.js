@@ -21,6 +21,7 @@ const seedData = async () => {
         // Create Admin User
         const adminUser = new User({
             username: 'admin',
+            email: 'saurabhgupta24979@gmail.com',
             password: 'password123', // Change this after first login
             isAdmin: true
         });

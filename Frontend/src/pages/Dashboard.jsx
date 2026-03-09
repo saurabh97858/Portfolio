@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Database, Settings, MessageSquare, Plus, Trash2, Save, User as UserIcon, Cpu, Briefcase, Pencil, GraduationCap, Menu, X } from 'lucide-react';
+import { LogOut, LayoutDashboard, Database, Settings, MessageSquare, Plus, Trash2, Save, User as UserIcon, Cpu, Briefcase, Pencil, GraduationCap, Menu, X, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const API_BASE = `${import.meta.env.VITE_API_URL}/api`;
@@ -419,7 +419,7 @@ export default Dashboard;
 
 const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [formData, setFormData] = useState({ title: '', liveLink: '', githubLink: '', tags: '', description: '', images: '' });
+    const [formData, setFormData] = useState({ title: '', liveLink: '', githubLink: '', tags: '', description: '', images: [] });
     const [editIndex, setEditIndex] = useState(-1);
 
     const openModal = (project = null, idx = -1) => {
@@ -430,11 +430,11 @@ const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
                 githubLink: project.githubLink || '',
                 tags: project.tags ? project.tags.join(', ') : '',
                 description: project.description,
-                images: project.images ? project.images.join(', ') : ''
+                images: project.images ? [...project.images] : []
             });
             setEditIndex(idx);
         } else {
-            setFormData({ title: '', liveLink: '', githubLink: '', tags: '', description: '', images: '' });
+            setFormData({ title: '', liveLink: '', githubLink: '', tags: '', description: '', images: [] });
             setEditIndex(-1);
         }
         setIsModalOpen(true);
@@ -454,7 +454,7 @@ const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
         const newProject = {
             ...formData,
             tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
-            images: formData.images.split(',').map(i => i.trim()).filter(Boolean)
+            images: formData.images // Already an array of base64 strings
         };
 
         let updatedProjects = [...(portfolioData.projects || [])];
@@ -478,22 +478,17 @@ const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
         <>
             <div className="mb-6">
                 <h3 className="text-xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
-                    Manage Projects
+                    Projects ({portfolioData.projects?.length || 0})
                 </h3>
+                <button
+                    onClick={() => openModal()}
+                    className="mt-4 flex items-center gap-2 px-5 py-2.5 rounded-xl bg-violet-600/20 text-violet-400 hover:bg-violet-600 hover:text-white transition-all font-semibold shadow-[0_0_15px_rgba(139,92,246,0.2)]"
+                >
+                    <Plus size={18} /> Add New Project
+                </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Add New Project Card */}
-                <button
-                    onClick={() => openModal()}
-                    className="group relative flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-white/10 hover:border-violet-500/50 hover:bg-white/5 transition-all text-slate-400 hover:text-violet-400 min-h-[250px]"
-                >
-                    <div className="w-16 h-16 rounded-full bg-white/5 group-hover:bg-violet-500/20 flex items-center justify-center mb-4 transition-colors">
-                        <Plus size={32} />
-                    </div>
-                    <span className="font-bold text-lg">Add New Project</span>
-                </button>
-
                 {portfolioData?.projects?.map((project, idx) => (
                     <div key={idx} className="group relative p-6 rounded-3xl bg-white/5 border border-white/5 hover:border-violet-500/30 transition-all hover:bg-white/10 flex flex-col">
                         <div className="absolute top-4 right-4 flex gap-2">
@@ -592,34 +587,53 @@ const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
                                 </div>
 
                                 <div>
-                                    <label className="label">Project Images</label>
-                                    <div className="flex flex-col gap-3">
-                                        <div className="flex gap-2 overflow-x-auto pb-2">
-                                            {formData.images && formData.images.split(',').map((img, i) => (
-                                                <img key={i} src={img.trim()} className="h-20 w-32 object-cover rounded-lg border border-white/10" alt="Project" />
-                                            ))}
-                                        </div>
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={(e) => {
-                                                const file = e.target.files[0];
-                                                if (file) {
-                                                    const reader = new FileReader();
-                                                    reader.onloadend = () => {
-                                                        // Append new image to existing comma-separated string
-                                                        setFormData(prev => ({
-                                                            ...prev,
-                                                            images: prev.images ? `${prev.images}, ${reader.result}` : reader.result
-                                                        }));
-                                                    };
-                                                    reader.readAsDataURL(file);
-                                                }
-                                            }}
-                                            className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer"
-                                        />
-                                        <p className="text-xs text-slate-500">Upload new image to append.</p>
+                                    <label className="label mb-2 block">Project Images</label>
+                                    <div className="flex gap-2 overflow-x-auto pb-4 mb-2">
+                                        {formData.images && formData.images.map((img, i) => (
+                                            <div key={i} className="relative group shrink-0">
+                                                <img
+                                                    src={img}
+                                                    className="h-20 w-32 object-cover rounded-lg border border-white/10"
+                                                    alt={`Project Image ${i + 1}`}
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        const currentImages = [...formData.images];
+                                                        currentImages.splice(i, 1);
+                                                        setFormData(prev => ({ ...prev, images: currentImages }));
+                                                    }}
+                                                    className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                                                    title="Remove Image"
+                                                >
+                                                    <X size={14} />
+                                                </button>
+                                            </div>
+                                        ))}
                                     </div>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onloadend = () => {
+                                                    // Append new image base64 directly to the array
+                                                    setFormData(prev => ({
+                                                        ...prev,
+                                                        images: [...prev.images, reader.result]
+                                                    }));
+                                                };
+                                                reader.readAsDataURL(file);
+                                            }
+                                            // Reset the input so the same file can be selected again if needed
+                                            e.target.value = '';
+                                        }}
+                                        className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer"
+                                    />
+                                    <p className="text-xs text-slate-500 mt-2">Upload a new image to add it to the gallery. Click the 'X' on an existing image to remove it.</p>
                                 </div>
 
                                 <div>
@@ -1089,8 +1103,15 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
     const [formData, setFormData] = useState({
         name: '', role: '', about: '', email: '', phone: '',
         github: '', linkedin: '', instagram: '', profileImage: '',
+        currentAddress: '', permanentAddress: '',
         education: []
     });
+
+    // Password Change State
+    const [passwordData, setPasswordData] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    const [passwordLoading, setPasswordLoading] = useState(false);
+    const [passwordError, setPasswordError] = useState(null);
+    const [passwordSuccess, setPasswordSuccess] = useState(null);
 
     useEffect(() => {
         if (portfolioData) {
@@ -1105,6 +1126,8 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                 instagram: portfolioData.socialLinks?.instagram || '',
                 profileImage: portfolioData.profileImage || '',
                 heroImage: portfolioData.heroImage || '',
+                currentAddress: portfolioData.currentAddress || '',
+                permanentAddress: portfolioData.permanentAddress || '',
                 education: portfolioData.education || []
             });
         }
@@ -1144,6 +1167,8 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
             phone: formData.phone,
             profileImage: formData.profileImage,
             heroImage: formData.heroImage,
+            currentAddress: formData.currentAddress,
+            permanentAddress: formData.permanentAddress,
             socialLinks: {
                 github: formData.github,
                 linkedin: formData.linkedin,
@@ -1153,6 +1178,44 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
         };
         updatePortfolio(updates);
         setIsModalOpen(false);
+    };
+
+    const handlePasswordChange = async (e) => {
+        e.preventDefault();
+        setPasswordLoading(true);
+        setPasswordError(null);
+        setPasswordSuccess(null);
+
+        if (passwordData.newPassword !== passwordData.confirmPassword) {
+            setPasswordError("New passwords do not match.");
+            setPasswordLoading(false);
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('adminToken');
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/update-password`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    currentPassword: passwordData.currentPassword,
+                    newPassword: passwordData.newPassword
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message);
+
+            setPasswordSuccess("Password updated successfully!");
+            setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+        } catch (err) {
+            setPasswordError(err.message);
+        } finally {
+            setPasswordLoading(false);
+        }
     };
 
     return (
@@ -1228,6 +1291,77 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                         )}
                     </div>
                 </div>
+            </div>
+
+            {/* Change Password Section */}
+            <div className="mt-8 bg-slate-900/50 p-8 rounded-3xl border border-white/5 relative group hover:border-red-500/30 transition-all">
+                <div className="mb-6">
+                    <h3 className="text-xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent flex items-center gap-2">
+                        <ShieldCheck size={24} className="text-red-400" /> Security Settings
+                    </h3>
+                    <p className="text-slate-400 text-sm mt-1">Update your admin panel password securely</p>
+                </div>
+
+                <form onSubmit={handlePasswordChange} className="space-y-5 max-w-xl">
+                    {passwordError && (
+                        <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-xl text-sm mb-4">
+                            {passwordError}
+                        </div>
+                    )}
+                    {passwordSuccess && (
+                        <div className="bg-green-500/10 border border-green-500/20 text-green-400 p-3 rounded-xl text-sm mb-4">
+                            {passwordSuccess}
+                        </div>
+                    )}
+
+                    <div>
+                        <label className="label">Current Password</label>
+                        <input
+                            type="password"
+                            required
+                            value={passwordData.currentPassword}
+                            onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+                            className="input-field w-full"
+                            placeholder="Enter current password"
+                        />
+                    </div>
+                    <div>
+                        <label className="label">New Password</label>
+                        <input
+                            type="password"
+                            required
+                            minLength={6}
+                            value={passwordData.newPassword}
+                            onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                            className="input-field w-full"
+                            placeholder="Enter new password"
+                        />
+                    </div>
+                    <div>
+                        <label className="label">Confirm New Password</label>
+                        <input
+                            type="password"
+                            required
+                            minLength={6}
+                            value={passwordData.confirmPassword}
+                            onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
+                            className="input-field w-full"
+                            placeholder="Confirm new password"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={passwordLoading}
+                        className="px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:opacity-90 text-white font-bold shadow-lg shadow-red-500/20 transition-all disabled:opacity-50 flex items-center gap-2 mt-4"
+                    >
+                        {passwordLoading ? (
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        ) : (
+                            <><Save size={18} /> Update Password</>
+                        )}
+                    </button>
+                </form>
             </div>
 
             {/* Edit Modal */}
@@ -1362,6 +1496,18 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                     <div>
                                         <label className="label">About Bio</label>
                                         <textarea name="about" value={formData.about} onChange={handleChange} className="input-field w-full h-32 resize-none" />
+                                    </div>
+
+                                    <div className="pt-4 border-t border-white/5 mt-4 space-y-4">
+                                        <h3 className="font-semibold text-emerald-400 border-b border-white/5 pb-2">📍 Address Info</h3>
+                                        <div>
+                                            <label className="label">Current Address</label>
+                                            <textarea name="currentAddress" value={formData.currentAddress} onChange={handleChange} className="input-field w-full h-20 resize-none" placeholder="e.g. Hostel 5, IIT Kanpur, UP" />
+                                        </div>
+                                        <div>
+                                            <label className="label">Permanent Address</label>
+                                            <textarea name="permanentAddress" value={formData.permanentAddress} onChange={handleChange} className="input-field w-full h-20 resize-none" placeholder="e.g. Gallamandi Naubasta, Kanpur Nagar, UP" />
+                                        </div>
                                     </div>
                                 </div>
 

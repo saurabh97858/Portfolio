@@ -25,6 +25,8 @@ const Layout = () => (
         <main className="flex-grow">
             <Outlet />
         </main>
+        {/* Moderate Space Forcer */}
+        <div className="w-full h-10 md:h-16 bg-slate-950"></div>
         <Footer />
     </div>
 );
@@ -58,12 +60,12 @@ function App() {
                         <Route element={<Layout />}>
                             <Route path="/" element={
                                 <>
-                                    <section id="home"><Hero /></section>
+                                    <div id="home-wrapper"><Hero /></div>
                                     <TechMarquee />
-                                    <section id="about"><About /></section>
-                                    <section id="skills"><Skills /></section>
-                                    <section id="projects"><Projects /></section>
-                                    <section id="contact"><Contact /></section>
+                                    <div id="about-wrapper"><About /></div>
+                                    <div id="skills-wrapper"><Skills /></div>
+                                    <div id="projects-wrapper"><Projects /></div>
+                                    <div id="contact-wrapper"><Contact /></div>
                                 </>
                             } />
                         </Route>
