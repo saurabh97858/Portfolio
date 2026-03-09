@@ -137,7 +137,7 @@ const About = () => {
                             className="flex flex-col h-full"
                         >
                             <SectionTitle icon={Briefcase} title="Experience" color="violet" />
-                            <SpotlightCard className="rounded-xl p-6 md:p-8 h-full border-t-4 border-t-violet-500/40 flex flex-col">
+                            <SpotlightCard className="rounded-xl p-8 md:p-10 h-full border-t-4 border-t-violet-500/40 flex flex-col">
                                 <div className="space-y-8">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
                                         <div key={idx} className="relative group/item pl-6 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
@@ -161,7 +161,7 @@ const About = () => {
                                             </div>
                                         </div>
                                     )) : (
-                                        <div className="text-slate-500 italic">No experience entries found.</div>
+                                        <div className="text-slate-500 italic py-4 px-2">No experience entries found.</div>
                                     )}
                                 </div>
                             </SpotlightCard>
@@ -177,7 +177,7 @@ const About = () => {
                         >
                             <div className="flex flex-col">
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
-                                <SpotlightCard className="rounded-xl p-6 md:p-8 border-t-4 border-t-emerald-500/40 h-full">
+                                <SpotlightCard className="rounded-xl p-8 md:p-10 border-t-4 border-t-emerald-500/40 h-full">
                                     {education.length > 0 ? education.map((edu, idx) => (
                                         <div key={idx} className="relative group mb-8 last:mb-0">
                                             <div className="flex justify-between items-start mb-2">
@@ -188,7 +188,7 @@ const About = () => {
                                             {edu.cgpa && <div className="inline-block text-xs font-bold text-emerald-500/80 bg-emerald-500/10 px-2 py-1 rounded">CGPA: {edu.cgpa}</div>}
                                         </div>
                                     )) : (
-                                        <div className="text-slate-500">No education details.</div>
+                                        <div className="text-slate-500 py-4 px-2">No education details.</div>
                                     )}
                                 </SpotlightCard>
                             </div>

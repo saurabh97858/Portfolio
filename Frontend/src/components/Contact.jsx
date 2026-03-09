@@ -119,7 +119,7 @@ const Contact = () => {
                         </div>
 
                         {/* Social Links */}
-                        <div className="flex gap-4 pt-4">
+                        <div className="flex gap-3 pt-4">
                             <SocialButton icon={Github} href={portfolioData?.socialLinks?.github || "https://github.com"} />
                             <SocialButton icon={Linkedin} href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} />
                             <SocialButton icon={Twitter} href={portfolioData?.socialLinks?.instagram || "https://instagram.com"} />
@@ -131,7 +131,7 @@ const Contact = () => {
                         {/* Glow effect behind form */}
                         <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-[2.5rem] blur-xl opacity-20 animate-tilt"></div>
 
-                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-6 md:p-8 rounded-[2rem] shadow-2xl">
+                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-[2rem] shadow-2xl">
                             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
                                 <MessageSquare className="text-violet-400 shrink-0" size={20} />
                                 Send a Message
@@ -244,9 +244,9 @@ const SocialButton = ({ icon: Icon, href }) => (
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-10 h-10 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-violet-500 hover:shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:-translate-y-1 transition-all duration-300"
+        className="w-8 h-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-violet-500 hover:shadow-[0_0_12px_rgba(139,92,246,0.4)] hover:-translate-y-1 transition-all duration-300"
     >
-        <Icon size={18} />
+        <Icon size={15} />
     </a>
 );
 
