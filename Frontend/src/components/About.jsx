@@ -39,9 +39,9 @@ const About = () => {
     const defaultBio = "I am a passionate Full Stack Developer dedicated to crafting robust back-ends and intuitive front-ends. My journey is defined by a relentless curiosity and a drive to build scalable, user-centric solutions.";
 
     return (
-        <section id="about" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-6 md:pb-12 overflow-hidden">
+        <section id="about" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-4 md:pb-8 overflow-hidden">
             {/* SPACER: Micro-tuned for minimal gap */}
-            <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
+            <div className="w-full h-8 md:h-12 shrink-0" aria-hidden="true" />
 
             {/* Premium Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -58,7 +58,7 @@ const About = () => {
                     initial={{ opacity: 0, y: -30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16 relative"
+                    className="text-center mb-10 relative"
                     style={{ filter: selectedCert ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     <div className="inline-block relative group">
@@ -69,10 +69,10 @@ const About = () => {
                         </span>
                     </div>
 
-                    <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-2 md:mb-3 drop-shadow-2xl">
+                    <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-2 drop-shadow-2xl">
                         About <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 animate-gradient-x">Me</span>.
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
+                    <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base font-light leading-relaxed">
                         Architecting digital realities with code, creativity, and precision.
                     </p>
                 </motion.div>
@@ -86,16 +86,16 @@ const About = () => {
                         whileInView="visible"
                         viewport={{ once: true }}
                     >
-                        <SpotlightCard className="rounded-xl p-6 md:p-8 from-violet-500/20 via-slate-900 to-slate-900 border-l-4 border-l-violet-500/40">
+                        <SpotlightCard className="rounded-xl p-5 md:p-6 from-violet-500/20 via-slate-900 to-slate-900 border-l-4 border-l-violet-500/40">
                             {/* Decorative Elements */}
                             <div className="absolute top-0 right-0 p-8 opacity-5 transition-opacity transform rotate-12 scale-125 pointer-events-none">
                                 <Terminal size={200} />
                             </div>
 
                             <div className="flex flex-col md:flex-row gap-8 items-center relative z-10">
-                                <div className="relative group/avatar shrink-0 ml-8 md:ml-20">
+                                <div className="relative group/avatar shrink-0 ml-4 md:ml-12">
                                     <div className="absolute inset-0 bg-gradient-to-tr from-violet-600 to-cyan-600 rounded-full blur-xl opacity-40 animate-pulse group-hover/avatar:opacity-60 transition-opacity"></div>
-                                    <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center overflow-hidden shadow-xl relative z-10 group-hover/avatar:scale-105 transition-transform duration-500">
+                                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-slate-950 border-4 border-white/10 flex items-center justify-center overflow-hidden shadow-xl relative z-10 group-hover/avatar:scale-105 transition-transform duration-500">
                                         {aboutData?.profileImage ? (
                                             <img
                                                 src={aboutData.profileImage}
@@ -103,16 +103,16 @@ const About = () => {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <User className="text-slate-200" size={50} />
+                                            <User className="text-slate-200" size={40} />
                                         )}
                                     </div>
                                 </div>
 
                                 <div className="text-center md:text-left">
-                                    <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-4">
+                                    <h3 className="text-xl md:text-2xl font-bold text-white leading-tight mb-3">
                                         Hi, I'm <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">{aboutData?.name || 'Saurabh'}</span>.
                                     </h3>
-                                    <p className="text-base md:text-lg text-slate-300 leading-relaxed font-light mb-6">
+                                    <p className="text-sm md:text-base text-slate-300 leading-relaxed font-light mb-4">
                                         {aboutData?.about || defaultBio}
                                     </p>
 
@@ -137,7 +137,7 @@ const About = () => {
                             className="flex flex-col h-full"
                         >
                             <SectionTitle icon={Briefcase} title="Experience" color="violet" />
-                            <SpotlightCard className="rounded-xl p-8 md:p-10 h-full border-t-4 border-t-violet-500/40 flex flex-col">
+                            <SpotlightCard className="rounded-xl p-6 md:p-8 h-full border-t-4 border-t-violet-500/40 flex flex-col">
                                 <div className="space-y-8">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
                                         <div key={idx} className="relative group/item pl-6 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
@@ -146,8 +146,8 @@ const About = () => {
 
                                             <div className="flex flex-col gap-2">
                                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                                                    <h4 className="text-lg font-bold text-white group-hover/item:text-violet-400 transition-colors">{exp.role}</h4>
-                                                    <span className="text-xs font-mono text-slate-500 bg-white/5 px-2 py-1 rounded">{exp.duration}</span>
+                                                    <h4 className="text-base font-bold text-white group-hover/item:text-violet-400 transition-colors">{exp.role}</h4>
+                                                    <span className="text-[10px] font-mono text-slate-500 bg-white/5 px-2 py-0.5 rounded">{exp.duration}</span>
                                                 </div>
 
                                                 <div className="text-cyan-400 text-sm font-bold uppercase tracking-wider flex items-center gap-2 mb-2">
@@ -177,15 +177,15 @@ const About = () => {
                         >
                             <div className="flex flex-col">
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
-                                <SpotlightCard className="rounded-xl p-8 md:p-10 border-t-4 border-t-emerald-500/40 h-full">
+                                <SpotlightCard className="rounded-xl p-6 md:p-8 border-t-4 border-t-emerald-500/40 h-full">
                                     {education.length > 0 ? education.map((edu, idx) => (
                                         <div key={idx} className="relative group mb-8 last:mb-0">
-                                            <div className="flex justify-between items-start mb-2">
-                                                <h4 className="text-xl font-bold text-white">{edu.institution}</h4>
-                                                <span className="text-xs font-mono text-slate-500 bg-white/5 px-2 py-1 rounded border border-white/5 whitespace-nowrap">{edu.year}</span>
+                                            <div className="flex justify-between items-start mb-1">
+                                                <h4 className="text-lg font-bold text-white">{edu.institution}</h4>
+                                                <span className="text-[10px] font-mono text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/5 whitespace-nowrap">{edu.year}</span>
                                             </div>
-                                            <p className="text-emerald-400 text-sm font-bold uppercase tracking-wider mb-2">{edu.degree}</p>
-                                            {edu.cgpa && <div className="inline-block text-xs font-bold text-emerald-500/80 bg-emerald-500/10 px-2 py-1 rounded">CGPA: {edu.cgpa}</div>}
+                                            <p className="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">{edu.degree}</p>
+                                            {edu.cgpa && <div className="inline-block text-[10px] font-bold text-emerald-500/80 bg-emerald-500/10 px-2 py-0.5 rounded">CGPA: {edu.cgpa}</div>}
                                         </div>
                                     )) : (
                                         <div className="text-slate-500 py-4 px-2">No education details.</div>
@@ -334,9 +334,9 @@ const SectionTitle = ({ icon: Icon, title, color }) => {
     };
 
     return (
-        <h3 className="text-2xl font-bold text-white flex items-center justify-center gap-3 mb-4 pl-2">
-            <div className={`p-2 rounded-lg ring-1 ${colors[color] || colors.violet}`}>
-                <Icon size={20} />
+        <h3 className="text-xl font-bold text-white flex items-center justify-center gap-2 mb-3 pl-2">
+            <div className={`p-1.5 rounded-lg ring-1 ${colors[color] || colors.violet}`}>
+                <Icon size={18} />
             </div>
             <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">{title}</span>
         </h3>
@@ -350,15 +350,15 @@ const StatsBadge = ({ icon: Icon, value, label, color }) => {
     };
 
     return (
-        <div className={cn("bg-white/5 border border-white/10 px-6 py-4 rounded-xl flex items-center gap-4 hover:bg-white/10 transition-colors hover:scale-105 duration-300 shadow-md group/badge",
+        <div className={cn("bg-white/5 border border-white/10 px-4 py-3 rounded-xl flex items-center gap-3 hover:bg-white/10 transition-colors hover:scale-105 duration-300 shadow-md group/badge",
             colors[color] && `hover:${colors[color].split(' ')[2]}`
         )}>
-            <div className={cn("p-2 rounded-lg", colors[color]?.split(' ').slice(0, 2).join(' '))}>
-                <Icon size={24} />
+            <div className={cn("p-1.5 rounded-lg", colors[color]?.split(' ').slice(0, 2).join(' '))}>
+                <Icon size={20} />
             </div>
             <div className="text-left">
-                <div className="text-2xl font-bold text-white">{value}</div>
-                <div className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">{label}</div>
+                <div className="text-xl font-bold text-white">{value}</div>
+                <div className="text-[9px] text-slate-400 uppercase tracking-widest font-bold">{label}</div>
             </div>
         </div>
     );

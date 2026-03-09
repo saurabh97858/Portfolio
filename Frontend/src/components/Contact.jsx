@@ -62,7 +62,9 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="bg-slate-950 pb-32 relative font-sans overflow-hidden">
+        <section id="contact" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-16 md:pb-24 overflow-hidden">
+            {/* SPACER: Micro-tuned for minimal gap */}
+            <div className="w-full h-8 md:h-12 shrink-0" aria-hidden="true" />
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px] -z-10 animate-pulse" />
@@ -76,18 +78,18 @@ const Contact = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid lg:grid-cols-2 gap-12 items-center"
+                    className="grid lg:grid-cols-2 gap-8 items-center"
                 >
                     {/* Left Side: Contact Info & CTA */}
                     <motion.div variants={itemVariants} className="space-y-8 mt-0 md:mt-0">
                         <div>
-                            <span className="inline-block py-2 px-6 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-sm font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
+                            <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-[10px] font-bold tracking-widest uppercase mb-3 backdrop-blur-md shadow-lg">
                                 Get in Touch
                             </span>
-                            <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-6 drop-shadow-2xl leading-tight">
+                            <h2 className="text-xl md:text-2xl font-black text-white tracking-tight mb-4 drop-shadow-2xl leading-tight">
                                 Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Collaboration</span> Begin.
                             </h2>
-                            <p className="text-slate-400 text-base md:text-lg font-light leading-relaxed max-w-lg">
+                            <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed max-w-lg">
                                 Have a project in mind or just want to explore new possibilities? I'm always open to discussing new ideas and opportunities.
                             </p>
                         </div>
@@ -121,62 +123,62 @@ const Contact = () => {
                         {/* Glow effect behind form */}
                         <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-2xl blur-xl opacity-20 animate-tilt"></div>
 
-                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-2xl shadow-2xl">
-                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                                <MessageSquare className="text-violet-400 shrink-0" size={20} />
+                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-6 md:p-8 rounded-2xl shadow-2xl">
+                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-3">
+                                <MessageSquare className="text-violet-400 shrink-0" size={18} />
                                 Send a Message
                             </h3>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-slate-400 ml-1">Your Name</label>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-medium text-slate-400 ml-1">Your Name</label>
                                         <input
                                             type="text"
                                             name="name"
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-slate-600"
+                                            className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-slate-600 text-sm"
                                             placeholder="John Doe"
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-slate-400 ml-1">Your Email</label>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-medium text-slate-400 ml-1">Your Email</label>
                                         <input
                                             type="email"
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all placeholder:text-slate-600"
+                                            className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all placeholder:text-slate-600 text-sm"
                                             placeholder="john@example.com"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-slate-400 ml-1">Subject</label>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-medium text-slate-400 ml-1">Subject</label>
                                     <input
                                         type="text"
                                         name="subject"
                                         value={formData.subject}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-slate-600"
+                                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-slate-600 text-sm"
                                         placeholder="Project Inquiry..."
                                     />
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-slate-400 ml-1">Message</label>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-medium text-slate-400 ml-1">Message</label>
                                     <textarea
                                         name="message"
-                                        rows="5"
+                                        rows="4"
                                         value={formData.message}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-none placeholder:text-slate-600"
+                                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-none placeholder:text-slate-600 text-sm"
                                         placeholder="Tell me about your project..."
                                     ></textarea>
                                 </div>
@@ -186,13 +188,13 @@ const Contact = () => {
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
                                     disabled={loading}
-                                    className={`w-full py-4 rounded-xl font-bold text-white shadow-lg flex items-center justify-center gap-3 transition-all ${loading ? 'bg-slate-700 cursor-not-allowed' :
+                                    className={`w-full py-3 rounded-xl font-bold text-sm text-white shadow-lg flex items-center justify-center gap-2 transition-all ${loading ? 'bg-slate-700 cursor-not-allowed' :
                                         status === 'success' ? 'bg-emerald-600 hover:bg-emerald-500' :
                                             'bg-gradient-to-r from-violet-600 to-cyan-600 hover:shadow-violet-500/25'
                                         }`}
                                 >
                                     {loading ? 'Sending...' : status === 'success' ? 'Message Sent!' : (
-                                        <>Send Message <Send size={20} /></>
+                                        <>Send Message <Send size={18} /></>
                                     )}
                                 </motion.button>
                             </form>
@@ -200,7 +202,7 @@ const Contact = () => {
                     </motion.div>
                 </motion.div>
             </div>
-        </section >
+        </section>
     );
 };
 
@@ -216,14 +218,14 @@ const ContactCard = ({ icon: Icon, title, value, href, color }) => {
     return (
         <Wrapper
             href={href}
-            className="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-violet-500/30 hover:bg-white/10 transition-all duration-300"
+            className="group flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-violet-500/30 hover:bg-white/10 transition-all duration-300"
         >
-            <div className={`p-4 rounded-xl transition-all duration-300 ${colorClasses[color]}`}>
-                <Icon size={22} />
+            <div className={`p-3 rounded-xl transition-all duration-300 ${colorClasses[color]}`}>
+                <Icon size={18} />
             </div>
             <div>
-                <h4 className="text-xs font-medium text-slate-400 mb-1 uppercase tracking-wider">{title}</h4>
-                <p className="text-base md:text-lg font-bold text-white group-hover:text-cyan-200 transition-colors">{value}</p>
+                <h4 className="text-[10px] font-medium text-slate-400 mb-0.5 uppercase tracking-wider">{title}</h4>
+                <p className="text-sm md:text-base font-bold text-white group-hover:text-cyan-200 transition-colors">{value}</p>
             </div>
         </Wrapper>
     );

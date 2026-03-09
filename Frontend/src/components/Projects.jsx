@@ -99,16 +99,16 @@ const Projects = () => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mb-12"
+                    className="text-center mb-8"
                     style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
                         Portfolio
                     </span>
-                    <h2 className="text-xl md:text-3xl font-black text-white tracking-tight mb-4 drop-shadow-2xl">
+                    <h2 className="text-xl md:text-2xl font-black text-white tracking-tight mb-3 drop-shadow-2xl">
                         Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Works</span>
                     </h2>
-                    <p className="text-slate-400 max-w-3xl mx-auto text-lg md:text-xl font-light leading-relaxed">
+                    <p className="text-slate-400 max-w-3xl mx-auto text-base md:text-lg font-light leading-relaxed">
                         A curated selection of technical challenges and creative solutions.
                     </p>
                 </motion.div>
@@ -118,7 +118,7 @@ const Projects = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8" // UPDATED GRID
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6" // UPDATED GRID
                     style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {projects.map((project, index) => (
@@ -181,7 +181,7 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
             whileHover={{ y: -8 }}
             className="h-full"
         >
-            <SpotlightCard className="h-full flex flex-col p-5 md:p-6 rounded-[1.5rem] cursor-pointer group hover:border-violet-500/30 transition-colors shadow-xl bg-slate-900/80 backdrop-blur-xl">
+            <SpotlightCard className="h-full flex flex-col p-4 md:p-5 rounded-[1.5rem] cursor-pointer group hover:border-violet-500/30 transition-colors shadow-xl bg-slate-900/80 backdrop-blur-xl">
                 {/* Background Image (Subtle) */}
                 <div className="absolute inset-0 z-0 overflow-hidden rounded-[1.5rem]">
                     <img
@@ -203,10 +203,10 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="p-3 bg-white/5 rounded-xl text-cyan-400 border border-white/10 shadow-lg hover:bg-white/10 hover:scale-110 transition-all duration-300 z-20 cursor-pointer"
+                                    className="p-2.5 bg-white/5 rounded-xl text-cyan-400 border border-white/10 shadow-lg hover:bg-white/10 hover:scale-110 transition-all duration-300 z-20 cursor-pointer"
                                     title="Live Demo"
                                 >
-                                    <ExternalLink size={20} />
+                                    <ExternalLink size={18} />
                                 </a>
                             )}
                         </div>
@@ -216,11 +216,11 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
                     </div>
 
                     {/* Content */}
-                    <div className="mb-6 flex-1">
-                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-violet-300 transition-colors line-clamp-1">
+                    <div className="mb-4 flex-1">
+                        <h3 className="text-lg font-bold text-white mb-2 group-hover:text-violet-300 transition-colors line-clamp-1">
                             {project.title}
                         </h3>
-                        <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">
+                        <p className="text-xs leading-relaxed line-clamp-3 text-slate-400">
                             {project.description}
                         </p>
                     </div>
@@ -228,7 +228,7 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
                     {/* Tech Stack */}
                     <div className="mt-auto pt-4 border-t border-white/5 flex flex-wrap gap-2">
                         {project.tags.slice(0, 3).map((tag, i) => (
-                            <span key={i} className="px-2.5 py-1 text-xs font-medium text-slate-300 bg-white/5 rounded-md border border-white/5">
+                            <span key={i} className="px-2 py-0.5 text-[10px] font-medium text-slate-300 bg-white/5 rounded-md border border-white/5">
                                 {tag}
                             </span>
                         ))}

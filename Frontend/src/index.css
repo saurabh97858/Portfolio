@@ -94,7 +94,7 @@ body::before {
 .section-container {
     max-width: 1024px;
     margin: 0 auto;
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1rem;
 }
 
 .btn-primary {
@@ -134,8 +134,8 @@ body::before {
 
 @media (min-width: 768px) {
     .layout-wrapper {
-        width: 80%;
-        /* Desktop Width */
+        width: 75%;
+        /* Desktop Width - Reduced for tighter look */
     }
 }
 

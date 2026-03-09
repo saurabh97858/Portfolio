@@ -41,14 +41,14 @@ const Hero = () => {
                     transition={{ duration: 0.8 }}
                     className="w-full text-center lg:text-center flex flex-col items-center"
                 >
-                    <div className="inline-block px-5 py-2 border border-slate-700 rounded-full bg-slate-900/50 backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(139,92,246,0.2)]">
-                        <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent font-semibold text-base flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
+                    <div className="inline-block px-4 py-1.5 border border-slate-700 rounded-full bg-slate-900/50 backdrop-blur-md mb-4 shadow-[0_0_20px_rgba(139,92,246,0.2)]">
+                        <span className="bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent font-semibold text-sm flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
                             Available for freelance work
                         </span>
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 tracking-tight">
+                    <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4 tracking-tight">
                         Architecting <br />
                         <motion.span
                             key={textIndex}
@@ -63,42 +63,42 @@ const Hero = () => {
                         <span className="text-white">Solutions.</span>
                     </h1>
 
-                    <p className="text-slate-400 text-base md:text-lg mb-8 max-w-xl leading-relaxed font-light">
+                    <p className="text-slate-400 text-sm md:text-base mb-6 max-w-xl leading-relaxed font-light">
                         I specialize in building <span className="text-violet-300 font-medium">high-performance</span>, <span className="text-pink-300 font-medium">secure</span>, and <span className="text-cyan-300 font-medium">scalable</span> web applications using the modern MERN ecosystem.
                     </p>
 
                     {/* Description Section */}
-                    <div className="w-full max-w-lg border-t border-slate-800 pt-6 mb-8">
-                        <p className="text-slate-400 text-lg leading-relaxed font-light">
+                    <div className="w-full max-w-lg border-t border-slate-800 pt-4 mb-6">
+                        <p className="text-slate-400 text-base leading-relaxed font-light">
                             Bridging the gap between <span className="text-cyan-400 font-medium">Development</span> and <span className="text-violet-400 font-medium">Operations</span>. I architect robust <span className="text-white font-medium">Full Stack</span> systems and streamline workflows with modern <span className="text-pink-400 font-medium">DevOps</span> practices.
                         </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-6 justify-center mt-8 mb-12">
+                    <div className="flex flex-wrap gap-4 justify-center mt-6 mb-8">
                         <button
                             onClick={() => navigate('/projects')}
-                            className="bg-white text-slate-950 hover:bg-violet-600 hover:text-white hover:border-violet-600 font-bold text-base px-8 py-4 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                            className="bg-white text-slate-950 hover:bg-violet-600 hover:text-white hover:border-violet-600 font-bold text-sm px-6 py-3 rounded-full transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
                         >
-                            View Projects <ArrowRight size={20} />
+                            View Projects <ArrowRight size={18} />
                         </button>
                         <button
                             onClick={() => navigate('/contact')}
-                            className="bg-slate-800/50 text-white font-bold text-base px-8 py-4 rounded-full border border-slate-700 hover:bg-cyan-900/30 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all hover:scale-105 active:scale-95"
+                            className="bg-slate-800/50 text-white font-bold text-sm px-6 py-3 rounded-full border border-slate-700 hover:bg-cyan-900/30 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all hover:scale-105 active:scale-95"
                         >
                             Contact Me
                         </button>
                     </div>
 
                     {/* Social Links */}
-                    <div className="flex gap-6 justify-center mt-8">
+                    <div className="flex gap-4 justify-center mt-6">
                         <a href={portfolioData?.socialLinks?.github || "https://github.com"} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors hover:scale-110">
-                            <Github size={24} />
+                            <Github size={20} />
                         </a>
                         <a href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors hover:scale-110">
-                            <Linkedin size={24} />
+                            <Linkedin size={20} />
                         </a>
                         <a href={`mailto:${portfolioData?.email || "email@example.com"}`} className="text-slate-400 hover:text-pink-400 transition-colors hover:scale-110">
-                            <Mail size={24} />
+                            <Mail size={20} />
                         </a>
                     </div>
                 </motion.div>
@@ -127,28 +127,28 @@ const Hero = () => {
                                 <motion.div
                                     animate={{ y: [0, -15, 0] }}
                                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute -right-8 top-16 bg-slate-900/90 backdrop-blur-xl p-4 rounded-xl border border-slate-700 shadow-xl z-30 flex items-center gap-3"
+                                    className="absolute -right-6 top-12 bg-slate-900/90 backdrop-blur-xl p-3 rounded-xl border border-slate-700 shadow-xl z-30 flex items-center gap-2.5"
                                 >
-                                    <div className="p-2 bg-cyan-500/20 rounded-lg">
-                                        <Code2 className="text-cyan-400" size={24} />
+                                    <div className="p-1.5 bg-cyan-500/20 rounded-lg">
+                                        <Code2 className="text-cyan-400" size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-slate-400 text-[10px] font-bold uppercase">Stack</p>
-                                        <p className="text-white text-sm font-bold">Full MERN</p>
+                                        <p className="text-slate-400 text-[9px] font-bold uppercase">Stack</p>
+                                        <p className="text-white text-xs font-bold">Full MERN</p>
                                     </div>
                                 </motion.div>
 
                                 <motion.div
                                     animate={{ y: [0, 20, 0] }}
                                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                    className="absolute -left-8 bottom-24 bg-slate-900/90 backdrop-blur-xl p-4 rounded-xl border border-slate-700 shadow-xl z-30 flex items-center gap-3"
+                                    className="absolute -left-6 bottom-20 bg-slate-900/90 backdrop-blur-xl p-3 rounded-xl border border-slate-700 shadow-xl z-30 flex items-center gap-2.5"
                                 >
-                                    <div className="p-2 bg-green-500/20 rounded-lg">
-                                        <Database className="text-green-400" size={24} />
+                                    <div className="p-1.5 bg-green-500/20 rounded-lg">
+                                        <Database className="text-green-400" size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-slate-400 text-[10px] font-bold uppercase">Backend</p>
-                                        <p className="text-white text-sm font-bold">Scalable</p>
+                                        <p className="text-slate-400 text-[9px] font-bold uppercase">Backend</p>
+                                        <p className="text-white text-xs font-bold">Scalable</p>
                                     </div>
                                 </motion.div>
                             </div>

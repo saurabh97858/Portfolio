@@ -48,9 +48,9 @@ const Skills = () => {
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Arsenal...</div>;
 
     return (
-        <section id="skills" className="bg-slate-950 pb-6 md:pb-12 relative font-sans overflow-hidden">
+        <section id="skills" className="bg-slate-950 pb-4 md:pb-8 relative font-sans overflow-hidden">
             {/* SPACER: Micro-tuned for minimal gap */}
-            <div className="w-full h-12 md:h-16 shrink-0" aria-hidden="true" />
+            <div className="w-full h-8 md:h-12 shrink-0" aria-hidden="true" />
 
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -66,16 +66,16 @@ const Skills = () => {
                     initial={{ opacity: 0, y: -40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-8"
+                    className="text-center mb-6"
                     style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-[10px] font-bold tracking-widest uppercase mb-3 backdrop-blur-md shadow-lg">
                         Expertise
                     </span>
-                    <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-3 drop-shadow-2xl">
+                    <h2 className="text-xl md:text-2xl font-black text-white tracking-tight mb-2 drop-shadow-2xl">
                         Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Arsenal</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
+                    <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base font-light leading-relaxed">
                         Explore the dimensions of my technical capabilities.
                     </p>
                 </motion.div>
@@ -85,7 +85,7 @@ const Skills = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4"
                     style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     {skills.map((skill, index) => (
@@ -145,7 +145,7 @@ const SkillCard = ({ skill, variants, onClick }) => {
             variants={variants}
             onClick={onClick} /* IMPORTANT: Clicking this triggers navigation to detail view */
             whileHover={{ y: -5, scale: 1.01 }}
-            className="group relative w-full h-full cursor-pointer min-h-[160px]"
+            className="group relative w-full h-full cursor-pointer min-h-[140px]"
         >
             {/* Hover Glow Effect */}
             <motion.div
@@ -156,19 +156,19 @@ const SkillCard = ({ skill, variants, onClick }) => {
                 className="relative h-full bg-slate-900/60 border border-white/10 p-5 rounded-[1.2rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/80 overflow-hidden flex flex-col shadow-2xl"
             >
                 {/* Background Decor Icon - Reduced opacity and size */}
-                <div className="absolute -bottom-8 -right-8 text-white/[0.03] transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700 ease-in-out">
-                    <IconComponent size={120} />
+                <div className="absolute -bottom-6 -right-6 text-white/[0.03] transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700 ease-in-out">
+                    <IconComponent size={100} />
                 </div>
 
                 <div className="relative z-10 flex flex-col h-full">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} bg-opacity-20 flex items-center justify-center shadow-lg shadow-black/20 border border-white/10 mb-4 group-hover:scale-105 transition-transform`}>
-                        <IconComponent size={24} className="text-white drop-shadow-md" />
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} bg-opacity-20 flex items-center justify-center shadow-lg shadow-black/20 border border-white/10 mb-3 group-hover:scale-105 transition-transform`}>
+                        <IconComponent size={20} className="text-white drop-shadow-md" />
                     </div>
 
-                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors">
+                    <h3 className="text-base font-bold text-white mb-0.5 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors">
                         {skill.category}
                     </h3>
-                    <p className="text-slate-400 font-medium text-[10px] tracking-wide uppercase mb-auto">{skill.subtitle || "Tech Stack"}</p>
+                    <p className="text-slate-400 font-medium text-[9px] tracking-wide uppercase mb-auto">{skill.subtitle || "Tech Stack"}</p>
 
                     <div className="mt-4 flex items-center gap-1.5 text-[10px] font-bold text-white/40 uppercase tracking-widest group-hover:text-cyan-400 transition-colors">
                         <span>Expand</span>
