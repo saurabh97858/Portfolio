@@ -17,7 +17,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-[999] bg-slate-950 border-b border-white/5 py-6">
+        <nav className="fixed top-0 left-0 w-full z-[999] bg-slate-950 border-b border-white/5 py-8">
             <div className="layout-wrapper h-full flex justify-between items-center relative">
                 {/* Logo Section */}
                 <div className="flex items-center gap-1 cursor-pointer group">
