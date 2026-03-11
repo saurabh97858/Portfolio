@@ -42,15 +42,34 @@ app.use((req, res, next) => {
 // Database Connection
 const connectDB = async () => {
     try {
-        if (mongoose.connection.readyState >= 1) return;
-        await mongoose.connect(process.env.MONGO_URI);
+        if (mongoose.connection.readyState >= 1) {
+            return;
+        }
+
+        console.log('Attempting to connect to MongoDB...');
+        await mongoose.connect(process.env.MONGO_URI, {
+            serverSelectionTimeoutMS: 5000, // Timeout after 5s
+        });
         console.log('MongoDB Connected Successfully');
     } catch (err) {
-        console.error('MongoDB Connection Error:', err.message);
+        console.error('Critical MongoDB Connection Error:', err.message);
+        throw err;
     }
 };
 
-connectDB();
+// Middleware to ensure DB is connected before any request
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (err) {
+        res.status(500).json({
+            message: 'Database Connection Error',
+            error: err.message,
+            suggestion: 'Check if MONGO_URI is correct and IP is whitelisted in MongoDB Atlas'
+        });
+    }
+});
 
 const authRoutes = require('./routes/authRoutes');
 const portfolioRoutes = require('./routes/portfolioRoutes');
@@ -62,15 +81,21 @@ app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/messages', messageRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'UP',
-        db: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
-        env: {
-            hasMongo: !!process.env.MONGO_URI,
-            hasJwt: !!process.env.JWT_SECRET
-        }
-    });
+app.get('/api/health', async (req, res) => {
+    try {
+        await connectDB();
+        res.json({
+            status: 'UP',
+            db: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
+            readyState: mongoose.connection.readyState,
+            env: {
+                hasMongo: !!process.env.MONGO_URI,
+                hasJwt: !!process.env.JWT_SECRET
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ status: 'ERROR', db: 'Error', error: err.message });
+    }
 });
 
 app.get('/', (req, res) => {
@@ -78,6 +103,8 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
 
 module.exports = app;
