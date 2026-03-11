@@ -140,10 +140,7 @@ const About = () => {
                             <SpotlightCard className="rounded-xl p-6 md:p-8 h-full border-t-4 border-t-violet-500/40 flex flex-col">
                                 <div className="space-y-8">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
-                                        <div key={idx} className="relative group/item pl-8 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
-                                            {/* Timeline Dot */}
-                                            <div className="absolute -left-[9px] top-2 w-[18px] h-[18px] rounded-full bg-slate-900 border-2 border-violet-500 group-hover/item:scale-125 transition-transform duration-300 z-10" />
-
+                                        <div key={idx} className="relative group/item px-4 py-2 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
                                             <div className="flex flex-col gap-2">
                                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
                                                     <h4 className="text-base font-bold text-white group-hover/item:text-violet-400 transition-colors">{exp.role}</h4>
@@ -179,7 +176,7 @@ const About = () => {
                                 <SectionTitle icon={GraduationCap} title="Education" color="emerald" />
                                 <SpotlightCard className="rounded-xl p-6 md:p-8 border-t-4 border-t-emerald-500/40 h-full">
                                     {education.length > 0 ? education.map((edu, idx) => (
-                                        <div key={idx} className="relative group mb-8 last:mb-0">
+                                        <div key={idx} className="relative group mb-8 last:mb-0 px-4">
                                             <div className="flex justify-between items-start mb-1">
                                                 <h4 className="text-lg font-bold text-white">{edu.institution}</h4>
                                                 <span className="text-[10px] font-mono text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/5 whitespace-nowrap">{edu.year}</span>
