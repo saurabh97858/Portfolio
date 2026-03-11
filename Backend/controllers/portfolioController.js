@@ -28,7 +28,7 @@ const getPortfolioData = async (req, res) => {
         }
     } catch (error) {
         console.error('Error fetching portfolio:', error);
-        res.status(500).json({ message: 'Server Error' });
+        res.status(500).json({ message: 'Server Error fetching portfolio', error: error.message });
     }
 };
 
@@ -45,7 +45,7 @@ const getPortfolioImages = async (req, res) => {
         }
     } catch (error) {
         console.error('Error fetching images:', error);
-        res.status(500).json({ message: 'Server Error' });
+        res.status(500).json({ message: 'Server Error fetching images', error: error.message });
     }
 };
 
