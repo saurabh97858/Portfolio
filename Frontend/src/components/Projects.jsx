@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, X } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { ExternalLink, Github, X, Eye } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
 import './ProjectCard.css';
 
@@ -22,24 +22,14 @@ const Projects = () => {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+            transition: { staggerChildren: 0.2, delayChildren: 0.3 }
         }
     };
 
-    const cardVariants = {
-        hidden: { y: 30, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: { duration: 0.5, ease: "easeOut" }
-        }
-    };
-
-    if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Projects...</div>;
+    if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse text-lg tracking-widest">INITIALIZING PROJECTS...</div>;
 
     return (
         <section id="projects" className="bg-slate-950 py-20 md:py-32 relative font-sans overflow-hidden">
-
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 left-0 w-[1000px] h-[1000px] bg-violet-600/5 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '15s' }} />
@@ -47,85 +37,98 @@ const Projects = () => {
             </div>
 
             <div className="layout-wrapper relative z-10 px-4 md:px-8 max-w-7xl mx-auto">
-
                 {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
-                    style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="text-center mb-16 md:mb-24"
                 >
-                    <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-lg">
+                    <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        className="inline-block py-2 px-6 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-black tracking-[0.2em] uppercase mb-6 backdrop-blur-xl shadow-[0_0_20px_rgba(139,92,246,0.1)]"
+                    >
                         Portfolio
-                    </span>
-                    <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4 drop-shadow-2xl">
-                        Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Works</span>
+                    </motion.span>
+                    <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-6">
+                        Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 drop-shadow-sm">Works</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg font-medium leading-relaxed">
-                        A curated selection of technical challenges and creative solutions.
+                    <p className="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
+                        A showcase of technical complexity meeting clean aesthetics.
                     </p>
                 </motion.div>
 
-                {/* Vertical Grid for Projects */}
+                {/* Project Grid */}
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-10"
-                    style={{ filter: selectedProject ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16"
                 >
                     {projects.map((project, index) => (
                         <ProjectCard
                             key={index}
                             project={project}
                             index={index}
-                            variants={cardVariants}
                             onClick={() => setSelectedProject({ ...project, index })}
                         />
                     ))}
                 </motion.div>
             </div>
 
-            {/* Full Screen Overlay for Details */}
+            {/* Modal Overlay */}
             <AnimatePresence>
                 {selectedProject && (
-                    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-8">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedProject(null)}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                            className="absolute inset-0 bg-slate-950/90 backdrop-blur-2xl"
                         />
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 30 }}
-                            className="bg-slate-900 overflow-hidden rounded-2xl max-w-3xl w-full relative z-[1001] border border-white/10 shadow-[0_0_50px_rgba(139,92,246,0.3)] max-h-[90vh] overflow-y-auto custom-scrollbar"
-                            onClick={(e) => e.stopPropagation()} // Prevent clicking modal body from closing it
+                            initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: -10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className="bg-slate-900 overflow-hidden rounded-[2.5rem] max-w-4xl w-full relative z-[1001] border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.5)] max-h-[92vh] overflow-y-auto custom-scrollbar preserve-3d"
+                            onClick={(e) => e.stopPropagation()}
                         >
-                            <button onClick={() => setSelectedProject(null)} className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/80 rounded-full text-white backdrop-blur-sm transition-colors z-10"><X size={20} /></button>
-                            <img
-                                src={selectedProject.images?.[0] || projectImages[selectedProject.index % projectImages.length]}
-                                className="w-full h-56 md:h-80 object-cover border-b border-white/10"
-                                alt={selectedProject.title}
-                            />
-                            <div className="p-6 md:p-10">
-                                <h2 className="text-3xl font-bold text-white mb-4 leading-tight">{selectedProject.title}</h2>
-                                <p className="text-slate-300 md:text-lg mb-8 leading-relaxed whitespace-pre-wrap">{selectedProject.description}</p>
+                            <button onClick={() => setSelectedProject(null)} className="absolute top-6 right-6 p-3 bg-white/5 hover:bg-white/10 rounded-full text-white backdrop-blur-xl transition-all z-20 border border-white/10 hover:scale-110 active:scale-90"><X size={24} /></button>
 
-                                {/* Link Buttons */}
-                                <div className="flex flex-wrap gap-4 mt-auto">
+                            <div className="relative h-64 md:h-[450px]">
+                                <img
+                                    src={selectedProject.images?.[0] || projectImages[selectedProject.index % projectImages.length]}
+                                    className="w-full h-full object-cover object-top"
+                                    alt={selectedProject.title}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+                            </div>
+
+                            <div className="p-8 md:p-12 -mt-20 relative z-10">
+                                <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter drop-shadow-xl">{selectedProject.title}</h1>
+
+                                <div className="flex flex-wrap gap-2 mb-8">
+                                    {selectedProject.tags?.map(tag => (
+                                        <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-slate-400 text-xs font-bold transition-colors hover:border-violet-500/50 hover:text-violet-300">{tag}</span>
+                                    ))}
+                                </div>
+
+                                <p className="text-slate-300 text-lg md:text-xl mb-12 leading-relaxed font-light whitespace-pre-wrap">{selectedProject.description}</p>
+
+                                <div className="flex flex-wrap gap-4">
                                     {selectedProject.liveLink && (
-                                        <a href={selectedProject.liveLink} target="_blank" rel="noreferrer" className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold transition-all shadow-lg hover:shadow-blue-600/30">
-                                            <ExternalLink size={18} /> Live Demo
+                                        <a href={selectedProject.liveLink} target="_blank" rel="noreferrer" className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all shadow-xl shadow-fuchsia-500/20 hover:-translate-y-1 active:scale-95">
+                                            <ExternalLink size={20} /> Live Preview
                                         </a>
                                     )}
                                     {selectedProject.githubLink && (
-                                        <a href={selectedProject.githubLink} target="_blank" rel="noreferrer" className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 px-5 py-3 rounded-xl font-bold transition-all shadow-lg">
-                                            <Github size={18} /> Source Code
+                                        <a href={selectedProject.githubLink} target="_blank" rel="noreferrer" className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all shadow-xl hover:-translate-y-1 active:scale-95">
+                                            <Github size={20} /> Repository
                                         </a>
                                     )}
                                 </div>
@@ -138,46 +141,79 @@ const Projects = () => {
     );
 };
 
-const ProjectCard = ({ project, variants, onClick, index }) => {
+const ProjectCard = ({ project, onClick, index }) => {
+    const cardRef = useRef(null);
     const bgImage = project.images?.[0] || projectImages[index % projectImages.length];
+
+    // Mouse movement for 3D effect
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), { stiffness: 300, damping: 30 });
+    const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), { stiffness: 300, damping: 30 });
+
+    const handleMouseMove = (event) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+        x.set(mouseX / rect.width - 0.5);
+        y.set(mouseY / rect.height - 0.5);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
 
     return (
         <motion.div
-            variants={variants}
+            ref={cardRef}
+            initial={{ opacity: 0, scale: 0.9, y: 50 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -10 }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
             onClick={onClick}
-            whileHover={{ scale: 1.02 }}
-            className="premium-glow-card cursor-pointer group"
+            className="perspective-1000 cursor-pointer group pointer-events-auto"
+            style={{ rotateX, rotateY }}
         >
-            <div className="premium-glow-inner">
-                {/* Top Floating Live Button */}
-                {project.liveLink && (
-                    <a
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-blue-600/80 hover:bg-blue-600 text-white px-4 py-1.5 rounded-full font-bold text-sm shadow-lg backdrop-blur-md transition-all hover:scale-105"
-                    >
-                        <ExternalLink size={14} strokeWidth={2.5} /> Live
-                    </a>
-                )}
+            <div className="premium-glow-card relative transform-gpu preserve-3d shadow-2xl">
+                <div className="premium-glow-inner relative z-10 bg-slate-900/40 rounded-[2rem] overflow-hidden border border-white/5 backdrop-blur-3xl group-hover:border-white/20 transition-colors duration-500">
 
-                {/* Shine Animation */}
-                <div className="shine-overlay" />
+                    {/* View Button Overlay */}
+                    <div className="absolute inset-0 bg-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 flex items-center justify-center">
+                        <motion.div
+                            initial={{ scale: 0, opacity: 0 }}
+                            whileHover={{ scale: 1.1 }}
+                            className="bg-white text-slate-950 p-4 rounded-full shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center gap-2 transform translate-z-50"
+                        >
+                            <Eye size={20} strokeWidth={3} />
+                            <span className="font-black text-xs uppercase tracking-tighter">Project Details</span>
+                        </motion.div>
+                    </div>
 
-                {/* Image Section */}
-                <div className="w-full h-[200px] sm:h-[250px] md:h-[320px] overflow-hidden relative bg-slate-900">
-                    <img
-                        src={bgImage}
-                        alt={project.title}
-                        className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-1000 ease-in-out"
-                    />
-                    
-                    {/* Overlay with Title on Hover (Optional but premium) */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-                        <h3 className="text-white font-bold text-xl drop-shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">{project.title}</h3>
+                    {/* Image Section */}
+                    <div className="w-full h-[280px] sm:h-[350px] md:h-[420px] overflow-hidden relative">
+                        <motion.img
+                            src={bgImage}
+                            alt={project.title}
+                            className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-[2000ms] cubic-bezier(0.16, 1, 0.3, 1)"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+
+                        {/* Title reveal */}
+                        <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-z-30">
+                            <h3 className="text-white font-black text-3xl md:text-4xl tracking-tighter drop-shadow-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-500">{project.title}</h3>
+                            <div className="w-12 h-1 bg-violet-500 mt-4 rounded-full transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                        </div>
                     </div>
                 </div>
+
+                {/* Animated Border/Glow effect */}
+                <div className="absolute -inset-[1px] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-700 -z-10" />
+                <div className="absolute -inset-[10px] bg-violet-600/20 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-20" />
             </div>
         </motion.div>
     );

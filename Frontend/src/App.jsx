@@ -12,6 +12,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import SpotlightCursor from './components/SpotlightCursor';
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
@@ -46,7 +47,8 @@ function App() {
             <Router>
                 <ScrollToTop />
                 <div className="bg-slate-950 text-white min-h-[100dvh] font-sans relative">
-                    {/* Global Background Animation */}
+                    {/* Global Cursor & Background */}
+                    <SpotlightCursor />
                     <div className="fixed inset-0 z-0">
                         <ParticleBackground />
                     </div>
