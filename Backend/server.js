@@ -40,14 +40,17 @@ app.use((req, res, next) => {
 });
 
 // Database Connection
-// Database Connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB Connected Successfully'))
-    .catch(err => {
-        console.error('MongoDB Connection Error:', err);
-        // Fallback for some environments (optional debug)
-        console.log('Ensure your IP is whitelisted in MongoDB Atlas');
-    });
+const connectDB = async () => {
+    try {
+        if (mongoose.connection.readyState >= 1) return;
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('MongoDB Connected Successfully');
+    } catch (err) {
+        console.error('MongoDB Connection Error:', err.message);
+    }
+};
+
+connectDB();
 
 const authRoutes = require('./routes/authRoutes');
 const portfolioRoutes = require('./routes/portfolioRoutes');
@@ -57,6 +60,18 @@ const messageRoutes = require('./routes/messageRoutes');
 app.use('/api/auth', authRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/messages', messageRoutes);
+
+// Health check
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'UP',
+        db: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
+        env: {
+            hasMongo: !!process.env.MONGO_URI,
+            hasJwt: !!process.env.JWT_SECRET
+        }
+    });
+});
 
 app.get('/', (req, res) => {
     res.send('Portfolio Backend is Running');
