@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Globe, Database, Cpu, Layout, Server, Terminal, Layers, Wrench, Shield, Smartphone, Cloud, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Code2, Globe, Database, Cpu, Layout, Server, Terminal, Layers, Wrench, Shield, Smartphone, Cloud } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
 
 const iconMap = {
@@ -23,7 +23,6 @@ const iconMap = {
 
 const Skills = () => {
     const { portfolioData, loading } = usePortfolio();
-    const [selectedSkill, setSelectedSkill] = useState(null);
     const skills = portfolioData?.skills || [];
 
 
@@ -36,14 +35,6 @@ const Skills = () => {
         }
     };
 
-    const cardVariants = {
-        hidden: { y: 30, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: { duration: 0.5, ease: "easeOut" }
-        }
-    };
 
     if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Arsenal...</div>;
 
@@ -67,7 +58,6 @@ const Skills = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="text-center mb-6"
-                    style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
                 >
                     <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-[10px] font-bold tracking-widest uppercase mb-3 backdrop-blur-md shadow-lg">
                         Expertise
@@ -85,227 +75,96 @@ const Skills = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4"
-                    style={{ filter: selectedSkill ? 'blur(10px)' : 'none', transition: 'filter 0.3s' }}
+                    className="flex flex-col gap-2"
                 >
                     {skills.map((skill, index) => (
-                        <SkillCard
+                        <SkillRow
                             key={index}
                             skill={skill}
-                            variants={cardVariants}
-                            onClick={() => setSelectedSkill(skill)}
+                            index={index}
                         />
                     ))}
                 </motion.div>
             </div>
-
-            {/* Full Screen Overlay */}
-            <AnimatePresence>
-                {selectedSkill && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setSelectedSkill(null)}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
-                        />
-                        <SkillDetailCard skill={selectedSkill} onClose={() => setSelectedSkill(null)} />
-                    </div>
-                )}
-            </AnimatePresence>
         </section>
     );
 };
 
-const SkillCard = ({ skill, variants, onClick }) => {
+const SkillRow = ({ skill, index }) => {
     const IconComponent = iconMap[skill.category] || iconMap.default;
-
-    const getGradient = (cat) => {
-        const gradients = {
-            Frontend: 'from-cyan-500 to-blue-600',
-            Backend: 'from-violet-600 to-indigo-600',
-            Database: 'from-emerald-500 to-teal-600',
-            Tools: 'from-orange-500 to-red-600',
-            Mobile: 'from-pink-500 to-rose-600',
-            "AI Engineering": 'from-fuchsia-500 to-purple-600',
-            "Computer Science": 'from-amber-400 to-orange-500',
-            "Cloud & DevOps": 'from-sky-400 to-indigo-500',
-            "Programming Languages": 'from-lime-400 to-green-600',
-            default: 'from-slate-700 to-slate-600'
-        };
-        return gradients[skill.category] || gradients.default;
+    const gradients = {
+        Frontend: 'from-cyan-400 to-blue-500',
+        Backend: 'from-violet-500 to-fuchsia-500',
+        Database: 'from-emerald-400 to-teal-500',
+        Tools: 'from-orange-400 to-red-500',
+        Mobile: 'from-pink-400 to-rose-500',
+        "AI Engineering": 'from-fuchsia-400 to-purple-500',
+        "Computer Science": 'from-amber-300 to-orange-400',
+        "Cloud & DevOps": 'from-sky-300 to-indigo-400',
+        "Programming Languages": 'from-lime-300 to-green-500',
+        default: 'from-slate-600 to-slate-500'
     };
-
-    const gradient = getGradient(skill.category);
+    const gradient = gradients[skill.category] || gradients.default;
 
     return (
         <motion.div
-            layoutId={`card-${skill.category}`}
-            variants={variants}
-            onClick={onClick} /* IMPORTANT: Clicking this triggers navigation to detail view */
-            whileHover={{ y: -5, scale: 1.01 }}
-            className="group relative w-full h-full cursor-pointer min-h-[140px]"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            viewport={{ once: true }}
+            className="group relative w-full"
         >
-            {/* Hover Glow Effect */}
-            <motion.div
-                className={`absolute -inset-0.5 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 rounded-[1.5rem] blur transition duration-500`}
-            />
+            <div className="relative overflow-hidden bg-slate-900/30 border border-white/5 rounded-xl backdrop-blur-xl p-3 md:p-5 transition-all duration-300 hover:bg-slate-900/50 hover:border-white/10 flex flex-col md:flex-row md:items-center gap-3 md:gap-7 group-hover:shadow-[0_0_40px_rgba(0,0,0,0.3)]">
 
-            <motion.div
-                className="relative h-full bg-slate-900/60 border border-white/10 p-5 rounded-[1.2rem] backdrop-blur-2xl transition-all duration-300 group-hover:bg-slate-900/80 overflow-hidden flex flex-col shadow-2xl"
-            >
-                {/* Background Decor Icon - Reduced opacity and size */}
-                <div className="absolute -bottom-6 -right-6 text-white/[0.03] transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700 ease-in-out">
-                    <IconComponent size={100} />
-                </div>
+                {/* Background Accent */}
+                <div className={`absolute -right-10 -bottom-10 w-40 h-40 bg-gradient-to-br ${gradient} opacity-[0.02] rounded-full blur-3xl group-hover:opacity-[0.05] transition-opacity duration-700`} />
 
-                <div className="relative z-10 flex flex-col h-full">
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} bg-opacity-20 flex items-center justify-center shadow-lg shadow-black/20 border border-white/10 mb-3 group-hover:scale-105 transition-transform`}>
-                        <IconComponent size={20} className="text-white drop-shadow-md" />
+                {/* Header: Icon & Category */}
+                <div className="flex items-center gap-4 min-w-[160px] md:w-[220px]">
+                    <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} p-2.5 flex items-center justify-center shadow-lg transform group-hover:scale-105 transition-all duration-500 ring-1 ring-white/20`}>
+                        <IconComponent size={22} className="text-white drop-shadow-md" />
                     </div>
-
-                    <h3 className="text-base font-bold text-white mb-0.5 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-colors">
-                        {skill.category}
-                    </h3>
-                    <p className="text-slate-400 font-medium text-[9px] tracking-wide uppercase mb-auto">{skill.subtitle || "Tech Stack"}</p>
-
-                    <div className="mt-4 flex items-center gap-1.5 text-[10px] font-bold text-white/40 uppercase tracking-widest group-hover:text-cyan-400 transition-colors">
-                        <span>Expand</span>
-                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    <div className="flex flex-col">
+                        <h3 className="text-[15px] font-black text-white/90 tracking-wide group-hover:text-white transition-colors uppercase">
+                            {skill.category}
+                        </h3>
+                        <div className="h-0.5 w-8 rounded-full bg-white/10 group-hover:bg-cyan-500/50 transition-all duration-500 mt-1" />
                     </div>
                 </div>
-            </motion.div>
+
+                {/* Body: Skills Cloud */}
+                <div className="flex-1 flex flex-wrap gap-1.5 md:gap-2">
+                    {skill.items.map((item, i) => (
+                        <motion.span
+                            key={i}
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            className="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/5 text-slate-400 text-[10px] md:text-xs font-bold hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-200 cursor-default select-none uppercase tracking-wider"
+                        >
+                            {item}
+                        </motion.span>
+                    ))}
+                </div>
+
+                {/* Footer: Mastery Metric */}
+                <div className="flex flex-col items-end gap-1.5 min-w-[130px] md:w-[180px] pt-2 md:pt-0 border-t md:border-t-0 border-white/5">
+                    <div className="flex items-end gap-1 mb-0.5">
+                        <span className={`text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r ${gradient} drop-shadow-sm`}>
+                            {skill.mastery}
+                        </span>
+                        <span className="text-[10px] font-bold text-slate-500 mb-1.5 uppercase tracking-tighter">% Mastery</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-black/40 rounded-full overflow-hidden p-[1px] ring-1 ring-white/5">
+                        <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${skill.mastery}%` }}
+                            transition={{ duration: 1.5, ease: "circOut", delay: 0.3 }}
+                            className={`h-full rounded-full bg-gradient-to-r ${gradient} shadow-[0_0_10px_rgba(255,255,255,0.2)]`}
+                        />
+                    </div>
+                </div>
+            </div>
         </motion.div>
     );
 };
-
-const SkillDetailCard = ({ skill, onClose }) => {
-    const IconComponent = iconMap[skill.category] || iconMap.default;
-
-    const getGradient = (cat) => {
-        const gradients = {
-            Frontend: 'from-cyan-500 to-blue-600',
-            Backend: 'from-violet-600 to-indigo-600',
-            Database: 'from-emerald-500 to-teal-600',
-            Tools: 'from-orange-500 to-red-600',
-            Mobile: 'from-pink-500 to-rose-600',
-            "AI Engineering": 'from-fuchsia-500 to-purple-600',
-            "Computer Science": 'from-amber-400 to-orange-500',
-            "Cloud & DevOps": 'from-sky-400 to-indigo-500',
-            "Programming Languages": 'from-lime-400 to-green-600',
-            default: 'from-slate-700 to-slate-600'
-        };
-        return gradients[skill.category] || gradients.default;
-    };
-    const gradient = getGradient(skill.category);
-
-    return (
-        <motion.div
-            layoutId={`card-${skill.category}`} /* Shared element for smooth transition */
-            className="relative w-full max-w-5xl h-[85vh] bg-slate-900 border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row z-50"
-        >
-            {/* Close Button */}
-            <button
-                onClick={(e) => { e.stopPropagation(); onClose(); }}
-                className="absolute top-6 right-6 z-50 p-3 rounded-full bg-black/40 hover:bg-white/10 text-white/70 hover:text-white transition-all backdrop-blur-md border border-white/5 hover:rotate-90 duration-300"
-            >
-                <X size={24} />
-            </button>
-
-            {/* Visual Side (Left) */}
-            <div className={`relative md:w-5/12 p-10 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${gradient}`}>
-                <div className="absolute inset-0 bg-black/10 backdrop-blur-[1px]" />
-
-                {/* Giant Background Icon */}
-                <div className="absolute -bottom-20 -left-20 text-white/20 transform rotate-12 scale-150 origin-bottom-left">
-                    <IconComponent size={400} />
-                </div>
-
-                <div className="relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="w-24 h-24 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-xl mb-8"
-                    >
-                        <IconComponent size={48} className="text-white" />
-                    </motion.div>
-
-                    <motion.h2
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="text-5xl md:text-6xl font-black text-white leading-tight mb-4"
-                    >
-                        {skill.category}
-                    </motion.h2>
-
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                        className="text-white/80 font-medium text-xl uppercase tracking-wide"
-                    >
-                        {skill.subtitle}
-                    </motion.p>
-                </div>
-
-                {/* Mastery Bar Large */}
-                <div className="relative z-10 mt-12 mb-8 md:mb-0">
-                    <div className="flex items-end gap-3 mb-3">
-                        <span className="text-7xl font-bold text-white tracking-tighter">{skill.mastery}</span>
-                        <span className="text-3xl font-medium text-white/70 mb-2">%</span>
-                    </div>
-
-                    <div className="w-full bg-black/30 rounded-full h-4 p-1 backdrop-blur-sm border border-white/10">
-                        <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${skill.mastery}%` }}
-                            transition={{ delay: 0.5, duration: 1.2, ease: 'circOut' }}
-                            className="h-full rounded-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]"
-                        />
-                    </div>
-                    <p className="text-white/60 text-sm mt-3 font-medium uppercase tracking-wider">Proficiency Level</p>
-                </div>
-            </div>
-
-            {/* Content Side (Right) */}
-            <div className="flex-1 p-8 md:p-14 overflow-y-auto custom-scrollbar bg-slate-950/95 backdrop-blur-xl">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                >
-                    <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-4">
-                        <span className={`w-12 h-1.5 rounded-full bg-gradient-to-r ${gradient}`} />
-                        Technical Proficiency
-                    </h3>
-
-                    <div className="flex flex-wrap gap-4 content-start">
-                        {skill.items.map((item, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.5 + (i * 0.05) }}
-                                className="px-6 py-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all group cursor-default flex items-center gap-3 hover:scale-105 duration-300"
-                            >
-                                <div className={`w-2.5 h-2.5 rounded-full bg-gradient-to-r ${gradient} shadow-[0_0_8px_rgba(255,255,255,0.5)]`} />
-                                <span className="font-semibold text-slate-200 group-hover:text-white transition-colors text-lg">{item}</span>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <div className="mt-16 pt-12 border-t border-white/5">
-                        <blockquote className="text-slate-500 italic text-lg leading-relaxed border-l-4 border-white/10 pl-6">
-                            "Continuously expanding my knowledge in <span className="text-slate-300 not-italic font-semibold">{skill.category}</span> to build scalable, robust, and industry-leading solutions."
-                        </blockquote>
-                    </div>
-                </motion.div>
-            </div>
-        </motion.div>
-    );
-}
 
 export default Skills;
