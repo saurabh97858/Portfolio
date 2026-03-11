@@ -168,24 +168,6 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
             </div>
-
-            {/* Text Content Section (White Background) */}
-            <div className="flex flex-col p-6 md:p-8 bg-white h-full relative">
-                {/* Title overlaying image slightly in the reference, but we keep it clean inside the white box */}
-                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-1">
-                    {project.title}
-                </h3>
-
-                {/* Small category/role text */}
-                <p className="text-sm md:text-base font-medium text-slate-500 mb-4 line-clamp-1">
-                    For E-commerce / Portfolio
-                </p>
-
-                {/* Description */}
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed line-clamp-3">
-                    {project.description}
-                </p>
-            </div>
         </motion.div>
     );
 };
