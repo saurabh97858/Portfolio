@@ -195,7 +195,7 @@ const ProjectCard = ({ project, onClick, index }) => {
                     </div>
 
                     {/* Image Section */}
-                    <div className="w-full h-[280px] sm:h-[350px] md:h-[420px] overflow-hidden relative">
+                    <div className="w-full h-[220px] sm:h-[280px] md:h-[340px] overflow-hidden relative">
                         <motion.img
                             src={bgImage}
                             alt={project.title}
