@@ -21,6 +21,7 @@ const portfolioSchema = new mongoose.Schema({
     phone: { type: String, default: '+91 96967 43829' },
     currentAddress: { type: String, default: '' },
     permanentAddress: { type: String, default: '' },
+    yearsOfExperience: { type: String, default: '2' },
     education: [{
         institution: String,
         degree: String, // Added field

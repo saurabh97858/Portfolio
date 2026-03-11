@@ -184,6 +184,7 @@ const Dashboard = () => {
                     <TabButton id="projects" icon={Database} label="Projects" />
                     <TabButton id="skills" icon={Cpu} label="Skills" />
                     <TabButton id="experience" icon={Briefcase} label="Experience" />
+                    <TabButton id="education" icon={GraduationCap} label="Education" />
                     <TabButton id="certifications" icon={GraduationCap} label="Certifications" />
                     <TabButton id="profile" icon={UserIcon} label="Profile" />
 
@@ -328,6 +329,22 @@ const Dashboard = () => {
                                 className="space-y-8"
                             >
                                 <ExperienceEditor
+                                    portfolioData={portfolioData}
+                                    updatePortfolio={updatePortfolio}
+                                />
+                            </motion.div>
+                        )}
+
+                        {/* EDUCATION TAB */}
+                        {activeTab === 'education' && (
+                            <motion.div
+                                key="education"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                className="space-y-8"
+                            >
+                                <EducationEditor
                                     portfolioData={portfolioData}
                                     updatePortfolio={updatePortfolio}
                                 />
@@ -1108,8 +1125,7 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
     const [formData, setFormData] = useState({
         name: '', role: '', about: '', email: '', phone: '',
         github: '', linkedin: '', instagram: '', profileImage: '',
-        currentAddress: '', permanentAddress: '',
-        education: []
+        currentAddress: '', permanentAddress: '', yearsOfExperience: ''
     });
 
     // Password Change State
@@ -1133,31 +1149,13 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                 heroImage: portfolioData.heroImage || '',
                 currentAddress: portfolioData.currentAddress || '',
                 permanentAddress: portfolioData.permanentAddress || '',
-                education: portfolioData.education || []
+                yearsOfExperience: portfolioData.yearsOfExperience || ''
             });
         }
     }, [portfolioData]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleAddEducation = () => {
-        setFormData({
-            ...formData,
-            education: [...formData.education, { degree: '', institution: '', year: '' }]
-        });
-    };
-
-    const handleEducationChange = (index, field, value) => {
-        const newEducation = [...formData.education];
-        newEducation[index][field] = value;
-        setFormData({ ...formData, education: newEducation });
-    };
-
-    const handleDeleteEducation = (index) => {
-        const newEducation = formData.education.filter((_, i) => i !== index);
-        setFormData({ ...formData, education: newEducation });
     };
 
     const profileImageRef = React.useRef(null);
@@ -1174,12 +1172,12 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
             heroImage: formData.heroImage,
             currentAddress: formData.currentAddress,
             permanentAddress: formData.permanentAddress,
+            yearsOfExperience: formData.yearsOfExperience,
             socialLinks: {
                 github: formData.github,
                 linkedin: formData.linkedin,
                 instagram: formData.instagram
-            },
-            education: formData.education
+            }
         };
         updatePortfolio(updates);
         setIsModalOpen(false);
@@ -1272,31 +1270,22 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                     {formData.email}
                                 </span>
                             )}
-                            {formData.phone && (
-                                <span className="flex items-center gap-2 text-sm text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
-                                    {formData.phone}
-                                </span>
-                            )}
-                        </div>
-
-                        {formData.education.length > 0 && (
-                            <div className="pt-4 border-t border-white/5 mt-4">
-                                <h4 className="text-sm font-semibold text-slate-400 mb-3 uppercase tracking-wider">Education</h4>
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    {formData.education.map((edu, idx) => (
-                                        <div key={idx} className="bg-white/5 p-4 rounded-xl border border-white/5">
-                                            <h5 className="font-bold text-white">{edu.degree}</h5>
-                                            <p className="text-cyan-400 text-sm">{edu.institution}</p>
-                                            <span className="text-xs text-slate-500 mt-1 block">{edu.year}</span>
-                                        </div>
-                                    ))}
+                                    {formData.phone && (
+                                        <span className="flex items-center gap-2 text-sm text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                                            {formData.phone}
+                                        </span>
+                                    )}
+                                    {formData.yearsOfExperience && (
+                                        <span className="flex items-center gap-2 text-sm text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-violet-500/20">
+                                            <Briefcase size={16} className="text-violet-400" />
+                                            {formData.yearsOfExperience} Years Exp.
+                                        </span>
+                                    )}
                                 </div>
                             </div>
-                        )}
+                        </div>
                     </div>
-                </div>
-            </div>
 
             {/* Change Password Section */}
             <div className="mt-8 bg-slate-900/50 p-8 rounded-3xl border border-white/5 relative group hover:border-red-500/30 transition-all">
@@ -1511,6 +1500,10 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                         </div>
                                     </div>
                                     <div>
+                                        <label className="label">Years of Experience</label>
+                                        <input name="yearsOfExperience" value={formData.yearsOfExperience} onChange={handleChange} placeholder="e.g. 2+" className="input-field w-full" />
+                                    </div>
+                                    <div>
                                         <label className="label">About Bio</label>
                                         <textarea name="about" value={formData.about} onChange={handleChange} className="input-field w-full h-32 resize-none" />
                                     </div>
@@ -1545,62 +1538,6 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                         </div>
                                     </div>
 
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                            <h3 className="font-semibold text-pink-400">Education</h3>
-                                            <button type="button" onClick={handleAddEducation} className="text-xs px-3 py-1 bg-white/5 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-1">
-                                                <Plus size={14} /> Add
-                                            </button>
-                                        </div>
-
-                                        <div className="space-y-3 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
-                                            {formData.education.map((edu, index) => (
-                                                <div key={index} className="grid grid-cols-1 gap-2 bg-white/5 p-3 rounded-xl relative group">
-                                                    <input
-
-                                                        value={edu.institution}
-                                                        onChange={(e) => handleEducationChange(index, 'institution', e.target.value)}
-                                                        placeholder="Institution Name"
-                                                        className="input-field w-full mb-2"
-                                                    />
-                                                    <div className="grid grid-cols-2 gap-2 mb-2">
-                                                        <input
-                                                            value={edu.degree}
-                                                            onChange={(e) => handleEducationChange(index, 'degree', e.target.value)}
-                                                            placeholder="Degree (e.g. B.Tech)"
-                                                            className="input-field w-full"
-                                                        />
-                                                        <input
-                                                            value={edu.year}
-                                                            onChange={(e) => handleEducationChange(index, 'year', e.target.value)}
-                                                            placeholder="Year (e.g. 2022 - 2026)"
-                                                            className="input-field w-full"
-                                                        />
-                                                    </div>
-                                                    <div className="grid grid-cols-2 gap-2">
-                                                        <input
-                                                            value={edu.batch}
-                                                            onChange={(e) => handleEducationChange(index, 'batch', e.target.value)}
-                                                            placeholder="Batch (Optional)"
-                                                            className="input-field w-full"
-                                                        />
-                                                        <input
-                                                            value={edu.cgpa}
-                                                            onChange={(e) => handleEducationChange(index, 'cgpa', e.target.value)}
-                                                            placeholder="CGPA"
-                                                            className="input-field w-full"
-                                                        />
-                                                    </div>
-                                                    <button
-                                                        onClick={() => handleDeleteEducation(index)}
-                                                        className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20"
-                                                    >
-                                                        <Trash2 size={16} />
-                                                    </button>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -1818,6 +1755,190 @@ const CertificationsEditor = ({ portfolioData, updatePortfolio }) => {
                 </AnimatePresence>,
                 document.body
             )}
+        </>
+    );
+};
+
+const EducationEditor = ({ portfolioData, updatePortfolio }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editIndex, setEditIndex] = useState(-1);
+    const [formData, setFormData] = useState({
+        institution: '', degree: '', year: '', batch: '', cgpa: ''
+    });
+
+    const openModal = (edu = null, index = -1) => {
+        if (edu) {
+            setFormData(edu);
+            setEditIndex(index);
+        } else {
+            setFormData({ institution: '', degree: '', year: '', batch: '', cgpa: '' });
+            setEditIndex(-1);
+        }
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => setIsModalOpen(false);
+
+    const handleSubmit = () => {
+        if (!formData.institution || !formData.degree) {
+            alert("Please fill in Institution and Degree.");
+            return;
+        }
+
+        let updatedEdu = [...(portfolioData.education || [])];
+        if (editIndex >= 0) {
+            updatedEdu[editIndex] = formData;
+        } else {
+            updatedEdu.push(formData);
+        }
+
+        updatePortfolio({ education: updatedEdu });
+        closeModal();
+    };
+
+    const handleDelete = (idx) => {
+        if (!window.confirm('Delete education record?')) return;
+        const updated = portfolioData.education.filter((_, i) => i !== idx);
+        updatePortfolio({ education: updated });
+    };
+
+    return (
+        <>
+            <div className="mb-6">
+                <h3 className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                    Manage Education
+                </h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button
+                    onClick={() => openModal()}
+                    className="group flex flex-col items-center justify-center p-6 rounded-3xl border-2 border-dashed border-white/10 hover:border-emerald-500/50 hover:bg-white/5 transition-all text-slate-400 hover:text-emerald-400 min-h-[200px]"
+                >
+                    <div className="w-16 h-16 rounded-full bg-white/5 group-hover:bg-emerald-500/20 flex items-center justify-center mb-4 transition-colors">
+                        <Plus size={32} />
+                    </div>
+                    <span className="font-bold text-lg">Add Education</span>
+                </button>
+
+                {portfolioData?.education?.map((edu, idx) => (
+                    <div key={idx} className="relative p-6 rounded-3xl bg-white/5 border border-white/5 flex flex-col group hover:border-emerald-500/30 transition-all hover:bg-white/10">
+                        <div className="absolute top-4 right-4 flex gap-2">
+                            <button
+                                onClick={(e) => { e.stopPropagation(); openModal(edu, idx); }}
+                                className="p-2 rounded-full bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 transition-all"
+                            >
+                                <Pencil size={18} />
+                            </button>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); handleDelete(idx); }}
+                                className="p-2 rounded-full bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all"
+                            >
+                                <Trash2 size={18} />
+                            </button>
+                        </div>
+
+                        <div className="mb-4">
+                            <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-white/10 mb-3">
+                                <GraduationCap size={24} className="text-emerald-400" />
+                            </div>
+                            <h3 className="font-bold text-lg text-white line-clamp-2">{edu.institution}</h3>
+                            <p className="text-emerald-400 font-medium text-sm">{edu.degree}</p>
+                            <p className="text-xs text-slate-500 mt-1">{edu.year}</p>
+                            {edu.cgpa && <p className="text-xs text-slate-400 mt-2 font-bold">CGPA: {edu.cgpa}</p>}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <AnimatePresence>
+                {isModalOpen && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={closeModal}
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            className="relative bg-slate-900 border border-white/10 w-full max-w-xl rounded-3xl p-8 shadow-2xl"
+                        >
+                            <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+                                {editIndex >= 0 ? <Pencil className="text-cyan-400" /> : <Plus className="text-emerald-400" />}
+                                {editIndex >= 0 ? 'Edit Education' : 'Add Education'}
+                            </h2>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="label">Institution Name</label>
+                                    <input
+                                        value={formData.institution}
+                                        onChange={e => setFormData({ ...formData, institution: e.target.value })}
+                                        placeholder="University of Technology"
+                                        className="input-field w-full"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="label">Degree / Field of Study</label>
+                                    <input
+                                        value={formData.degree}
+                                        onChange={e => setFormData({ ...formData, degree: e.target.value })}
+                                        placeholder="Bachelor of Technology"
+                                        className="input-field w-full"
+                                    />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="label">Duration / Year</label>
+                                        <input
+                                            value={formData.year}
+                                            onChange={e => setFormData({ ...formData, year: e.target.value })}
+                                            placeholder="2020 - 2024"
+                                            className="input-field w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="label">CGPA / Percentage</label>
+                                        <input
+                                            value={formData.cgpa}
+                                            onChange={e => setFormData({ ...formData, cgpa: e.target.value })}
+                                            placeholder="8.5"
+                                            className="input-field w-full"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="label">Batch (Optional)</label>
+                                    <input
+                                        value={formData.batch}
+                                        onChange={e => setFormData({ ...formData, batch: e.target.value })}
+                                        placeholder="2024 Batch"
+                                        className="input-field w-full"
+                                    />
+                                </div>
+
+                                <div className="flex gap-4 pt-4">
+                                    <button onClick={closeModal} className="flex-1 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-slate-300 font-medium">Cancel</button>
+                                    <button onClick={handleSubmit} className="flex-1 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold hover:opacity-90">
+                                        {editIndex >= 0 ? 'Save Changes' : 'Add Education'}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={closeModal}
+                                className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 text-slate-400 transition-colors"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </>
     );
 };

@@ -118,7 +118,7 @@ const About = () => {
 
                                     <div className="flex flex-wrap justify-center md:justify-start gap-4">
                                         <StatsBadge icon={Code2} value={`${aboutData?.projects?.length || 5}+`} label="Projects" color="cyan" />
-                                        <StatsBadge icon={Briefcase} value="2+" label="Years Exp." color="violet" />
+                                        <StatsBadge icon={Briefcase} value={`${aboutData?.yearsOfExperience || '2'}+`} label="Years Exp." color="violet" />
                                     </div>
                                 </div>
                             </div>
@@ -140,9 +140,9 @@ const About = () => {
                             <SpotlightCard className="rounded-xl p-6 md:p-8 h-full border-t-4 border-t-violet-500/40 flex flex-col">
                                 <div className="space-y-8">
                                     {experiences.length > 0 ? experiences.map((exp, idx) => (
-                                        <div key={idx} className="relative group/item pl-6 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
+                                        <div key={idx} className="relative group/item pl-8 border-l-2 border-white/5 hover:border-violet-500/50 transition-colors">
                                             {/* Timeline Dot */}
-                                            <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-800 group-hover/item:bg-violet-500 transition-colors border border-slate-600"></div>
+                                            <div className="absolute -left-[9px] top-2 w-[18px] h-[18px] rounded-full bg-slate-900 border-2 border-violet-500 group-hover/item:scale-125 transition-transform duration-300 z-10" />
 
                                             <div className="flex flex-col gap-2">
                                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
