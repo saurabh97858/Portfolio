@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, X } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
+import './ProjectCard.css';
 
 const projectImages = [
     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
@@ -144,32 +145,43 @@ const ProjectCard = ({ project, variants, onClick, index }) => {
         <motion.div
             variants={variants}
             onClick={onClick}
-            whileHover={{ y: -8 }}
-            className="group relative flex flex-col bg-white rounded-2xl overflow-hidden cursor-pointer shadow-xl transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20 border border-transparent"
+            whileHover={{ scale: 1.02 }}
+            className="premium-glow-card cursor-pointer group"
         >
-            {/* Top Floating Live Button */}
-            {project.liveLink && (
-                <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-full font-bold text-sm shadow-lg transition-transform hover:scale-105"
-                >
-                    <ExternalLink size={14} strokeWidth={2.5} /> Live
-                </a>
-            )}
+            <div className="premium-glow-inner">
+                {/* Top Floating Live Button */}
+                {project.liveLink && (
+                    <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-blue-600/80 hover:bg-blue-600 text-white px-4 py-1.5 rounded-full font-bold text-sm shadow-lg backdrop-blur-md transition-all hover:scale-105"
+                    >
+                        <ExternalLink size={14} strokeWidth={2.5} /> Live
+                    </a>
+                )}
 
-            {/* Image Section */}
-            <div className="w-full h-[180px] sm:h-[220px] md:h-[280px] overflow-hidden relative bg-slate-100">
-                <img
-                    src={bgImage}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                />
+                {/* Shine Animation */}
+                <div className="shine-overlay" />
+
+                {/* Image Section */}
+                <div className="w-full h-[200px] sm:h-[250px] md:h-[320px] overflow-hidden relative bg-slate-900">
+                    <img
+                        src={bgImage}
+                        alt={project.title}
+                        className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-1000 ease-in-out"
+                    />
+                    
+                    {/* Overlay with Title on Hover (Optional but premium) */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <h3 className="text-white font-bold text-xl drop-shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">{project.title}</h3>
+                    </div>
+                </div>
             </div>
         </motion.div>
     );
 };
 
 export default Projects;
+
