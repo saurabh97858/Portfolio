@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, LayoutDashboard, Database, Settings, MessageSquare, Plus, Trash2, Save, User as UserIcon, Cpu, Briefcase, Pencil, GraduationCap, Menu, X, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { uploadImageToCloudinary } from '../utils/cloudinary';
 
 const API_BASE = `${import.meta.env.VITE_API_URL}/api`;
 
@@ -615,20 +616,24 @@ const ProjectEditor = ({ portfolioData, updatePortfolio }) => {
                                     <input
                                         type="file"
                                         accept="image/*"
-                                        onChange={(e) => {
+                                        onChange={async (e) => {
                                             const file = e.target.files[0];
                                             if (file) {
-                                                const reader = new FileReader();
-                                                reader.onloadend = () => {
-                                                    // Append new image base64 directly to the array
+                                                const btn = e.target.nextElementSibling;
+                                                const originalText = btn.innerText;
+                                                btn.innerText = "Uploading to Cloudinary...";
+                                                try {
+                                                    const url = await uploadImageToCloudinary(file);
                                                     setFormData(prev => ({
                                                         ...prev,
-                                                        images: [...prev.images, reader.result]
+                                                        images: [...prev.images, url]
                                                     }));
-                                                };
-                                                reader.readAsDataURL(file);
+                                                } catch (error) {
+                                                    alert("Image upload failed: " + error.message);
+                                                } finally {
+                                                    btn.innerText = originalText;
+                                                }
                                             }
-                                            // Reset the input so the same file can be selected again if needed
                                             e.target.value = '';
                                         }}
                                         className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer"
@@ -1420,14 +1425,20 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                                 ref={profileImageRef}
                                                 type="file"
                                                 accept="image/*"
-                                                onChange={(e) => {
+                                                onChange={async (e) => {
                                                     const file = e.target.files[0];
                                                     if (file) {
-                                                        const reader = new FileReader();
-                                                        reader.onloadend = () => {
-                                                            setFormData(prev => ({ ...prev, profileImage: reader.result }));
-                                                        };
-                                                        reader.readAsDataURL(file);
+                                                        const btn = e.target.nextElementSibling;
+                                                        const originalText = btn.innerText;
+                                                        btn.innerText = "Uploading Profile Image...";
+                                                        try {
+                                                            const url = await uploadImageToCloudinary(file);
+                                                            setFormData(prev => ({ ...prev, profileImage: url }));
+                                                        } catch (error) {
+                                                            alert("Upload failed: " + error.message);
+                                                        } finally {
+                                                            btn.innerText = originalText;
+                                                        }
                                                     }
                                                 }}
                                                 className={`input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-500/10 file:text-violet-400 hover:file:bg-violet-500/20 cursor-pointer ${formData.profileImage ? 'hidden' : ''}`}
@@ -1464,14 +1475,20 @@ const ProfileEditor = ({ portfolioData, updatePortfolio }) => {
                                                 ref={heroImageRef}
                                                 type="file"
                                                 accept="image/*"
-                                                onChange={(e) => {
+                                                onChange={async (e) => {
                                                     const file = e.target.files[0];
                                                     if (file) {
-                                                        const reader = new FileReader();
-                                                        reader.onloadend = () => {
-                                                            setFormData(prev => ({ ...prev, heroImage: reader.result }));
-                                                        };
-                                                        reader.readAsDataURL(file);
+                                                        const btn = e.target.nextElementSibling;
+                                                        const originalText = btn.innerText;
+                                                        btn.innerText = "Uploading Hero Image...";
+                                                        try {
+                                                            const url = await uploadImageToCloudinary(file);
+                                                            setFormData(prev => ({ ...prev, heroImage: url }));
+                                                        } catch (error) {
+                                                            alert("Upload failed: " + error.message);
+                                                        } finally {
+                                                            btn.innerText = originalText;
+                                                        }
                                                     }
                                                 }}
                                                 className={`input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-500/10 file:text-pink-400 hover:file:bg-pink-500/20 cursor-pointer ${formData.heroImage ? 'hidden' : ''}`}
@@ -1773,14 +1790,15 @@ const CertificationsEditor = ({ portfolioData, updatePortfolio }) => {
                                         <input
                                             type="file"
                                             accept="image/*"
-                                            onChange={(e) => {
+                                            onChange={async (e) => {
                                                 const file = e.target.files[0];
                                                 if (file) {
-                                                    const reader = new FileReader();
-                                                    reader.onloadend = () => {
-                                                        setFormData(prev => ({ ...prev, image: reader.result }));
-                                                    };
-                                                    reader.readAsDataURL(file);
+                                                    try {
+                                                        const url = await uploadImageToCloudinary(file);
+                                                        setFormData(prev => ({ ...prev, image: url }));
+                                                    } catch (error) {
+                                                        alert("Upload failed: " + error.message);
+                                                    }
                                                 }
                                             }}
                                             className="input-field w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20 cursor-pointer"
