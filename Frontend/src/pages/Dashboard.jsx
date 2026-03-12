@@ -167,7 +167,7 @@ const Dashboard = () => {
             )}
 
             {/* Sidebar */}
-            <aside className={`fixed md:relative top-0 left-0 h-full w-64 border-r border-white/5 bg-slate-900/90 md:bg-slate-900/50 backdrop-blur-xl flex flex-col p-6 z-40 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+            <aside className={`fixed md:relative top-0 left-0 h-full md:h-[calc(100vh-2rem)] w-64 md:m-4 md:rounded-3xl border-r md:border border-white/5 bg-slate-900/90 md:bg-slate-900/50 backdrop-blur-xl flex flex-col p-6 z-40 transform transition-transform duration-300 shadow-2xl ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
                 }`}>
                 <div className="flex justify-between items-center mb-10">
                     <div className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
@@ -204,7 +204,8 @@ const Dashboard = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-4 md:p-8 overflow-y-auto h-screen w-full relative">
+            <main className="flex-1 p-6 md:p-10 overflow-y-auto h-screen w-full relative custom-scrollbar">
+                <div className="max-w-7xl mx-auto">
                 <header className="flex justify-between items-center mb-8">
                     <div className="flex items-center gap-4">
                         <button
@@ -385,6 +386,7 @@ const Dashboard = () => {
 
                     </AnimatePresence>
                 )}
+                </div>
             </main>
         </div>
     );
@@ -840,7 +842,7 @@ const SkillsEditor = ({ portfolioData, updatePortfolio }) => {
                                     />
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-5">
+                                <div className="grid md:grid-cols-2 gap-5">
                                     <div>
                                         <label className="label">Subtitle</label>
                                         <input
@@ -1670,7 +1672,7 @@ const CertificationsEditor = ({ portfolioData, updatePortfolio }) => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative bg-slate-900 border border-white/10 w-full max-w-2xl rounded-3xl p-8 shadow-2xl"
+                            className="relative bg-slate-900 border border-white/10 w-full max-w-2xl rounded-3xl p-6 md:p-8 shadow-2xl"
                         >
                             <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
                                 {editIndex >= 0 ? <Pencil className="text-cyan-400" /> : <Plus className="text-amber-400" />}

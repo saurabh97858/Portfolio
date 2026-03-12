@@ -29,15 +29,12 @@ export const PortfolioProvider = ({ children }) => {
                     currentData = { ...currentData, ...freshData };
                     setPortfolioData(currentData);
                     localStorage.setItem('portfolioData', JSON.stringify(currentData));
-                } else {
-                    console.error("Text data fetch failed:", textRes.status);
+                    setLoading(false); // Unblock immediately
                 }
             } catch (err) {
                 console.error("Text fetch network error", err);
+                setLoading(false); // Unblock anyway
             }
-
-            // Unblock UI immediately after text fetch attempt
-            setLoading(false);
 
             // 2. Fetch Images Separately (Non-Critical, Heavy)
             try {

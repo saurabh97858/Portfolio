@@ -367,7 +367,7 @@ const CertificateCard = ({ cert, idx, variants, onClick }) => {
         <motion.div
             layoutId={`cert-card-${idx}`}
             variants={variants}
-            onClick={onClick}
+            onClick={() => onClick({ ...cert, index: idx })}
             className="h-full"
         >
             <SpotlightCard className="rounded-xl p-6 flex flex-col gap-4 cursor-pointer h-full group">
