@@ -7,21 +7,28 @@ export const usePortfolio = () => {
 };
 
 export const PortfolioProvider = ({ children }) => {
-    const [portfolioData, setPortfolioData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    // Initialize state from localStorage for instant loading if available
+    const [portfolioData, setPortfolioData] = useState(() => {
+        const cached = localStorage.getItem('portfolioData');
+        return cached ? JSON.parse(cached) : null;
+    });
+    
+    // If we have cached data, we can skip the initial pulse loader
+    const [loading, setLoading] = useState(!localStorage.getItem('portfolioData'));
 
     const fetchPortfolioData = async () => {
         try {
-            // Using VITE_API_URL or fallback to localhost for safety, though VITE_API_URL should be set
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
             // 1. Fetch Text Data First (Critical & Fast)
-            let currentData = {};
+            let currentData = portfolioData || {};
             try {
                 const textRes = await fetch(`${apiUrl}/api/portfolio`);
                 if (textRes.ok) {
-                    currentData = await textRes.json();
-                    setPortfolioData(currentData); // Show text immediately
+                    const freshData = await textRes.json();
+                    currentData = { ...currentData, ...freshData };
+                    setPortfolioData(currentData);
+                    localStorage.setItem('portfolioData', JSON.stringify(currentData));
                 } else {
                     console.error("Text data fetch failed:", textRes.status);
                 }
@@ -33,27 +40,27 @@ export const PortfolioProvider = ({ children }) => {
             setLoading(false);
 
             // 2. Fetch Images Separately (Non-Critical, Heavy)
-            // This runs in background after UI is already visible
             try {
                 const imgRes = await fetch(`${apiUrl}/api/portfolio/images`);
                 if (imgRes.ok) {
                     const imgData = await imgRes.json();
-                    setPortfolioData(prev => ({
-                        ...(prev || currentData),
+                    const finalData = {
+                        ...currentData,
                         profileImage: imgData.profileImage,
                         heroImage: imgData.heroImage
-                    }));
+                    };
+                    setPortfolioData(finalData);
+                    localStorage.setItem('portfolioData', JSON.stringify(finalData));
                 } else {
                     console.warn("Images fetch failed:", imgRes.status);
                 }
             } catch (err) {
-                // Non-blocking error for images
                 console.warn("Image fetch network error", err);
             }
 
         } catch (error) {
             console.error("Global fetch error", error);
-            setLoading(false); // Ensure loading stops even on catastropic error
+            setLoading(false);
         }
     };
 

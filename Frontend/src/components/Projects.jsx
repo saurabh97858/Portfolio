@@ -203,6 +203,27 @@ const ProjectCard = ({ project, onClick, index }) => {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
 
+                        {/* Live Link Badge - Turnt! */}
+                        {project.liveLink && (
+                            <motion.a
+                                href={project.liveLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                initial={{ opacity: 0, x: 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                whileHover={{ scale: 1.1, backgroundColor: 'rgba(139, 92, 246, 0.9)' }}
+                                className="absolute top-4 right-4 z-20 flex items-center gap-2 bg-violet-600/80 backdrop-blur-md text-white px-3 py-1.5 rounded-full border border-white/20 shadow-lg transition-all"
+                            >
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                </span>
+                                <span className="text-[10px] font-black uppercase tracking-widest">Live</span>
+                                <ExternalLink size={12} strokeWidth={3} />
+                            </motion.a>
+                        )}
+
                         {/* Title reveal */}
                         <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-z-30">
                             <h3 className="text-white font-black text-3xl md:text-4xl tracking-tighter drop-shadow-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-500">{project.title}</h3>
