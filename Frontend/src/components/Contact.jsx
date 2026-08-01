@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, MessageSquare } from 'lucide-react';
+import { Mail, Phone, Send, Github, Linkedin, MessageSquare } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
 
 const Contact = () => {
@@ -12,7 +12,7 @@ const Contact = () => {
         message: ''
     });
     const [loading, setLoading] = useState(false);
-    const [status, setStatus] = useState(null); // 'success' | 'error' | null
+    const [status, setStatus] = useState(null);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,59 +47,62 @@ const Contact = () => {
         }
     };
 
-    // Animation Variants
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: { staggerChildren: 0.2, delayChildren: 0.2 }
+            transition: { staggerChildren: 0.15, delayChildren: 0.1 }
         }
     };
 
-    const itemVariants = {
-        hidden: { y: 30, opacity: 0 },
-        visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
+    const itemLeft = {
+        hidden: { x: -50, opacity: 0 },
+        visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
+    };
+
+    const itemRight = {
+        hidden: { x: 50, opacity: 0 },
+        visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } }
     };
 
     return (
-        <section id="contact" className="relative z-10 font-sans text-slate-300 bg-slate-950 pb-32 md:pb-48 mb-20 md:mb-32 overflow-hidden">
-            {/* SPACER: Micro-tuned for minimal gap */}
+        <section id="contact" className="relative z-10 font-sans text-slate-300 bg-transparent py-16 md:py-28 my-10 overflow-hidden">
             <div className="w-full h-8 md:h-12 shrink-0" aria-hidden="true" />
-            {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px] -z-10 animate-pulse" />
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[120px] -z-10 animate-pulse" />
             </div>
 
-            <div className="layout-wrapper relative z-10">
+            <div className="layout-wrapper relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
 
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
-                    className="grid lg:grid-cols-2 gap-8 items-center"
+                    viewport={{ once: true, amount: 0.2 }}
+                    className="grid lg:grid-cols-2 gap-10 items-start"
                 >
                     {/* Left Side: Contact Info & CTA */}
-                    <motion.div variants={itemVariants} className="space-y-8 mt-0 md:mt-0">
+                    <motion.div variants={itemLeft} className="space-y-8">
                         <div>
-                            <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-[10px] font-bold tracking-widest uppercase mb-3 backdrop-blur-md shadow-lg">
+                            <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-md shadow-lg">
                                 Get in Touch
                             </span>
-                            <h2 className="text-xl md:text-2xl font-black text-white tracking-tight mb-4 drop-shadow-2xl leading-tight">
-                                Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Collaboration</span> Begin.
+                            <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4 drop-shadow-2xl leading-tight">
+                                Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Collaborate</span>.
                             </h2>
-                            <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed max-w-lg">
-                                Have a project in mind or just want to explore new possibilities? I'm always open to discussing new ideas and opportunities.
+                            <p className="text-slate-300 text-sm md:text-base font-light leading-relaxed max-w-lg">
+                                Have a project in mind or want to discuss full-stack opportunities? Reach out directly or connect via LinkedIn and GitHub!
                             </p>
                         </div>
 
-                        <div className="grid gap-6">
+                        {/* Contact Cards Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <ContactCard
                                 icon={Mail}
                                 title="Email Me"
-                                value="saurabhgupta24979@gmail.com"
-                                href="mailto:saurabhgupta24979@gmail.com"
+                                value={portfolioData?.email || "saurabhgupta24979@gmail.com"}
+                                href={`mailto:${portfolioData?.email || "saurabhgupta24979@gmail.com"}`}
                                 color="violet"
                             />
                             <ContactCard
@@ -109,21 +112,34 @@ const Contact = () => {
                                 href="tel:+919696743829"
                                 color="cyan"
                             />
+                            <ContactCard
+                                icon={Linkedin}
+                                title="LinkedIn"
+                                value="Connect on LinkedIn"
+                                href={portfolioData?.socialLinks?.linkedin || "https://linkedin.com"}
+                                color="cyan"
+                            />
+                            <ContactCard
+                                icon={Github}
+                                title="GitHub"
+                                value="Explore Projects"
+                                href={portfolioData?.socialLinks?.github || "https://github.com"}
+                                color="violet"
+                            />
                         </div>
                     </motion.div>
 
-                    {/* Right Side: Glass Contact Form */}
-                    <motion.div variants={itemVariants} className="relative">
-                        {/* Glow effect behind form */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-2xl blur-xl opacity-20 animate-tilt"></div>
+                    {/* Right Side: Glass Contact Form with Generous Internal Padding (No Bottom Overlap!) */}
+                    <motion.div variants={itemRight} className="relative">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-3xl blur-xl opacity-20 animate-tilt"></div>
 
-                        <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 p-6 md:p-8 rounded-2xl shadow-2xl">
-                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-3">
-                                <MessageSquare className="text-violet-400 shrink-0" size={18} />
+                        <div className="relative bg-slate-900/50 backdrop-blur-2xl border border-white/10 p-7 sm:p-9 md:p-10 pb-12 md:pb-14 rounded-3xl shadow-2xl space-y-6 overflow-hidden">
+                            <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                                <MessageSquare className="text-violet-400 shrink-0" size={22} />
                                 Send a Message
                             </h3>
 
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-5">
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
                                         <label className="text-xs font-medium text-slate-400 ml-1">Your Name</label>
@@ -133,7 +149,7 @@ const Contact = () => {
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-slate-600 text-sm"
+                                            className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-slate-600 text-sm"
                                             placeholder="John Doe"
                                         />
                                     </div>
@@ -145,7 +161,7 @@ const Contact = () => {
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
-                                            className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all placeholder:text-slate-600 text-sm"
+                                            className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all placeholder:text-slate-600 text-sm"
                                             placeholder="john@example.com"
                                         />
                                     </div>
@@ -159,7 +175,7 @@ const Contact = () => {
                                         value={formData.subject}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-slate-600 text-sm"
+                                        className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-slate-600 text-sm"
                                         placeholder="Project Inquiry..."
                                     />
                                 </div>
@@ -172,25 +188,27 @@ const Contact = () => {
                                         value={formData.message}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-slate-950/50 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-none placeholder:text-slate-600 text-sm"
+                                        className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-none placeholder:text-slate-600 text-sm"
                                         placeholder="Tell me about your project..."
                                     ></textarea>
                                 </div>
 
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    type="submit"
-                                    disabled={loading}
-                                    className={`w-full py-3 rounded-xl font-bold text-sm text-white shadow-lg flex items-center justify-center gap-2 transition-all ${loading ? 'bg-slate-700 cursor-not-allowed' :
-                                        status === 'success' ? 'bg-emerald-600 hover:bg-emerald-500' :
-                                            'bg-gradient-to-r from-violet-600 to-cyan-600 hover:shadow-violet-500/25'
-                                        }`}
-                                >
-                                    {loading ? 'Sending...' : status === 'success' ? 'Message Sent!' : (
-                                        <>Send Message <Send size={18} /></>
-                                    )}
-                                </motion.button>
+                                <div className="pt-2">
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        type="submit"
+                                        disabled={loading}
+                                        className={`w-full py-3.5 rounded-xl font-bold text-sm text-white shadow-lg flex items-center justify-center gap-2 transition-all ${loading ? 'bg-slate-700 cursor-not-allowed' :
+                                            status === 'success' ? 'bg-emerald-600 hover:bg-emerald-500' :
+                                                'bg-gradient-to-r from-violet-600 to-cyan-600 hover:shadow-violet-500/25'
+                                            }`}
+                                    >
+                                        {loading ? 'Sending...' : status === 'success' ? 'Message Sent!' : (
+                                            <>Send Message <Send size={18} /></>
+                                        )}
+                                    </motion.button>
+                                </div>
                             </form>
                         </div>
                     </motion.div>
@@ -204,7 +222,6 @@ const ContactCard = ({ icon: Icon, title, value, href, color }) => {
     const colorClasses = {
         violet: "text-violet-400 bg-violet-500/10 group-hover:bg-violet-500 group-hover:text-white",
         cyan: "text-cyan-400 bg-cyan-500/10 group-hover:bg-cyan-500 group-hover:text-white",
-        emerald: "text-emerald-400 bg-emerald-500/10 group-hover:bg-emerald-500 group-hover:text-white"
     };
 
     const Wrapper = href ? 'a' : 'div';
@@ -212,28 +229,19 @@ const ContactCard = ({ icon: Icon, title, value, href, color }) => {
     return (
         <Wrapper
             href={href}
-            className="group flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-violet-500/30 hover:bg-white/10 transition-all duration-300"
+            target={href?.startsWith('http') ? '_blank' : undefined}
+            rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="group flex items-center gap-3.5 p-4 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-violet-500/40 hover:bg-slate-900/90 transition-all duration-300 shadow-md backdrop-blur-md"
         >
             <div className={`p-3 rounded-xl transition-all duration-300 ${colorClasses[color]}`}>
                 <Icon size={18} />
             </div>
-            <div>
-                <h4 className="text-[10px] font-medium text-slate-400 mb-0.5 uppercase tracking-wider">{title}</h4>
-                <p className="text-sm md:text-base font-bold text-white group-hover:text-cyan-200 transition-colors">{value}</p>
+            <div className="min-w-0 flex-1">
+                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">{title}</h4>
+                <p className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 transition-colors truncate">{value}</p>
             </div>
         </Wrapper>
     );
 };
-
-const SocialButton = ({ icon: Icon, href }) => (
-    <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-8 h-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-violet-500 hover:shadow-[0_0_12px_rgba(139,92,246,0.4)] hover:-translate-y-1 transition-all duration-300"
-    >
-        <Icon size={15} />
-    </a>
-);
 
 export default Contact;

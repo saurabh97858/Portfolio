@@ -9,7 +9,7 @@ const techs = [
 
 const TechMarquee = () => {
     return (
-        <div className="py-10 bg-slate-950 border-y border-slate-800/50 overflow-hidden relative">
+        <div className="py-5 md:py-10 bg-slate-950 border-y border-slate-800/50 overflow-hidden relative">
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-transparent to-slate-950 z-10 pointer-events-none" />
 
             <div className="layout-wrapper overflow-hidden">

@@ -1,134 +1,377 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { ExternalLink, Github, X, Eye } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, Github, X, Eye, Sparkles, ArrowUpRight } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
-import './ProjectCard.css';
 
-const projectImages = [
-    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2940&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2940&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2946&auto=format&fit=crop"
+const fallbackProjectImages = [
+    "https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1200&auto=format&fit=crop"
 ];
 
 const Projects = () => {
     const { portfolioData, loading } = usePortfolio();
     const [selectedProject, setSelectedProject] = useState(null);
+    const [isPaused, setIsPaused] = useState(false);
     const projects = portfolioData?.projects || [];
 
-    // Animation Variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.2, delayChildren: 0.3 }
-        }
+    const playHoverChime = () => {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const ctx = new AudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.12);
+            gain.gain.setValueAtTime(0.06, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.15);
+        } catch (e) {}
     };
 
-    if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse text-lg tracking-widest">INITIALIZING PROJECTS...</div>;
+    if (loading) {
+        return (
+            <div className="min-h-[40vh] bg-transparent flex items-center justify-center text-white font-mono animate-pulse">
+                Loading Projects...
+            </div>
+        );
+    }
+
+    const marqueeProjects = [...projects, ...projects, ...projects];
 
     return (
-        <section id="projects" className="bg-slate-950 py-20 md:py-32 relative font-sans overflow-hidden">
+        <section id="projects" className="bg-transparent py-16 md:py-28 relative font-sans overflow-hidden">
             {/* Background Atmosphere */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-0 w-[1000px] h-[1000px] bg-violet-600/5 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '15s' }} />
-                <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-cyan-600/5 rounded-full blur-[150px] -z-10 animate-pulse" style={{ animationDuration: '12s' }} />
+                <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px] -z-10 animate-pulse" />
+                <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[140px] -z-10 animate-pulse" />
             </div>
 
-            <div className="layout-wrapper relative z-10 px-4 md:px-8 max-w-7xl mx-auto">
-                {/* Header */}
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mb-10">
+                {/* Section Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-center mb-16 md:mb-24"
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-10"
                 >
-                    <motion.span
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        className="inline-block py-2 px-6 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-black tracking-[0.2em] uppercase mb-6 backdrop-blur-xl shadow-[0_0_20px_rgba(139,92,246,0.1)]"
-                    >
-                        Portfolio
-                    </motion.span>
-                    <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-6">
-                        Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 drop-shadow-sm">Works</span>
+                    <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-md">
+                        <Sparkles size={14} className="text-violet-400 animate-spin" style={{ animationDuration: '6s' }} />
+                        PORTFOLIO SHOWCASE
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-3">
+                        Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Works</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
-                        A showcase of technical complexity meeting clean aesthetics.
+                    <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base font-light leading-relaxed">
+                        Explore featured MERN Stack applications & production web systems.
                     </p>
-                </motion.div>
-
-                {/* Project Grid */}
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16"
-                >
-                    {projects.map((project, index) => (
-                        <ProjectCard
-                            key={index}
-                            project={project}
-                            index={index}
-                            onClick={() => setSelectedProject({ ...project, index })}
-                        />
-                    ))}
                 </motion.div>
             </div>
 
-            {/* Modal Overlay */}
+            {/* DESKTOP VIEW: Continuous Left-to-Right Auto Marquee Slider */}
+            <div
+                className="hidden md:block relative w-full overflow-hidden py-6"
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+            >
+                <div
+                    className={`flex items-center gap-7 w-max transition-all ${
+                        isPaused ? '[animation-play-state:paused]' : ''
+                    }`}
+                    style={{
+                        animation: 'marqueeRight 35s linear infinite',
+                    }}
+                >
+                    {marqueeProjects.map((project, index) => {
+                        const bgImage = project.images?.[0] || fallbackProjectImages[index % fallbackProjectImages.length];
+
+                        return (
+                            <div
+                                key={index}
+                                onMouseEnter={playHoverChime}
+                                onClick={() => {
+                                    playHoverChime();
+                                    setSelectedProject(project);
+                                }}
+                                className="w-[370px] shrink-0 cursor-pointer group pointer-events-auto"
+                            >
+                                {/* Shining Animated Neon Border Light Beam */}
+                                <div className="relative p-[2px] rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:shadow-[0_0_50px_rgba(34,211,238,0.5)] transition-shadow duration-500">
+                                    <div className="absolute -inset-[150%] bg-[conic-gradient(from_0deg,#8b5cf6,#ec4899,#38bdf8,#8b5cf6)] animate-spin-slow pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity" />
+
+                                    <div className="relative z-10 bg-slate-950/95 rounded-[1.4rem] overflow-hidden backdrop-blur-2xl flex flex-col h-full">
+                                        <div className="relative w-full h-48 overflow-hidden bg-slate-950">
+                                            <img
+                                                src={bgImage}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+
+                                            {project.liveLink && (
+                                                <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold backdrop-blur-md">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                                    LIVE
+                                                </div>
+                                            )}
+
+                                            <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                                <div className="px-4 py-2 rounded-full bg-white text-slate-950 font-bold text-xs flex items-center gap-2 shadow-2xl">
+                                                    <Eye size={14} /> Tap to Open Details
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                            <div className="space-y-2 pt-1 px-1">
+                                                <h3 className="text-lg font-extrabold text-white group-hover:text-cyan-300 transition-colors leading-normal block">
+                                                    {project.title}
+                                                </h3>
+                                                <p className="text-slate-300 text-xs leading-relaxed font-light line-clamp-2">
+                                                    {project.description}
+                                                </p>
+                                            </div>
+
+                                            <div className="space-y-3 pt-2">
+                                                {project.tags && project.tags.length > 0 && (
+                                                    <div className="flex flex-wrap gap-1 px-1">
+                                                        {project.tags.slice(0, 4).map((tag, tIdx) => (
+                                                            <span key={tIdx} className="px-2.5 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400 text-[10px] font-mono">
+                                                                {tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+
+                                                <div className="flex items-center gap-2 pt-3 border-t border-slate-800/80">
+                                                    {project.liveLink && (
+                                                        <a
+                                                            href={project.liveLink}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                            className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white font-bold text-[11px] flex items-center justify-center gap-1 transition-all shadow-md active:scale-95"
+                                                        >
+                                                            <span>Live Demo</span>
+                                                            <ArrowUpRight size={13} />
+                                                        </a>
+                                                    )}
+
+                                                    {project.githubLink && (
+                                                        <a
+                                                            href={project.githubLink}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                            className="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white font-bold text-[11px] flex items-center justify-center gap-1 transition-all active:scale-95"
+                                                        >
+                                                            <Github size={13} />
+                                                            <span>Code</span>
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* MOBILE VIEW: Vertical One-by-One Column Layout (Scrollable vertically!) */}
+            <div className="block md:hidden max-w-lg mx-auto px-4 space-y-6">
+                {projects.map((project, index) => {
+                    const bgImage = project.images?.[0] || fallbackProjectImages[index % fallbackProjectImages.length];
+
+                    return (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.5 }}
+                            onClick={() => {
+                                playHoverChime();
+                                setSelectedProject(project);
+                            }}
+                            className="relative p-[2px] rounded-3xl overflow-hidden shadow-xl"
+                        >
+                            {/* Animated Neon Border Beam for Mobile Cards */}
+                            <div className="absolute -inset-[150%] bg-[conic-gradient(from_0deg,#8b5cf6,#ec4899,#38bdf8,#8b5cf6)] animate-spin-slow pointer-events-none opacity-80" />
+
+                            <div className="relative z-10 bg-slate-950/95 rounded-[1.4rem] overflow-hidden backdrop-blur-2xl flex flex-col">
+                                <div className="relative w-full h-44 overflow-hidden bg-slate-950">
+                                    <img
+                                        src={bgImage}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover object-top"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+
+                                    {project.liveLink && (
+                                        <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[9px] font-mono font-bold backdrop-blur-md">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                            LIVE
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="p-5 space-y-3">
+                                    <h3 className="text-base sm:text-lg font-bold text-white leading-normal pt-1">
+                                        {project.title}
+                                    </h3>
+                                    <p className="text-slate-300 text-xs leading-relaxed font-light line-clamp-3">
+                                        {project.description}
+                                    </p>
+
+                                    {project.tags && project.tags.length > 0 && (
+                                        <div className="flex flex-wrap gap-1 pt-1">
+                                            {project.tags.map((tag, tIdx) => (
+                                                <span key={tIdx} className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400 text-[10px] font-mono">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    <div className="flex items-center gap-2 pt-3 border-t border-slate-800/80">
+                                        {project.liveLink && (
+                                            <a
+                                                href={project.liveLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold text-xs flex items-center justify-center gap-1 shadow-md active:scale-95"
+                                            >
+                                                <span>Live Demo</span>
+                                                <ArrowUpRight size={13} />
+                                            </a>
+                                        )}
+
+                                        {project.githubLink && (
+                                            <a
+                                                href={project.githubLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="py-2.5 px-3 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 font-bold text-xs flex items-center justify-center gap-1 active:scale-95"
+                                            >
+                                                <Github size={13} />
+                                                <span>Code</span>
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    );
+                })}
+            </div>
+
+            {/* Custom Animations CSS */}
+            <style>{`
+                @keyframes marqueeRight {
+                    0% { transform: translateX(-33.33%); }
+                    100% { transform: translateX(0%); }
+                }
+                @keyframes spinSlow {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                .animate-spin-slow {
+                    animation: spinSlow 6s linear infinite;
+                }
+            `}</style>
+
+            {/* Project Modal Overlay */}
             <AnimatePresence>
                 {selectedProject && (
-                    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-8">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedProject(null)}
-                            className="absolute inset-0 bg-slate-950/90 backdrop-blur-2xl"
+                            className="fixed inset-0 bg-slate-950/80 backdrop-blur-md"
                         />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: -10 }}
-                            animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
-                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="bg-slate-900 overflow-hidden rounded-[2.5rem] max-w-4xl w-full relative z-[1001] border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.5)] max-h-[92vh] overflow-y-auto custom-scrollbar preserve-3d"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <button onClick={() => setSelectedProject(null)} className="absolute top-6 right-6 p-3 bg-white/5 hover:bg-white/10 rounded-full text-white backdrop-blur-xl transition-all z-20 border border-white/10 hover:scale-110 active:scale-90"><X size={24} /></button>
 
-                            <div className="relative h-64 md:h-[450px]">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            className="relative w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl z-10 max-h-[90vh] flex flex-col my-auto"
+                        >
+                            <button
+                                onClick={() => setSelectedProject(null)}
+                                className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-slate-950/80 text-slate-400 hover:text-white border border-slate-700 backdrop-blur-md transition-colors"
+                            >
+                                <X size={18} />
+                            </button>
+
+                            <div className="relative w-full h-56 sm:h-72 shrink-0 bg-slate-950">
                                 <img
-                                    src={selectedProject.images?.[0] || projectImages[selectedProject.index % projectImages.length]}
-                                    className="w-full h-full object-cover object-top"
+                                    src={selectedProject.images?.[0] || fallbackProjectImages[0]}
                                     alt={selectedProject.title}
+                                    className="w-full h-full object-cover object-top"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
                             </div>
 
-                            <div className="p-8 md:p-12 -mt-20 relative z-10">
-                                <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter drop-shadow-xl">{selectedProject.title}</h1>
-
-                                <div className="flex flex-wrap gap-2 mb-8">
-                                    {selectedProject.tags?.map(tag => (
-                                        <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-slate-400 text-xs font-bold transition-colors hover:border-violet-500/50 hover:text-violet-300">{tag}</span>
-                                    ))}
+                            <div className="p-6 sm:p-8 overflow-y-auto space-y-5">
+                                <div>
+                                    <h3 className="text-2xl font-black text-white mb-2 pt-1 leading-normal">
+                                        {selectedProject.title}
+                                    </h3>
+                                    <p className="text-slate-300 text-sm leading-relaxed font-light whitespace-pre-line">
+                                        {selectedProject.description}
+                                    </p>
                                 </div>
 
-                                <p className="text-slate-300 text-lg md:text-xl mb-12 leading-relaxed font-light whitespace-pre-wrap">{selectedProject.description}</p>
+                                {selectedProject.tags && selectedProject.tags.length > 0 && (
+                                    <div>
+                                        <h4 className="text-[11px] font-mono font-bold text-slate-500 uppercase mb-2">Technologies Used</h4>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {selectedProject.tags.map((tag, i) => (
+                                                <span key={i} className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-cyan-300 text-xs font-mono">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
 
-                                <div className="flex flex-wrap gap-4">
+                                <div className="flex flex-wrap gap-3 pt-3 border-t border-slate-800">
                                     {selectedProject.liveLink && (
-                                        <a href={selectedProject.liveLink} target="_blank" rel="noreferrer" className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all shadow-xl shadow-fuchsia-500/20 hover:-translate-y-1 active:scale-95">
-                                            <ExternalLink size={20} /> Live Preview
+                                        <a
+                                            href={selectedProject.liveLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex-1 py-2.5 px-5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all"
+                                        >
+                                            <span>Visit Live App</span>
+                                            <ExternalLink size={14} />
                                         </a>
                                     )}
+
                                     {selectedProject.githubLink && (
-                                        <a href={selectedProject.githubLink} target="_blank" rel="noreferrer" className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all shadow-xl hover:-translate-y-1 active:scale-95">
-                                            <Github size={20} /> Repository
+                                        <a
+                                            href={selectedProject.githubLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="py-2.5 px-5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
+                                        >
+                                            <Github size={16} />
+                                            <span>GitHub Code</span>
                                         </a>
                                     )}
                                 </div>
@@ -141,104 +384,4 @@ const Projects = () => {
     );
 };
 
-const ProjectCard = ({ project, onClick, index }) => {
-    const cardRef = useRef(null);
-    const bgImage = project.images?.[0] || projectImages[index % projectImages.length];
-
-    // Mouse movement for 3D effect
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), { stiffness: 300, damping: 30 });
-    const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), { stiffness: 300, damping: 30 });
-
-    const handleMouseMove = (event) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-        x.set(mouseX / rect.width - 0.5);
-        y.set(mouseY / rect.height - 0.5);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
-    return (
-        <motion.div
-            ref={cardRef}
-            initial={{ opacity: 0, scale: 0.9, y: 50 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -10 }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={onClick}
-            className="perspective-1000 cursor-pointer group pointer-events-auto"
-            style={{ rotateX, rotateY }}
-        >
-            <div className="premium-glow-card relative transform-gpu preserve-3d shadow-2xl">
-                <div className="premium-glow-inner relative z-10 bg-slate-900/40 rounded-[2rem] overflow-hidden border border-white/5 backdrop-blur-3xl group-hover:border-white/20 transition-colors duration-500">
-
-                    {/* View Button Overlay */}
-                    <div className="absolute inset-0 bg-violet-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 flex items-center justify-center">
-                        <motion.div
-                            initial={{ scale: 0, opacity: 0 }}
-                            whileHover={{ scale: 1.1 }}
-                            className="bg-white text-slate-950 p-4 rounded-full shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center gap-2 transform translate-z-50"
-                        >
-                            <Eye size={20} strokeWidth={3} />
-                            <span className="font-black text-xs uppercase tracking-tighter">Project Details</span>
-                        </motion.div>
-                    </div>
-
-                    {/* Image Section */}
-                    <div className="w-full h-[220px] sm:h-[280px] md:h-[340px] overflow-hidden relative">
-                        <motion.img
-                            src={bgImage}
-                            alt={project.title}
-                            className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-[2000ms] cubic-bezier(0.16, 1, 0.3, 1)"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-
-                        {/* Live Link Badge - Turnt! */}
-                        {project.liveLink && (
-                            <motion.a
-                                href={project.liveLink}
-                                target="_blank"
-                                rel="noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                initial={{ opacity: 0, x: 20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                whileHover={{ scale: 1.1, backgroundColor: 'rgba(139, 92, 246, 0.9)' }}
-                                className="absolute top-4 right-4 z-20 flex items-center gap-2 bg-violet-600/80 backdrop-blur-md text-white px-3 py-1.5 rounded-full border border-white/20 shadow-lg transition-all"
-                            >
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                                </span>
-                                <span className="text-[10px] font-black uppercase tracking-widest">Live</span>
-                                <ExternalLink size={12} strokeWidth={3} />
-                            </motion.a>
-                        )}
-
-                        {/* Title reveal */}
-                        <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-z-30">
-                            <h3 className="text-white font-black text-3xl md:text-4xl tracking-tighter drop-shadow-2xl group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all duration-500">{project.title}</h3>
-                            <div className="w-12 h-1 bg-violet-500 mt-4 rounded-full transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Animated Border/Glow effect */}
-                <div className="absolute -inset-[1px] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-700 -z-10" />
-                <div className="absolute -inset-[10px] bg-violet-600/20 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-20" />
-            </div>
-        </motion.div>
-    );
-};
-
 export default Projects;
-

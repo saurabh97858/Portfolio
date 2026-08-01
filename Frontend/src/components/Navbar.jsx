@@ -70,7 +70,7 @@ const Navbar = () => {
                             smooth={true}
                             offset={-100}
                             duration={500}
-                            className={`text-lg font-bold cursor-pointer transition-all duration-300 text-slate-300 hover:text-white hover:-translate-y-1 ${link.glow}`}
+                            className={`text-sm sm:text-base font-bold cursor-pointer transition-all duration-300 text-slate-300 hover:text-white hover:-translate-y-1 ${link.glow}`}
                             activeClass={link.color}
                         >
                             {link.name}

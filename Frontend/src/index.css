@@ -24,6 +24,7 @@
 }
 
 html {
+    font-size: 90%; /* Globally scales down all rem units by 10% */
     scroll-padding-top: 120px;
     /* Protects header area */
 }
@@ -178,8 +179,8 @@ body::before {
 
 /* Global Layout Wrapper for Perfect Symmetry */
 .layout-wrapper {
-    width: 85%;
-    /* Mobile Width */
+    width: 92%;
+    /* Mobile Width - Expanded for breathing space on small screens */
     margin-inline: auto;
     /* Force Centering */
     max-width: 1280px;
@@ -190,8 +191,15 @@ body::before {
 
 @media (min-width: 768px) {
     .layout-wrapper {
-        width: 75%;
-        /* Desktop Width - Reduced for tighter look */
+        width: 86%;
+        /* Tablet Width */
+    }
+}
+
+@media (min-width: 1024px) {
+    .layout-wrapper {
+        width: 82%;
+        /* Desktop Width - Reduced for tighter look, expanded slightly from 75% for balance */
     }
 }
 

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Globe, Database, Cpu, Layout, Server, Terminal, Layers, Wrench, Shield, Smartphone, Cloud } from 'lucide-react';
+import { Layout, Server, Database, Cloud, Cpu, Sparkles, Layers, CheckCircle2, Code2 } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
 
 const iconMap = {
@@ -8,127 +8,170 @@ const iconMap = {
     Backend: Server,
     Database: Database,
     "Cloud & DevOps": Cloud,
-    "DevOps": Cloud,
-    Tools: Wrench,
-    Mobile: Smartphone,
-    Security: Shield,
-    Languages: Code2,
-    "Programming Languages": Code2,
-    "Core CS": Cpu,
-    "Computer Science": Cpu,
+    "DevOps & Tools": Cloud,
+    DevOps: Cloud,
+    Tools: Cloud,
+    "AI & Automation": Cpu,
     "AI Engineering": Cpu,
-    "Artificial Intelligence": Cpu,
-    default: Terminal
+    "Full Stack Development": Layers,
+    default: Code2
+};
+
+const categoryImages = {
+    Frontend: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=400&auto=format&fit=crop",
+    Backend: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=400&auto=format&fit=crop",
+    Database: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?q=80&w=400&auto=format&fit=crop",
+    "DevOps & Tools": "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?q=80&w=400&auto=format&fit=crop",
+    "AI & Automation": "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=400&auto=format&fit=crop",
+    "Full Stack Development": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=400&auto=format&fit=crop",
+    default: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop"
+};
+
+const categoryGradients = {
+    Frontend: {
+        iconBg: "from-cyan-500 to-blue-600",
+        pillHover: "hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_12px_rgba(34,211,238,0.2)]",
+    },
+    Backend: {
+        iconBg: "from-violet-500 to-purple-600",
+        pillHover: "hover:border-violet-400 hover:text-violet-300 hover:shadow-[0_0_12px_rgba(139,92,246,0.2)]",
+    },
+    Database: {
+        iconBg: "from-emerald-500 to-teal-600",
+        pillHover: "hover:border-emerald-400 hover:text-emerald-300 hover:shadow-[0_0_12px_rgba(52,211,153,0.2)]",
+    },
+    "DevOps & Tools": {
+        iconBg: "from-sky-500 to-indigo-600",
+        pillHover: "hover:border-sky-400 hover:text-sky-300 hover:shadow-[0_0_12px_rgba(56,189,248,0.2)]",
+    },
+    "AI & Automation": {
+        iconBg: "from-fuchsia-500 to-pink-600",
+        pillHover: "hover:border-fuchsia-400 hover:text-fuchsia-300 hover:shadow-[0_0_12px_rgba(232,121,249,0.2)]",
+    },
+    "Full Stack Development": {
+        iconBg: "from-amber-500 to-orange-600",
+        pillHover: "hover:border-amber-400 hover:text-amber-300 hover:shadow-[0_0_12px_rgba(251,191,36,0.2)]",
+    },
+    default: {
+        iconBg: "from-slate-600 to-slate-700",
+        pillHover: "hover:border-slate-400 hover:text-white",
+    }
 };
 
 const Skills = () => {
     const { portfolioData, loading } = usePortfolio();
     const skills = portfolioData?.skills || [];
 
-
-    // Animation Variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-        }
-    };
-
-
-    if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-mono animate-pulse">Initializing Arsenal...</div>;
+    if (loading) {
+        return (
+            <div className="min-h-[40vh] bg-transparent flex items-center justify-center text-white font-mono animate-pulse">
+                Loading Technical Arsenal...
+            </div>
+        );
+    }
 
     return (
-        <section id="skills" className="bg-slate-950 pb-4 md:pb-8 relative font-sans overflow-hidden">
-            {/* SPACER: Micro-tuned for minimal gap */}
-            <div className="w-full h-8 md:h-12 shrink-0" aria-hidden="true" />
-
-            {/* Background Atmosphere */}
+        <section id="skills" className="bg-transparent py-20 md:py-28 my-10 relative font-sans overflow-hidden">
+            {/* Background Glows */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-violet-600/10 rounded-full blur-[120px] -z-10 opacity-60 animate-pulse" style={{ animationDuration: '8s' }} />
-                <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-cyan-600/10 rounded-full blur-[120px] -z-10 opacity-60 animate-pulse" style={{ animationDuration: '10s' }} />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0)_0%,rgba(2,6,23,0.8)_100%)] z-0" />
+                <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px] -z-10 animate-pulse" />
+                <div className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[140px] -z-10 animate-pulse" />
             </div>
 
-            <div className="layout-wrapper relative z-10">
-
+            <div className="layout-wrapper relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+                
                 {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: -40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-6"
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
                 >
-                    <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-[10px] font-bold tracking-widest uppercase mb-3 backdrop-blur-md shadow-lg">
-                        Expertise
+                    <span className="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-md">
+                        <Sparkles size={14} className="text-cyan-400" />
+                        EXPERTISE
                     </span>
-                    <h2 className="text-xl md:text-2xl font-black text-white tracking-tight mb-2 drop-shadow-2xl">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-3">
                         Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">Arsenal</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base font-light leading-relaxed">
+                    <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base font-light leading-relaxed">
                         Explore the dimensions of my technical capabilities.
                     </p>
                 </motion.div>
 
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
-                >
-                    {skills.map((skill, index) => {
-                        const IconComponent = iconMap[skill.category] || iconMap.default;
-                        const gradients = {
-                            Frontend: 'from-cyan-400 to-blue-500',
-                            Backend: 'from-violet-500 to-fuchsia-500',
-                            Database: 'from-emerald-400 to-teal-500',
-                            Tools: 'from-orange-400 to-red-500',
-                            Mobile: 'from-pink-400 to-rose-500',
-                            "AI Engineering": 'from-fuchsia-400 to-purple-500',
-                            "Computer Science": 'from-amber-300 to-orange-400',
-                            "Cloud & DevOps": 'from-sky-300 to-indigo-400',
-                            "Programming Languages": 'from-lime-300 to-green-500',
-                            default: 'from-slate-600 to-slate-500'
-                        };
-                        const gradient = gradients[skill.category] || gradients.default;
-                        
+                {/* Skills Grid - Ample Bottom Clearance so NO text is ever cut off! */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {skills.map((skillGroup, index) => {
+                        const IconComponent = iconMap[skillGroup.category] || iconMap.default;
+                        const styleTheme = categoryGradients[skillGroup.category] || categoryGradients.default;
+                        const categoryPic = categoryImages[skillGroup.category] || categoryImages.default;
+
                         return (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                className="group"
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.5, delay: index * 0.08 }}
+                                className="group relative rounded-3xl bg-slate-900/50 border border-slate-800/90 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 shadow-2xl flex flex-col justify-between overflow-hidden"
                             >
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${gradient} p-3 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500 ring-1 ring-white/20`}>
-                                        <IconComponent size={24} className="text-white" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold text-white tracking-tight uppercase group-hover:text-cyan-400 transition-colors">
-                                            {skill.category}
-                                        </h3>
-                                        <div className="h-0.5 w-12 rounded-full bg-white/10 group-hover:w-full group-hover:bg-gradient-to-r group-hover:from-violet-500 group-hover:to-cyan-500 transition-all duration-700 mt-1" />
+                                {/* Category Header Banner with Image Background */}
+                                <div className="relative w-full h-28 overflow-hidden bg-slate-950">
+                                    <img
+                                        src={categoryPic}
+                                        alt={skillGroup.category}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-40 mix-blend-luminosity"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+                                    
+                                    <div className="absolute bottom-3 left-5 right-5 flex items-center gap-3">
+                                        <div className={`p-2.5 rounded-xl bg-gradient-to-tr ${styleTheme.iconBg} text-white shadow-lg shrink-0`}>
+                                            <IconComponent size={20} />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
+                                                {skillGroup.category}
+                                            </h3>
+                                            <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                                                {skillGroup.items?.length || 0} Core Technologies
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-wrap gap-3">
-                                    {skill.items.map((item, i) => (
-                                        <motion.div
-                                            key={i}
-                                            whileHover={{ scale: 1.05, y: -2 }}
-                                            className="px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-slate-400 text-xs md:text-sm font-semibold hover:bg-white/10 hover:border-violet-500/30 hover:text-white transition-all duration-300 cursor-default shadow-sm hover:shadow-violet-500/10"
-                                        >
-                                            {item}
-                                        </motion.div>
-                                    ))}
+                                {/* Body with Generous Internal Padding */}
+                                <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+                                    
+                                    {/* Skill Pills */}
+                                    <div className="flex flex-wrap gap-2.5 pb-4">
+                                        {skillGroup.items?.map((item, i) => (
+                                            <motion.div
+                                                key={i}
+                                                whileHover={{ scale: 1.05 }}
+                                                className={`px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800/90 text-slate-300 text-xs font-medium transition-all duration-300 cursor-default flex items-center gap-1.5 ${styleTheme.pillHover}`}
+                                            >
+                                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                                                {item}
+                                            </motion.div>
+                                        ))}
+                                    </div>
+
+                                    {/* Footer Indicator - Ample Clearance from Bottom Border! */}
+                                    <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                                        <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
+                                            <CheckCircle2 size={13} />
+                                            Production Verified
+                                        </span>
+                                        <span className="uppercase tracking-widest text-slate-400 font-bold">PRO LEVEL</span>
+                                    </div>
+
                                 </div>
                             </motion.div>
                         );
                     })}
-                </motion.div>
+                </div>
+
             </div>
         </section>
     );
